@@ -1,0 +1,71 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using TennisLodge.Data.Models;
+using static TennisLodge.GCommon.ValidationConstatnts.Accommodation;
+
+namespace TennisLodge.Data.Configurations
+{
+    public class AccommodationConfiguration : IEntityTypeConfiguration<Accommodation>
+    {
+        public void Configure(EntityTypeBuilder<Accommodation> builder)
+        {
+            
+            builder
+                .HasKey(a => a.Id);
+
+            
+            builder
+                .Property(a => a.Id)
+                .ValueGeneratedOnAdd()
+                .HasComment("Primary key for the Accommodation entity");
+
+
+            builder
+                .Property(a => a.HostUserId)
+                .IsRequired()
+                .HasComment("Foreign key to the user offering the accommodation");
+
+
+            builder
+                .HasOne(a => a.HostUser)
+                .WithMany(u => u.AccommodationsOffered)
+                .HasForeignKey(a => a.HostUserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+
+            builder
+                .Property(a => a.City)
+                .IsRequired();
+
+
+            builder
+                .Property(a => a.Address)
+                .IsRequired()
+                .HasMaxLength(AddressMaxLength);
+                
+
+
+            builder
+                .Property(a => a.MaxGuests)
+                .IsRequired()
+                .HasComment("Maximum number of guests that can be hosted");
+
+
+            builder
+                .Property(a => a.IsAvailable)
+                .HasDefaultValue(true)
+                .HasComment("Indicates if the accommodation is currently available");
+
+
+            builder
+                .Property(a => a.Notes)
+                .HasMaxLength(NotesMaxLength)
+                .HasComment("Optional description or notes about the accommodation");
+
+
+            builder
+                .Property(a => a.CreatedOn)
+                .HasDefaultValueSql("GETUTCDATE()");
+        }
+    }
+}

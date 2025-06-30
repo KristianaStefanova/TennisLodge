@@ -1,0 +1,62 @@
+html {
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+/* Focus styles comunes */
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+/* Body estilo y espacio para footer */
+body {
+    margin: 0;
+    padding-bottom: 80px; /* Ajusta según altura real de footer */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* El main toma el espacio disponible para empujar el footer abajo */
+main {
+    flex: 1 0 auto;
+}
+
+/* Si tienes un contenedor para contenido detallado, ajusta su altura para que no quede detrás del footer */
+.detail-page-content {
+    min-height: calc(100vh - 150px); /* Ajusta 150px según header+footer */
+}
+
+.hero-header {
+    position: relative;
+    background-image: url('/images/Tennis-Ball.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 8rem 0;
+    color: white;
+    text-align: center;
+}
+
+    .hero-header h1 {
+        font-size: 3rem;
+        font-weight: bold;
+    }
+
+    .hero-header p {
+        font-size: 1.25rem;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
