@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.ValueGeneration.Internal;
 using TennisLodge.Data.Models;
-using static TennisLodge.GCommon.ValidationConstatnts.PlayerProfile;
+using static TennisLodge.Data.Common.EntityConstants.PlayerProfile;
 
 namespace TennisLodge.Data.Configurations
 {

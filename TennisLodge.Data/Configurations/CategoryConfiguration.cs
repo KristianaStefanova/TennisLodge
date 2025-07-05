@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using TennisLodge.Data.Models;
-using static TennisLodge.GCommon.ValidationConstatnts.Category;
+using static TennisLodge.Data.Common.EntityConstants.Category;
 
 namespace TennisLodge.Data.Configurations
 {

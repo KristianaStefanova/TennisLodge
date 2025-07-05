@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using TennisLodge.Data.Models;
-using static TennisLodge.GCommon.ValidationConstatnts.AccommodationRequest;
+using static TennisLodge.Data.Common.EntityConstants.AccommodationRequest;
 namespace TennisLodge.Data.Configurations
 {
     public class AccommodationRequestConfiguration : IEntityTypeConfiguration<AccommodationRequest>

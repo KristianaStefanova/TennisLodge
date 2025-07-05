@@ -2,6 +2,8 @@ using TennisLodge.Data;
 
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using TennisLodge.Services.Core.Interfaces;
+using TennisLodge.Services.Core;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +28,8 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
     options.Password.RequiredUniqueChars = 0;
 })
 .AddEntityFrameworkStores<TennisLodgeDbContext>();
+
+builder.Services.AddScoped<ITournamentService, TournamentService>();
 
 builder.Services.AddControllersWithViews();
 

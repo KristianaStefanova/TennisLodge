@@ -12,8 +12,8 @@ using TennisLodge.Data;
 namespace TennisLodge.Data.Migrations
 {
     [DbContext(typeof(TennisLodgeDbContext))]
-    [Migration("20250630182842_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250705133457_InitialSetup_WithIdentity_AndSeedData")]
+    partial class InitialSetup_WithIdentity_AndSeedData
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -357,7 +357,7 @@ namespace TennisLodge.Data.Migrations
                             Id = "7699db7d-964f-4782-8209-d76562e0fece",
                             AccessFailedCount = 0,
                             City = "Sofia",
-                            ConcurrencyStamp = "b770a00b-f075-497e-a8d1-3da5a912993f",
+                            ConcurrencyStamp = "692bfd06-b343-47e6-b733-e18343a0bc21",
                             Email = "admin@tennislodge.com",
                             EmailConfirmed = true,
                             FirstName = "Admin",
@@ -365,9 +365,9 @@ namespace TennisLodge.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@TENNISLODGE.COM",
                             NormalizedUserName = "ADMIN@TENNISLODGE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEN575mD7VbLbYdnYCGzvg5h5i/HSLjW+OLiwWfhwsJOUXx8x6pSN/XmiBss+rMpP4g==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEPahTkcJIcDamVjbaKhmH1BxlL+SRNCg/n7fvA3WZMM7Y7S69qCGQsnGIs1B1b2p7g==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "deb78574-95b2-47f1-b6f9-f1765c92e77a",
+                            SecurityStamp = "de5e1ccf-a6ea-4efe-aad1-b38f503a6116",
                             TwoFactorEnabled = false,
                             UserName = "admin@tennislodge.com"
                         });
@@ -568,7 +568,7 @@ namespace TennisLodge.Data.Migrations
                             CategoryId = 1,
                             Description = "Professional indoor hard court tournament held annually in Sofia, Bulgaria.",
                             EndDate = new DateOnly(2025, 10, 7),
-                            ImageUrl = "https://www.tennis.bg/uploads/posts/2022-08/sofia-open.jpg",
+                            ImageUrl = "/images/atp250.jpg",
                             IsDeleted = false,
                             Location = "Sofia, Arena Armeec",
                             Name = "Sofia Open",
@@ -583,7 +583,7 @@ namespace TennisLodge.Data.Migrations
                             CategoryId = 2,
                             Description = "Challenger-level clay court tournament attracting top Eastern European players.",
                             EndDate = new DateOnly(2025, 6, 16),
-                            ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Plovdiv_tennis_court.jpg/800px-Plovdiv_tennis_court.jpg",
+                            ImageUrl = "/images/ChallengerTour.jpg",
                             IsDeleted = false,
                             Location = "Plovdiv, Tennis Complex",
                             Name = "Plovdiv Clay Cup",
@@ -594,26 +594,11 @@ namespace TennisLodge.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("2e3c6c45-315c-4f24-8803-4c9269ef9c7d"),
-                            CategoryId = 3,
-                            Description = "A fun and competitive tournament held by the sea on synthetic surface.",
-                            EndDate = new DateOnly(2025, 8, 10),
-                            ImageUrl = "https://visit.varna.bg/images/news/tennis_varna.jpg",
-                            IsDeleted = false,
-                            Location = "Varna, Beach Courts",
-                            Name = "Varna Beach Open",
-                            Organizer = "Varna Sports Association",
-                            PublisherId = "7699db7d-964f-4782-8209-d76562e0fece",
-                            StartDate = new DateOnly(2025, 8, 5),
-                            Surface = "Synthetic"
-                        },
-                        new
-                        {
                             Id = new Guid("ea09c21c-62f5-4ee2-99bb-d63f682c5ee3"),
                             CategoryId = 4,
                             Description = "National tournament for kids under 10, designed to encourage early development.",
                             EndDate = new DateOnly(2025, 5, 4),
-                            ImageUrl = "https://example.com/burgas-u10.jpg",
+                            ImageUrl = "/images/BulgarianFederation.jpg",
                             IsDeleted = false,
                             Location = "Burgas Tennis Club",
                             Name = "Burgas U10 Open",
@@ -628,7 +613,7 @@ namespace TennisLodge.Data.Migrations
                             CategoryId = 5,
                             Description = "National ranking tournament for players under 12 years old.",
                             EndDate = new DateOnly(2025, 4, 21),
-                            ImageUrl = "https://example.com/stz-u12.jpg",
+                            ImageUrl = "/images/BulgarianFederation.jpg",
                             IsDeleted = false,
                             Location = "Stara Zagora Tennis Arena",
                             Name = "Stara Zagora U12 Cup",
@@ -643,7 +628,7 @@ namespace TennisLodge.Data.Migrations
                             CategoryId = 6,
                             Description = "Elite tournament for U14 players across the country.",
                             EndDate = new DateOnly(2025, 7, 14),
-                            ImageUrl = "https://example.com/blago-u14.jpg",
+                            ImageUrl = "/images/BulgarianFederation.jpg",
                             IsDeleted = false,
                             Location = "Blagoevgrad Tennis Club",
                             Name = "Blagoevgrad U14 Masters",
@@ -658,7 +643,7 @@ namespace TennisLodge.Data.Migrations
                             CategoryId = 7,
                             Description = "Annual national youth championship open to all categories.",
                             EndDate = new DateOnly(2025, 9, 7),
-                            ImageUrl = "https://example.com/national-championship.jpg",
+                            ImageUrl = "/images/BulgarianFederation.jpg",
                             IsDeleted = false,
                             Location = "Sofia National Center",
                             Name = "National Youth Championship",
@@ -673,7 +658,7 @@ namespace TennisLodge.Data.Migrations
                             CategoryId = 8,
                             Description = "Tennis Europe international event held in Albena for top U14 talents.",
                             EndDate = new DateOnly(2025, 8, 18),
-                            ImageUrl = "https://example.com/tennis-europe-albena.jpg",
+                            ImageUrl = "/images/TennisEurope.jpg",
                             IsDeleted = false,
                             Location = "Albena Resort Courts",
                             Name = "Tennis Europe U14 – Albena",
@@ -688,7 +673,7 @@ namespace TennisLodge.Data.Migrations
                             CategoryId = 9,
                             Description = "International ITF Junior tournament held in Bulgaria's capital.",
                             EndDate = new DateOnly(2025, 11, 7),
-                            ImageUrl = "https://example.com/itf-juniors-sofia.jpg",
+                            ImageUrl = "/images/ITFJuniors.jpg",
                             IsDeleted = false,
                             Location = "Sofia, National Tennis Center",
                             Name = "ITF Juniors - Sofia",
@@ -696,6 +681,126 @@ namespace TennisLodge.Data.Migrations
                             PublisherId = "7699db7d-964f-4782-8209-d76562e0fece",
                             StartDate = new DateOnly(2025, 11, 1),
                             Surface = "Hard"
+                        },
+                        new
+                        {
+                            Id = new Guid("a1f0c8c7-f4b3-4eb9-82e3-4f8cbf2066ee"),
+                            CategoryId = 1,
+                            Description = "ATP 250 series tournament on the Black Sea coast.",
+                            EndDate = new DateOnly(2025, 10, 21),
+                            ImageUrl = "/images/atp250.jpg",
+                            IsDeleted = false,
+                            Location = "Varna Tennis Club",
+                            Name = "ATP 250 Varna",
+                            Organizer = "Bulgarian Tennis Federation",
+                            PublisherId = "7699db7d-964f-4782-8209-d76562e0fece",
+                            StartDate = new DateOnly(2025, 10, 15),
+                            Surface = "Hard (Outdoor)"
+                        },
+                        new
+                        {
+                            Id = new Guid("b5d3462f-7f51-4382-b57c-cc1464a68f1f"),
+                            CategoryId = 2,
+                            Description = "Challenger Tour event played on indoor hard court.",
+                            EndDate = new DateOnly(2025, 6, 26),
+                            ImageUrl = "/images/ChallengerTour.jpg",
+                            IsDeleted = false,
+                            Location = "Rousse Arena",
+                            Name = "Challenger Rousse Open",
+                            Organizer = "Rousse Tennis Association",
+                            PublisherId = "7699db7d-964f-4782-8209-d76562e0fece",
+                            StartDate = new DateOnly(2025, 6, 20),
+                            Surface = "Hard (Indoor)"
+                        },
+                        new
+                        {
+                            Id = new Guid("dff35c76-7d20-4203-aaa1-7cb5117fd9f7"),
+                            CategoryId = 4,
+                            Description = "Introductory tournament for players under 10.",
+                            EndDate = new DateOnly(2025, 5, 17),
+                            ImageUrl = "/images/BulgarianFederation.jpg",
+                            IsDeleted = false,
+                            Location = "Veliko Tarnovo Tennis Park",
+                            Name = "Kidz Clay Open - Veliko Tarnovo",
+                            Organizer = "Youth Tennis Bulgaria",
+                            PublisherId = "7699db7d-964f-4782-8209-d76562e0fece",
+                            StartDate = new DateOnly(2025, 5, 15),
+                            Surface = "Clay"
+                        },
+                        new
+                        {
+                            Id = new Guid("e0c9381f-f3ff-48cc-8719-30a4c649844a"),
+                            CategoryId = 5,
+                            Description = "Official U12 tournament on clay courts.",
+                            EndDate = new DateOnly(2025, 4, 28),
+                            ImageUrl = "/images/BulgarianFederation.jpg",
+                            IsDeleted = false,
+                            Location = "Dobrich Tennis Club",
+                            Name = "U12 Green Cup – Dobrich",
+                            Organizer = "Dobrich Tennis Foundation",
+                            PublisherId = "7699db7d-964f-4782-8209-d76562e0fece",
+                            StartDate = new DateOnly(2025, 4, 25),
+                            Surface = "Clay"
+                        },
+                        new
+                        {
+                            Id = new Guid("f540e688-b37a-4061-9bc4-0d4b1bdbd1e6"),
+                            CategoryId = 6,
+                            Description = "Important regional tournament for U14 talents.",
+                            EndDate = new DateOnly(2025, 7, 9),
+                            ImageUrl = "/images/BulgarianFederation.jpg",
+                            IsDeleted = false,
+                            Location = "Samokov Tennis Arena",
+                            Name = "Samokov U14 Cup",
+                            Organizer = "Samokov Tennis League",
+                            PublisherId = "7699db7d-964f-4782-8209-d76562e0fece",
+                            StartDate = new DateOnly(2025, 7, 5),
+                            Surface = "Hard"
+                        },
+                        new
+                        {
+                            Id = new Guid("90bb0d0a-20ae-4952-804b-bb9e3bcecb18"),
+                            CategoryId = 7,
+                            Description = "Team-based tournament for the best clubs nationwide.",
+                            EndDate = new DateOnly(2025, 9, 20),
+                            ImageUrl = "/images/BulgarianFederation.jpg",
+                            IsDeleted = false,
+                            Location = "Sofia Tennis Center",
+                            Name = "National Juniors Teams Cup",
+                            Organizer = "Bulgarian Tennis Federation",
+                            PublisherId = "7699db7d-964f-4782-8209-d76562e0fece",
+                            StartDate = new DateOnly(2025, 9, 15),
+                            Surface = "Clay"
+                        },
+                        new
+                        {
+                            Id = new Guid("a9f5d6c3-7d5a-4a47-95ed-31080b39a04b"),
+                            CategoryId = 8,
+                            Description = "U16 Tennis Europe event hosted at the Black Sea coast.",
+                            EndDate = new DateOnly(2025, 8, 31),
+                            ImageUrl = "/images/TennisEurope.jpg",
+                            IsDeleted = false,
+                            Location = "Varna Tennis Arena",
+                            Name = "Tennis Europe U16 – Varna",
+                            Organizer = "Tennis Europe / BTF",
+                            PublisherId = "7699db7d-964f-4782-8209-d76562e0fece",
+                            StartDate = new DateOnly(2025, 8, 25),
+                            Surface = "Hard"
+                        },
+                        new
+                        {
+                            Id = new Guid("d27a295f-2b7c-4fc1-9113-89672539e12c"),
+                            CategoryId = 9,
+                            Description = "High-level ITF juniors event held in Plovdiv.",
+                            EndDate = new DateOnly(2025, 11, 18),
+                            ImageUrl = "/images/ITFJuniors.jpg",
+                            IsDeleted = false,
+                            Location = "Plovdiv Tennis Arena",
+                            Name = "ITF Juniors - Plovdiv",
+                            Organizer = "ITF / Bulgarian Tennis Federation",
+                            PublisherId = "7699db7d-964f-4782-8209-d76562e0fece",
+                            StartDate = new DateOnly(2025, 11, 12),
+                            Surface = "Clay"
                         });
                 });
 
