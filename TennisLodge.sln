@@ -25,11 +25,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{DDAD3E7A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{AF30674C-B6FC-48A8-B8F6-CE56E80B5732}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TennisLodge.GCommon", "TennisLonge.GCommon\TennisLodge.GCommon.csproj", "{DD6B5B30-4B2F-4AA4-AB53-BD1612CBB6A3}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TennisLodge.Web.Infrastructure", "TennisLodge.Web.Infrastructure\TennisLodge.Web.Infrastructure.csproj", "{B5A18328-1B4A-4831-8F16-5A4A895852E0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TennisLodge.Web.ViewModels", "TennisLodge.Web.ViewModels\TennisLodge.Web.ViewModels.csproj", "{F1621793-B0D4-450E-81FF-A6BA673976E6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TennisLodge.GCommon", "TennisLodge.GCommon\TennisLodge.GCommon.csproj", "{201ACF5A-1456-4FA5-B3C7-CEDB90F7496A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -65,10 +65,6 @@ Global
 		{2C06299D-30C8-40B4-850F-2577A0FA2ACE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2C06299D-30C8-40B4-850F-2577A0FA2ACE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2C06299D-30C8-40B4-850F-2577A0FA2ACE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DD6B5B30-4B2F-4AA4-AB53-BD1612CBB6A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DD6B5B30-4B2F-4AA4-AB53-BD1612CBB6A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DD6B5B30-4B2F-4AA4-AB53-BD1612CBB6A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DD6B5B30-4B2F-4AA4-AB53-BD1612CBB6A3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B5A18328-1B4A-4831-8F16-5A4A895852E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B5A18328-1B4A-4831-8F16-5A4A895852E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B5A18328-1B4A-4831-8F16-5A4A895852E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -77,6 +73,10 @@ Global
 		{F1621793-B0D4-450E-81FF-A6BA673976E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F1621793-B0D4-450E-81FF-A6BA673976E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F1621793-B0D4-450E-81FF-A6BA673976E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{201ACF5A-1456-4FA5-B3C7-CEDB90F7496A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{201ACF5A-1456-4FA5-B3C7-CEDB90F7496A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{201ACF5A-1456-4FA5-B3C7-CEDB90F7496A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{201ACF5A-1456-4FA5-B3C7-CEDB90F7496A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.16" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.16" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.16" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.16">
@@ -26,7 +27,7 @@
     <ProjectReference Include="..\TennisLodge.Services.Core\TennisLodge.Services.Core.csproj" />
     <ProjectReference Include="..\TennisLodge.Web.Infrastructure\TennisLodge.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\TennisLodge.Web.ViewModels\TennisLodge.Web.ViewModels.csproj" />
-    <ProjectReference Include="..\TennisLonge.GCommon\TennisLodge.GCommon.csproj" />
+	<ProjectReference Include="..\TennisLodge.GCommon\TennisLodge.GCommon.csproj" />
   </ItemGroup>
 
 </Project>

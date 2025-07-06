@@ -40,7 +40,7 @@ namespace TennisLodge.Data.Models.Configurations
             entity
                 .Property(t => t.Organizer)
                 .IsRequired()
-                .HasMaxLength(OrganizerMaxLength);
+                .HasMaxLength(OrganizerNameMaxLength);
 
 
             entity
@@ -65,7 +65,7 @@ namespace TennisLodge.Data.Models.Configurations
 
             entity
                 .Property(t => t.PublisherId)
-                .IsRequired();
+                .IsRequired(false);
 
 
             entity

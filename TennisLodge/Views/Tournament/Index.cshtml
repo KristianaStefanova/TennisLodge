@@ -1,4 +1,5 @@
 ﻿@using TennisLodge.Web.ViewModels
+@using TennisLodge.Web.ViewModels.Tournament
 @model IEnumerable<AllTournamentsIndexViewModel>
 
 @{
@@ -8,10 +9,16 @@
 <div class="container py-4">
     <h1 class="mb-4 text-center">Available Tournaments</h1>
 
+    <div class="text-end mb-3">
+        <a asp-controller="Tournament" asp-action="Create" class="btn btn-success">
+            <i class="bi bi-plus-circle me-1"></i> Create Tournament
+        </a>
+    </div>
+
     @if (!Model.Any())
     {
         <div class="alert alert-info text-center">
-            No hay torneos disponibles por el momento.
+            No tournaments available at the moment.
         </div>
     }
     else
@@ -23,22 +30,27 @@
                     <div class="card h-100 shadow-sm">
                         @if (!string.IsNullOrEmpty(tournament.ImageUrl))
                         {
-                            <img src="@Url.Content(tournament.ImageUrl)" alt="@tournament.Name" class="img-fluid" style="max-width:300px;" />
+                            <div class="d-flex justify-content-center my-3">
+                                <img src="@Url.Content(tournament.ImageUrl)" alt="@tournament.Name" class="img-fluid" style="max-width:300px;" />
+                            </div>
                         }
                         <div class="card-body d-flex flex-column">
                             <h5 class="card-title">
-                                <a asp-controller="Tournaments" asp-action="Details" asp-route-id="@tournament.Id">
+                                <a asp-controller="Tournament" asp-action="Details" asp-route-id="@tournament.Id">
                                     @tournament.Name
                                 </a>
                             </h5>
                             <p class="card-text mb-2">
                                 <i class="bi bi-geo-alt-fill me-1"></i><strong>@tournament.Location</strong><br />
                                 <i class="bi bi-calendar3 me-1"></i> @tournament.StartDate - @tournament.EndDate<br />
-                                <i class="bi bi-layers me-1"></i> Superficie: @tournament.Surface<br />
-                                <i class="bi bi-flag-fill me-1"></i> Categoría: @tournament.CategoryName<br />
-                                <i class="bi bi-person-fill me-1"></i> Organiza: @tournament.Organizer
+                                <i class="bi bi-layers me-1"></i> Surface: @tournament.Surface<br />
+                                <i class="bi bi-flag-fill me-1"></i> Category: @tournament.CategoryName<br />
+                                <i class="bi bi-person-fill me-1"></i> Organizer: @tournament.Organizer
                             </p>
-                           
+                            <a asp-controller="Tournament" asp-action="Details" asp-route-id="@tournament.Id"
+                               class="btn btn-primary text-white mt-auto w-100">
+                                <i class="bi bi-search me-2"></i> Explore Tournament
+                            </a>
                         </div>
                     </div>
                 </div>

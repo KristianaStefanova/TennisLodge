@@ -8,15 +8,15 @@ namespace TennisLodge.Data.Models
     public class ApplicationUser : IdentityUser
     {
         [Comment("User's first name")]
-        public string FirstName { get; set; } = null!;
+        public string? FirstName { get; set; }
 
 
         [Comment("User's last name")]
-        public string LastName { get; set; } = null!;
+        public string? LastName { get; set; } 
 
 
         [Comment("User's city of residence")]
-        public string City { get; set; } = null!;
+        public string? City { get; set; } 
 
 
         [Comment("Tournaments the user is registered for")]

@@ -1,10 +1,10 @@
-﻿    using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TennisLodge.Web.ViewModels
+namespace TennisLodge.Web.ViewModels.Tournament
 {
     public class AllTournamentsIndexViewModel
     {

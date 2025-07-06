@@ -1,4 +1,4 @@
-﻿namespace TennisLodge.Web.ViewModels.Categories
+﻿namespace TennisLodge.Web.ViewModels.Tournament
 {
     public class CategoryViewModel
     {

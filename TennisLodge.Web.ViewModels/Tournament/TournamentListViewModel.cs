@@ -1,6 +1,4 @@
-﻿using TennisLodge.Web.ViewModels.Categories;
-
-namespace TennisLodge.Web.ViewModels.Tournaments
+﻿namespace TennisLodge.Web.ViewModels.Tournament
 {
     public class TournamentListViewModel
     {

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TennisLodge.Services.Core.Interfaces;
 using TennisLodge.Services.Core;
+using TennisLodge.Data.Models;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -17,7 +18,7 @@ builder.Services.AddDbContext<TennisLodgeDbContext>(options =>
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options =>
+builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 {
     options.SignIn.RequireConfirmedEmail = false;
     options.SignIn.RequireConfirmedAccount = false;
@@ -30,6 +31,9 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
 .AddEntityFrameworkStores<TennisLodgeDbContext>();
 
 builder.Services.AddScoped<ITournamentService, TournamentService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddHttpContextAccessor();
+
 
 builder.Services.AddControllersWithViews();
 

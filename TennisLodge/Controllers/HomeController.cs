@@ -1,10 +1,11 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using TennisLodge.Models;
+using TennisLodge.Web.Controllers;
 
 namespace TennisLodge.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
 

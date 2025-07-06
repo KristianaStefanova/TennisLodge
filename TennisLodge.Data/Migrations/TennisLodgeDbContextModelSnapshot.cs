@@ -275,7 +275,6 @@ namespace TennisLodge.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("City")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasComment("User's city of residence");
 
@@ -291,12 +290,10 @@ namespace TennisLodge.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasComment("User's first name");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasComment("User's last name");
 
@@ -354,7 +351,7 @@ namespace TennisLodge.Data.Migrations
                             Id = "7699db7d-964f-4782-8209-d76562e0fece",
                             AccessFailedCount = 0,
                             City = "Sofia",
-                            ConcurrencyStamp = "692bfd06-b343-47e6-b733-e18343a0bc21",
+                            ConcurrencyStamp = "90a17f19-a9e1-4360-88b2-4de593c2ee83",
                             Email = "admin@tennislodge.com",
                             EmailConfirmed = true,
                             FirstName = "Admin",
@@ -362,9 +359,9 @@ namespace TennisLodge.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@TENNISLODGE.COM",
                             NormalizedUserName = "ADMIN@TENNISLODGE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEPahTkcJIcDamVjbaKhmH1BxlL+SRNCg/n7fvA3WZMM7Y7S69qCGQsnGIs1B1b2p7g==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEMJ8E1bHXniODU4nDI+eix0O/ch6HzSc/+yH05X0T+GYdog3U5p3JMRpxRWRMYJXRw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "de5e1ccf-a6ea-4efe-aad1-b38f503a6116",
+                            SecurityStamp = "e3f14a8e-b996-4b15-ba1c-360ef12cf1e1",
                             TwoFactorEnabled = false,
                             UserName = "admin@tennislodge.com"
                         });
@@ -387,7 +384,7 @@ namespace TennisLodge.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Category", t =>
+                    b.ToTable("Categories", t =>
                         {
                             t.HasComment("Category of tournaments");
                         });
@@ -496,8 +493,8 @@ namespace TennisLodge.Data.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)")
                         .HasComment("Detailed description of the tournament");
 
                     b.Property<DateOnly>("EndDate")
@@ -516,24 +513,23 @@ namespace TennisLodge.Data.Migrations
 
                     b.Property<string>("Location")
                         .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
                         .HasComment("City or venue where the tournament takes place");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
                         .HasComment("Official name of the tournament");
 
                     b.Property<string>("Organizer")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
                         .HasComment("Name of the organizer or organizing body");
 
                     b.Property<string>("PublisherId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)")
                         .HasComment("Foreign key to the user who published the tournament");
 
@@ -543,8 +539,8 @@ namespace TennisLodge.Data.Migrations
 
                     b.Property<string>("Surface")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)")
                         .HasComment("Surface type");
 
                     b.HasKey("Id");
@@ -923,8 +919,7 @@ namespace TennisLodge.Data.Migrations
                     b.HasOne("TennisLodge.Data.Models.ApplicationUser", "Publisher")
                         .WithMany("PublishedTournaments")
                         .HasForeignKey("PublisherId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Category");
 

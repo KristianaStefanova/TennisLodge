@@ -48,7 +48,7 @@ namespace TennisLodge.Data.Models
 
 
         [Comment("Foreign key to the user who published the tournament")]
-        public string PublisherId { get; set; } = null!;
+        public string? PublisherId { get; set; }
 
          
         [Comment("Publisher user entity navigation property")]

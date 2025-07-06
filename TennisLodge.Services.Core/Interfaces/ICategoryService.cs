@@ -7,11 +7,8 @@ using TennisLodge.Web.ViewModels.Tournament;
 
 namespace TennisLodge.Services.Core.Interfaces
 {
-    public interface ITournamentService
+    public interface ICategoryService
     {
-        Task<IEnumerable<AllTournamentsIndexViewModel>> GetAllTournamentsAsync();
-
-        Task<bool> AddTournamentAsync(string userId, TournamentFormInputModel inputModel);
-
+        Task<IEnumerable<CategoryViewModel>> GetAllCategoriesAsync();
     }
 }

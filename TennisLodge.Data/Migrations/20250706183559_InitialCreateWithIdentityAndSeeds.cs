@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TennisLodge.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialSetup_WithIdentity_AndSeedData : Migration
+    public partial class InitialCreateWithIdentityAndSeeds : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -32,9 +32,9 @@ namespace TennisLodge.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false, comment: "User's first name"),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false, comment: "User's last name"),
-                    City = table.Column<string>(type: "nvarchar(max)", nullable: false, comment: "User's city of residence"),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true, comment: "User's first name"),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true, comment: "User's last name"),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: true, comment: "User's city of residence"),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -57,7 +57,7 @@ namespace TennisLodge.Data.Migrations
                 comment: "Extended Identity user with additional profile data");
 
             migrationBuilder.CreateTable(
-                name: "Category",
+                name: "Categories",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false, comment: "Primary key identifier of the category")
@@ -66,7 +66,7 @@ namespace TennisLodge.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Category", x => x.Id);
+                    table.PrimaryKey("PK_Categories", x => x.Id);
                 },
                 comment: "Category of tournaments");
 
@@ -230,15 +230,15 @@ namespace TennisLodge.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Unique identifier for the tournament"),
-                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "Official name of the tournament"),
-                    Description = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false, comment: "Detailed description of the tournament"),
-                    Location = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false, comment: "City or venue where the tournament takes place"),
-                    Surface = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "Surface type"),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false, comment: "Official name of the tournament"),
+                    Description = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false, comment: "Detailed description of the tournament"),
+                    Location = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "City or venue where the tournament takes place"),
+                    Surface = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false, comment: "Surface type"),
                     ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true, comment: "Optional URL for the tournament image"),
-                    Organizer = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false, comment: "Name of the organizer or organizing body"),
+                    Organizer = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "Name of the organizer or organizing body"),
                     StartDate = table.Column<DateOnly>(type: "date", nullable: false, comment: "Start date of the tournament"),
                     EndDate = table.Column<DateOnly>(type: "date", nullable: false, comment: "End date of the tournament"),
-                    PublisherId = table.Column<string>(type: "nvarchar(450)", nullable: false, comment: "Foreign key to the user who published the tournament"),
+                    PublisherId = table.Column<string>(type: "nvarchar(450)", nullable: true, comment: "Foreign key to the user who published the tournament"),
                     CategoryId = table.Column<int>(type: "int", nullable: false, comment: "Foreign key to the tournament category"),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false, comment: "Soft delete flag, true if tournament is deleted")
                 },
@@ -252,9 +252,9 @@ namespace TennisLodge.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Tournaments_Category_CategoryId",
+                        name: "FK_Tournaments_Categories_CategoryId",
                         column: x => x.CategoryId,
-                        principalTable: "Category",
+                        principalTable: "Categories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 },
@@ -319,10 +319,10 @@ namespace TennisLodge.Data.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "City", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "7699db7d-964f-4782-8209-d76562e0fece", 0, "Sofia", "692bfd06-b343-47e6-b733-e18343a0bc21", "admin@tennislodge.com", true, "Admin", "User", false, null, "ADMIN@TENNISLODGE.COM", "ADMIN@TENNISLODGE.COM", "AQAAAAIAAYagAAAAEPahTkcJIcDamVjbaKhmH1BxlL+SRNCg/n7fvA3WZMM7Y7S69qCGQsnGIs1B1b2p7g==", null, false, "de5e1ccf-a6ea-4efe-aad1-b38f503a6116", false, "admin@tennislodge.com" });
+                values: new object[] { "7699db7d-964f-4782-8209-d76562e0fece", 0, "Sofia", "90a17f19-a9e1-4360-88b2-4de593c2ee83", "admin@tennislodge.com", true, "Admin", "User", false, null, "ADMIN@TENNISLODGE.COM", "ADMIN@TENNISLODGE.COM", "AQAAAAIAAYagAAAAEMJ8E1bHXniODU4nDI+eix0O/ch6HzSc/+yH05X0T+GYdog3U5p3JMRpxRWRMYJXRw==", null, false, "e3f14a8e-b996-4b15-ba1c-360ef12cf1e1", false, "admin@tennislodge.com" });
 
             migrationBuilder.InsertData(
-                table: "Category",
+                table: "Categories",
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
@@ -471,7 +471,7 @@ namespace TennisLodge.Data.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "Category");
+                name: "Categories");
         }
     }
 }
