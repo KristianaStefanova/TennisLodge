@@ -86,16 +86,13 @@ namespace TennisLodge.Services.Core
             {
                 if (String.IsNullOrEmpty(tournament.ImageUrl))
                 {
-<<<<<<< HEAD
                     tournament.ImageUrl = $"/images/{NoImageUrl}.jpg";
-=======
-                    tournament.ImageUrl = $"/images/{NoImageUrl}";
->>>>>>> e4f534e90e4131977dd1b2a8816b0b836e28e5bb
                 }
             }
 
             return allTournaments;
         }
+
 
         public async Task<TournamentDetailsViewModel?> GetTournamentDetailsByIdAsync(string? tournamentId)
         {
@@ -123,10 +120,73 @@ namespace TennisLodge.Services.Core
                         Organizer = t.Organizer
                     })
                     .SingleOrDefaultAsync();
-
             }
-            return tournamentDetails;
 
+            return tournamentDetails;
+        }
+
+
+        public async Task<TournamentFormInputModel?> GetEditableTournamentByIdAsync(string? id)
+        {
+            TournamentFormInputModel? tournamentDetails = null;
+
+            bool isIdValidGuid = Guid.TryParse(id, out Guid tournamentGuid);
+
+            if (isIdValidGuid)
+            {
+                tournamentDetails = await this.dbContext
+                    .Tournaments
+                    .AsNoTracking()
+                    .Where(t => t.Id == tournamentGuid)
+                    .Select(t => new TournamentFormInputModel()
+                    {
+                        Id = t.Id.ToString(),
+                        Name = t.Name,
+                        ImageUrl = t.ImageUrl ?? $"/images/{NoImageUrl}.jpg",
+                        Description = t.Description,
+                        Location = t.Location,
+                        Surface = t.Surface,
+                        StartDate = t.StartDate.ToString(AppDateFormat),
+                        EndDate = t.EndDate.ToString(AppDateFormat),
+                        CategoryId = t.Category.Id,
+                        Organizer = t.Organizer
+                    })
+                    .SingleOrDefaultAsync();
+            }
+
+            return tournamentDetails;
+        }
+
+        public async Task<bool> EditTournamentAsync(TournamentFormInputModel inputModel)
+        {
+            Tournament? tournamentToEdit = await this.dbContext
+                .Tournaments
+                .SingleOrDefaultAsync(t => t.Id.ToString() == inputModel.Id);
+
+            if(tournamentToEdit == null)
+            {
+                return false;
+            }
+
+            DateOnly startDate = DateOnly.ParseExact(inputModel.StartDate, AppDateFormat,
+                CultureInfo.InvariantCulture, DateTimeStyles.None);
+
+            DateOnly endDate = DateOnly.ParseExact(inputModel.EndDate, AppDateFormat,
+                CultureInfo.InvariantCulture, DateTimeStyles.None);
+
+            tournamentToEdit.Name = inputModel.Name;
+            tournamentToEdit.Description = inputModel.Description;
+            tournamentToEdit.Location = inputModel.Location;
+            tournamentToEdit.Surface = inputModel.Surface;
+            tournamentToEdit.ImageUrl = inputModel.ImageUrl ?? $"/images/{NoImageUrl}.jpg";
+            tournamentToEdit.CategoryId = inputModel.CategoryId;
+            tournamentToEdit.Organizer = inputModel.Organizer;
+            tournamentToEdit.StartDate = startDate;
+            tournamentToEdit.EndDate = endDate;
+
+            await this.dbContext.SaveChangesAsync();
+
+            return true;
         }
     }
 }

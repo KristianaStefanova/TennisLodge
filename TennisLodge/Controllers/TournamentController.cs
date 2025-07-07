@@ -99,5 +99,58 @@ namespace TennisLodge.Web.Controllers
                 return RedirectToAction(nameof(Index));
             }
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(string? id)
+        {
+            try
+            {
+                TournamentFormInputModel? tournamentToEdit = await this.tournamentService
+                    .GetEditableTournamentByIdAsync(id);
+                if (tournamentToEdit == null)
+                {
+                    return this.RedirectToAction(nameof(Index));
+                }
+
+                tournamentToEdit.Categories = await this.categoryService
+                    .GetAllCategoriesAsync();
+
+                return this.View(tournamentToEdit);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return RedirectToAction(nameof(Index));
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(TournamentFormInputModel inputModel)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                inputModel.Categories = await this.categoryService
+                    .GetAllCategoriesAsync();
+
+                return this.View(inputModel);
+            }
+            try
+            {
+                bool editResult = await this.tournamentService
+                    .EditTournamentAsync(inputModel);
+                if (editResult == false)
+                {
+                    ModelState.AddModelError(string.Empty, "Fatal error occurred while editing a tournament");
+                    inputModel.Categories = await this.categoryService.GetAllCategoriesAsync();
+                    return this.View(inputModel);
+                }
+                return this.RedirectToAction(nameof(Details), new { id = inputModel.Id });
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return RedirectToAction(nameof(Index));
+            }
+        }
     }
 }
