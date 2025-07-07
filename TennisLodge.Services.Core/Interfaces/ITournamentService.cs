@@ -13,5 +13,7 @@ namespace TennisLodge.Services.Core.Interfaces
 
         Task<bool> AddTournamentAsync(string userId, TournamentFormInputModel inputModel);
 
+        Task<TournamentDetailsViewModel?> GetTournamentDetailsByIdAsync(string? tournamentId);
+
     }
 }

@@ -30,7 +30,7 @@ namespace TennisLodge.Services.Core
 
         public async Task<bool> AddTournamentAsync(string userId, TournamentFormInputModel inputModel)
         {
-            bool operationResult = false;    
+            bool operationResult = false;
 
             ApplicationUser? user = await this.userManager.FindByIdAsync(userId);
 
@@ -91,6 +91,38 @@ namespace TennisLodge.Services.Core
             }
 
             return allTournaments;
+        }
+
+        public async Task<TournamentDetailsViewModel?> GetTournamentDetailsByIdAsync(string? tournamentId)
+        {
+            TournamentDetailsViewModel? tournamentDetails = null;
+
+            bool isIdValidGuid = Guid.TryParse(tournamentId, out Guid tournamentGuid);
+
+            if (isIdValidGuid)
+            {
+                tournamentDetails = await this.dbContext
+                    .Tournaments
+                    .AsNoTracking()
+                    .Where(t => t.Id == tournamentGuid)
+                    .Select(t => new TournamentDetailsViewModel()
+                    {
+                        Id = t.Id.ToString(),
+                        Name = t.Name,
+                        ImageUrl = t.ImageUrl ?? $"/images/{NoImageUrl}.jpg",
+                        Description = t.Description,
+                        Location = t.Location,
+                        Surface = t.Surface,
+                        StartDate = t.StartDate,
+                        EndDate = t.EndDate,
+                        CategoryName = t.Category.Name,
+                        Organizer = t.Organizer
+                    })
+                    .SingleOrDefaultAsync();
+
+            }
+            return tournamentDetails;
+
         }
     }
 }

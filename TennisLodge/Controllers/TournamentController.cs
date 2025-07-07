@@ -77,5 +77,27 @@ namespace TennisLodge.Web.Controllers
                 return RedirectToAction(nameof(Index));
             }
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Details(string? id)
+        {
+            try
+            {
+                TournamentDetailsViewModel? tournamentDetails = await this.tournamentService
+                    .GetTournamentDetailsByIdAsync(id);
+
+                if (tournamentDetails == null)
+                {
+                    return this.RedirectToAction(nameof(Index));
+                }
+
+                return this.View(tournamentDetails);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return RedirectToAction(nameof(Index));
+            }
+        }
     }
 }
