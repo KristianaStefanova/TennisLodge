@@ -86,7 +86,11 @@ namespace TennisLodge.Services.Core
             {
                 if (String.IsNullOrEmpty(tournament.ImageUrl))
                 {
+<<<<<<< HEAD
                     tournament.ImageUrl = $"/images/{NoImageUrl}.jpg";
+=======
+                    tournament.ImageUrl = $"/images/{NoImageUrl}";
+>>>>>>> e4f534e90e4131977dd1b2a8816b0b836e28e5bb
                 }
             }
 
