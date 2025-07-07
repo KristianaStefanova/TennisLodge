@@ -82,6 +82,14 @@ namespace TennisLodge.Services.Core
                 })
                 .ToListAsync();
 
+            foreach (var tournament in allTournaments)
+            {
+                if (String.IsNullOrEmpty(tournament.ImageUrl))
+                {
+                    tournament.ImageUrl = $"/images/{NoImageUrl}.jpg";
+                }
+            }
+
             return allTournaments;
         }
     }
