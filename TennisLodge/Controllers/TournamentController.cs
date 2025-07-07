@@ -30,16 +30,13 @@ namespace TennisLodge.Web.Controllers
         {
             try
             {
-                // Obtén las categorías desde el servicio
                 var categories = await this.categoryService.GetAllCategoriesAsync();
 
-                // Crea el ViewModel con las categorías cargadas
                 var viewModel = new TournamentFormInputModel()
                 {
                     Categories = categories
                 };
 
-                // Devuelve la vista con el ViewModel
                 return this.View(viewModel);
             }
             catch (Exception e)
