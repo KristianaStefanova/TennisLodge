@@ -188,10 +188,11 @@ namespace TennisLodge.Web.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Console.WriteLine(e.Message);
 
-                throw;
+                return RedirectToAction(nameof(Index));
             }
         }
     }
