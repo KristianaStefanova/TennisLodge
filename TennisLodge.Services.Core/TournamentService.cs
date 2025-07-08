@@ -32,7 +32,8 @@ namespace TennisLodge.Services.Core
         {
             bool operationResult = false;
 
-            ApplicationUser? user = await this.userManager.FindByIdAsync(userId);
+            ApplicationUser? user = await this.userManager
+                .FindByIdAsync(userId);
 
             Category? categoryRef = await this.dbContext
                .Categories.FindAsync(inputModel.CategoryId);
@@ -159,11 +160,9 @@ namespace TennisLodge.Services.Core
 
         public async Task<bool> EditTournamentAsync(TournamentFormInputModel inputModel)
         {
-            Tournament? tournamentToEdit = await this.dbContext
-                .Tournaments
-                .SingleOrDefaultAsync(t => t.Id.ToString() == inputModel.Id);
+            Tournament? tournamentToEdit = await this.FindTournamentByStringId(inputModel.Id);
 
-            if(tournamentToEdit == null)
+            if (tournamentToEdit == null)
             {
                 return false;
             }
@@ -187,6 +186,42 @@ namespace TennisLodge.Services.Core
             await this.dbContext.SaveChangesAsync();
 
             return true;
+        }
+
+        public async Task<bool> SoftDeleteTournamentAsync(string? id)
+        {
+            Tournament? tournamentToDelete = await this.FindTournamentByStringId(id);
+
+            if (tournamentToDelete == null)
+            {
+                return false;
+            }
+
+            tournamentToDelete.IsDeleted = true;
+
+            await this.dbContext.SaveChangesAsync();
+
+            return true;
+        }
+
+        
+
+        private async Task<Tournament?> FindTournamentByStringId(string? id)
+        {
+            Tournament? tournament = null;
+
+            if (!string.IsNullOrWhiteSpace(id))
+            {
+                bool isGuidValid = Guid.TryParse(id, out Guid tournamentGuid);
+                if (isGuidValid)
+                {
+                    tournament = await this.dbContext
+                        .Tournaments
+                        .FindAsync(tournamentGuid);
+                }
+            }
+
+            return tournament;
         }
     }
 }

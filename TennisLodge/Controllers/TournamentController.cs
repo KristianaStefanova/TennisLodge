@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.Blazor;
 using TennisLodge.Services.Core.Interfaces;
 using TennisLodge.Web.ViewModels.Tournament;
 using static TennisLodge.Web.ViewModels.ValidationMessages.Tournament;
@@ -63,7 +64,7 @@ namespace TennisLodge.Web.Controllers
 
                 if (addResult == false)
                 {
-                    ModelState.AddModelError(string.Empty, "Fatal error occurred while adding a tournament");
+                    ModelState.AddModelError(string.Empty, "Fatal error occurred while adding the tournament");
                     inputModel.Categories = await this.categoryService.GetAllCategoriesAsync();
 
                     return this.View(inputModel);
@@ -85,7 +86,6 @@ namespace TennisLodge.Web.Controllers
             {
                 TournamentDetailsViewModel? tournamentDetails = await this.tournamentService
                     .GetTournamentDetailsByIdAsync(id);
-
                 if (tournamentDetails == null)
                 {
                     return this.RedirectToAction(nameof(Index));
@@ -140,7 +140,7 @@ namespace TennisLodge.Web.Controllers
                     .EditTournamentAsync(inputModel);
                 if (editResult == false)
                 {
-                    ModelState.AddModelError(string.Empty, "Fatal error occurred while editing a tournament");
+                    ModelState.AddModelError(string.Empty, "Fatal error occurred while editing the tournament");
                     inputModel.Categories = await this.categoryService.GetAllCategoriesAsync();
                     return this.View(inputModel);
                 }
@@ -150,6 +150,48 @@ namespace TennisLodge.Web.Controllers
             {
                 Console.WriteLine(e.Message);
                 return RedirectToAction(nameof(Index));
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(string? id)
+        {
+            try
+            {
+                TournamentDetailsViewModel? tournamentDetails = await this.tournamentService
+                    .GetTournamentDetailsByIdAsync(id);
+                if (tournamentDetails == null)
+                {
+                    return this.RedirectToAction(nameof(Index));
+                }
+                return this.View(tournamentDetails);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return RedirectToAction(nameof(Index));
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(TournamentDetailsViewModel inputModel)
+        {
+            try
+            {
+                bool deleteResult = await this.tournamentService.SoftDeleteTournamentAsync(inputModel.Id);
+
+                if(deleteResult == false)
+                {
+                    ModelState.AddModelError(string.Empty, "Fatal error occurred while deleting the tournament");
+                    return RedirectToAction(nameof(Index));
+                }
+
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception)
+            {
+
+                throw;
             }
         }
     }

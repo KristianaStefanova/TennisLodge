@@ -32,11 +32,12 @@
     {
         <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning me-2">Edit</a>
 
-        <form asp-action="Delete" asp-route-id="@Model.Id" method="post" class="d-inline">
-            <button type="submit" class="btn btn-danger me-2" onclick="return confirm('Are you sure you want to delete this tournament?');">Remove</button>
-        </form>
+        <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger me-2">
+            Remove
+        </a>
 
         <form asp-action="AddToFavorites" asp-route-id="@Model.Id" method="post" class="d-inline">
+            @Html.AntiForgeryToken()
             <button type="submit" class="btn btn-success">Save to Favorites</button>
         </form>
     }
