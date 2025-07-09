@@ -178,6 +178,10 @@ namespace TennisLodge.Web.Controllers
         {
             try
             {
+                if (!this.ModelState.IsValid)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
                 bool deleteResult = await this.tournamentService.SoftDeleteTournamentAsync(inputModel.Id);
 
                 if(deleteResult == false)

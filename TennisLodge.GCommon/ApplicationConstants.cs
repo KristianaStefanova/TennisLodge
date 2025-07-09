@@ -1,6 +1,6 @@
 ﻿namespace TennisLodge.GCommon
 {
-    public class ApplicationConstants
+    public static class ApplicationConstants
     {
         public const string AppDateFormat = "yyyy-MM-dd";
 

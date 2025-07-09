@@ -20,5 +20,9 @@ namespace TennisLodge.Data.Models
 
         [Comment("Navigation property to the tournament")]
         public virtual Tournament Tournament { get; set; } = null!;
+
+
+        [Comment("Shows if UserTournament entry is deleted")]
+        public bool IsDeleted { get; set; } = false;
     }
 }
