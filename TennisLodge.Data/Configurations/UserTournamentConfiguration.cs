@@ -13,24 +13,52 @@ namespace TennisLodge.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<UserTournament> entity)
         {
+            // Defines composite Primary Key of the Mapping Entity
             entity
                 .HasKey(ud => new { ud.UserId, ud.TournamentId });
 
-            
+
+            // Define required constraint for the UserId, as it is type string.
+            entity
+                .Property(ud => ud.UserId)
+                .IsRequired();
+
+
+            // Define default value for the soft-delete functionality
+            entity
+                .Property(ud => ud.IsDeleted)
+                .HasDefaultValue(false);
+
+
+            // Configure relations between UserTournament and IdentityUser
+            entity
+                .HasOne(ud => ud.User)
+                .WithMany(u => u.UserTournaments)
+                .HasForeignKey(ud => ud.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+
+            //Configure relations between UserTournament and Tournament
+            entity
+                .HasOne(ud => ud.Tournament)
+                .WithMany(d => d.UserTournaments)
+                .HasForeignKey(ud => ud.TournamentId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+
+            // Define quiery filter to hide the UserTournament entries reffering deleted Movie.
+            // Solves the problem with relations during delete
             entity
                 .HasQueryFilter(ud => ud.Tournament.IsDeleted == false);
 
 
+
+            //Define query filter to hide the deleted entries in the UserTournaments
             entity
-                .HasOne(ud => ud.User)
-                .WithMany(u => u.UserTournaments)
-                .HasForeignKey(ud => ud.UserId);
+                .HasQueryFilter(ud => ud.IsDeleted == false);
 
 
-            entity
-                .HasOne(ud => ud.Tournament)
-                .WithMany(d => d.UserTournaments)
-                .HasForeignKey(ud => ud.TournamentId);
+
         }
     }
 }

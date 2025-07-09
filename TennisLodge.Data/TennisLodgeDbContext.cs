@@ -11,12 +11,12 @@ namespace TennisLodge.Data
         {
         }
 
-        public DbSet<AccommodationRequest> AccommodationRequests { get; set; } = null!;
-        public DbSet<Accommodation> Accommodations { get; set; } = null!;
-        public DbSet<PlayerProfile> PlayerProfiles { get; set; } = null!;
-        public DbSet<Tournament> Tournaments { get; set; } = null!;
-        public DbSet<UserTournament> UserTournaments { get; set; } = null!;
-        public DbSet<Category> Categories { get; set; } = null!;
+        public virtual DbSet<AccommodationRequest> AccommodationRequests { get; set; } = null!;
+        public virtual DbSet<Accommodation> Accommodations { get; set; } = null!;
+        public virtual DbSet<PlayerProfile> PlayerProfiles { get; set; } = null!;
+        public virtual DbSet<Tournament> Tournaments { get; set; } = null!;
+        public virtual DbSet<UserTournament> UserTournaments { get; set; } = null!;
+        public virtual DbSet<Category> Categories { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

@@ -351,7 +351,7 @@ namespace TennisLodge.Data.Migrations
                             Id = "7699db7d-964f-4782-8209-d76562e0fece",
                             AccessFailedCount = 0,
                             City = "Sofia",
-                            ConcurrencyStamp = "90a17f19-a9e1-4360-88b2-4de593c2ee83",
+                            ConcurrencyStamp = "3005770e-63e1-4bf2-bfad-daf79b3c2abc",
                             Email = "admin@tennislodge.com",
                             EmailConfirmed = true,
                             FirstName = "Admin",
@@ -359,9 +359,9 @@ namespace TennisLodge.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@TENNISLODGE.COM",
                             NormalizedUserName = "ADMIN@TENNISLODGE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEMJ8E1bHXniODU4nDI+eix0O/ch6HzSc/+yH05X0T+GYdog3U5p3JMRpxRWRMYJXRw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEPrKcgCklpp30Wz6JHKPGae38D3XIrGaJtO3y8owhYzrX6JYYjd2VCJbPwntMQigPQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e3f14a8e-b996-4b15-ba1c-360ef12cf1e1",
+                            SecurityStamp = "a391e11b-5bef-49fe-ba6c-867af54722e6",
                             TwoFactorEnabled = false,
                             UserName = "admin@tennislodge.com"
                         });
@@ -807,6 +807,12 @@ namespace TennisLodge.Data.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasComment("Foreign key to the tournament");
 
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false)
+                        .HasComment("Shows if UserTournament entry is deleted");
+
                     b.HasKey("UserId", "TournamentId");
 
                     b.HasIndex("TournamentId");
@@ -931,13 +937,13 @@ namespace TennisLodge.Data.Migrations
                     b.HasOne("TennisLodge.Data.Models.Tournament", "Tournament")
                         .WithMany("UserTournaments")
                         .HasForeignKey("TournamentId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("TennisLodge.Data.Models.ApplicationUser", "User")
                         .WithMany("UserTournaments")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Tournament");

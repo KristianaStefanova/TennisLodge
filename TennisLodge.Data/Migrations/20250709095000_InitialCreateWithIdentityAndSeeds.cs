@@ -296,7 +296,8 @@ namespace TennisLodge.Data.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false, comment: "Foreign key to the user"),
-                    TournamentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Foreign key to the tournament")
+                    TournamentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Foreign key to the tournament"),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false, comment: "Shows if UserTournament entry is deleted")
                 },
                 constraints: table =>
                 {
@@ -306,20 +307,20 @@ namespace TennisLodge.Data.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_UserTournaments_Tournaments_TournamentId",
                         column: x => x.TournamentId,
                         principalTable: "Tournaments",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 },
                 comment: "Join table between users and tournaments");
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "City", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "7699db7d-964f-4782-8209-d76562e0fece", 0, "Sofia", "90a17f19-a9e1-4360-88b2-4de593c2ee83", "admin@tennislodge.com", true, "Admin", "User", false, null, "ADMIN@TENNISLODGE.COM", "ADMIN@TENNISLODGE.COM", "AQAAAAIAAYagAAAAEMJ8E1bHXniODU4nDI+eix0O/ch6HzSc/+yH05X0T+GYdog3U5p3JMRpxRWRMYJXRw==", null, false, "e3f14a8e-b996-4b15-ba1c-360ef12cf1e1", false, "admin@tennislodge.com" });
+                values: new object[] { "7699db7d-964f-4782-8209-d76562e0fece", 0, "Sofia", "3005770e-63e1-4bf2-bfad-daf79b3c2abc", "admin@tennislodge.com", true, "Admin", "User", false, null, "ADMIN@TENNISLODGE.COM", "ADMIN@TENNISLODGE.COM", "AQAAAAIAAYagAAAAEPrKcgCklpp30Wz6JHKPGae38D3XIrGaJtO3y8owhYzrX6JYYjd2VCJbPwntMQigPQ==", null, false, "a391e11b-5bef-49fe-ba6c-867af54722e6", false, "admin@tennislodge.com" });
 
             migrationBuilder.InsertData(
                 table: "Categories",
