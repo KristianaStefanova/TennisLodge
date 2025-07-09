@@ -20,6 +20,7 @@ namespace TennisLodge.Services.Core
     {
         private readonly TennisLodgeDbContext dbContext;
         private readonly UserManager<ApplicationUser> userManager;
+        
 
         public TournamentService(TennisLodgeDbContext dbContext, UserManager<ApplicationUser> userManager)
         {
@@ -71,7 +72,7 @@ namespace TennisLodge.Services.Core
                 .AsNoTracking()
                 .Select(t => new AllTournamentsIndexViewModel()
                 {
-                    Id = t.Id,
+                    Id = t.Id.ToString(),
                     Name = t.Name,
                     Location = t.Location,
                     Surface = t.Surface,

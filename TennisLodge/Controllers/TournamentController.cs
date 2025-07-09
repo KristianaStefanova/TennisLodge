@@ -12,10 +12,13 @@ namespace TennisLodge.Web.Controllers
     {
         private readonly ITournamentService tournamentService;
         private readonly ICategoryService categoryService;
-        public TournamentController(ITournamentService tournamentService, ICategoryService categoryService)
+        private readonly IFavoriteService favoriteService;
+        public TournamentController(ITournamentService tournamentService, ICategoryService categoryService,
+            IFavoriteService favoriteService)
         {
             this.tournamentService = tournamentService;
             this.categoryService = categoryService;
+            this.favoriteService = favoriteService;
         }
 
         [HttpGet]
@@ -24,6 +27,17 @@ namespace TennisLodge.Web.Controllers
         {
             IEnumerable<AllTournamentsIndexViewModel> allTournaments = await this.tournamentService
                 .GetAllTournamentsAsync();
+
+            if (this.IsUserAuthenticated())
+            {
+
+                foreach (AllTournamentsIndexViewModel tournamentIndexVM in allTournaments)
+                {
+                    tournamentIndexVM.IsAddedToUserFavorites = await this.favoriteService
+                        .IsTournamentInFavoritesAsync(tournamentIndexVM.Id, this.GetUserId());
+                }
+            }
+
             return View(allTournaments);
         }
 
@@ -186,7 +200,7 @@ namespace TennisLodge.Web.Controllers
                 }
                 bool deleteResult = await this.tournamentService.SoftDeleteTournamentAsync(inputModel.Id);
 
-                if(deleteResult == false)
+                if (deleteResult == false)
                 {
                     ModelState.AddModelError(string.Empty, "Fatal error occurred while deleting the tournament");
                     return RedirectToAction(nameof(Index));

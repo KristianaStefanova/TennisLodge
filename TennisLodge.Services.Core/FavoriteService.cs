@@ -49,14 +49,15 @@ namespace TennisLodge.Services.Core
             {
                 bool idTournamentIdValid = Guid.TryParse(movieId, out Guid tournamentGuid);
 
-                if(idTournamentIdValid)
+                if (idTournamentIdValid)
                 {
                     UserTournament? userTournamentEntry = await this.dbContext
                         .UserTournaments
-                        .SingleOrDefaultAsync(ut => ut.TournamentId.ToString() == tournamentGuid.ToString()
-                        && ut.UserId.ToLower() == userId);
+                        .IgnoreQueryFilters()
+                        .SingleOrDefaultAsync(ut => ut.TournamentId.ToString() == tournamentGuid.ToString() &&
+                                              ut.UserId.ToLower() == userId);
 
-                    if(userTournamentEntry != null)
+                    if (userTournamentEntry != null)
                     {
                         userTournamentEntry.IsDeleted = false;
                     }
@@ -80,6 +81,58 @@ namespace TennisLodge.Services.Core
             return result;
         }
 
-        
+        public async Task<bool> RemoveTournamentFromFavoriteAsync(string? tournamentId, string? userId)
+        {
+            bool result = false;
+
+            if (tournamentId != null && userId != null)
+            {
+                bool idTournamentIdValid = Guid.TryParse(tournamentId, out Guid tournamentGuid);
+
+                if (idTournamentIdValid)
+                {
+                    UserTournament? userTournamentEntry = await this.dbContext
+                        .UserTournaments
+                        .SingleOrDefaultAsync(ut => ut.TournamentId.ToString() == tournamentGuid.ToString() &&
+                                              ut.UserId.ToLower() == userId);
+
+                    if (userTournamentEntry != null)
+                    {
+                        userTournamentEntry.IsDeleted = true;
+
+                        await this.dbContext.SaveChangesAsync();
+
+                        result = true;
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        public async Task<bool> IsTournamentInFavoritesAsync(string? tournamentId, string? userId)
+        {
+            bool result = false;
+
+            if (tournamentId != null && userId != null)
+            {
+                bool idTournamentIdValid = Guid.TryParse(tournamentId, out Guid tournamentGuid);
+
+                if (idTournamentIdValid)
+                {
+                    UserTournament? userTournamentEntry = await this.dbContext
+                        .UserTournaments
+                        .SingleOrDefaultAsync(ut => ut.TournamentId.ToString() == tournamentGuid.ToString() &&
+                                              ut.UserId.ToLower() == userId);
+
+                    if (userTournamentEntry != null)
+                    {
+                        result = true;
+                    }
+                }
+            }
+
+            return result;
+        }
     }
 }

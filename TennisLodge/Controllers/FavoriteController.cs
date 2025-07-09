@@ -13,11 +13,11 @@ namespace TennisLodge.Web.Controllers
 
         public FavoriteController(IFavoriteService favoriteService)
         {
-            this.favoriteService = favoriteService; 
+            this.favoriteService = favoriteService;
         }
 
 
-        [HttpGet]  
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             try
@@ -48,7 +48,7 @@ namespace TennisLodge.Web.Controllers
             {
                 string? userId = this.GetUserId();
 
-                if(userId == null)
+                if (userId == null)
                 {
                     return this.Forbid();
                 }
@@ -69,6 +69,37 @@ namespace TennisLodge.Web.Controllers
                 Console.WriteLine(e.Message);
 
                 return RedirectToAction(nameof(Index), "Home");
+            }
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Remove(string? id)
+        {
+            try
+            {
+                string? userId = this.GetUserId();
+
+                if (userId == null)
+                {
+                    return this.Forbid();
+                }
+
+                bool result = await this.favoriteService
+                    .RemoveTournamentFromFavoriteAsync(id, userId);
+
+                if (result == false)
+                {
+                    return this.RedirectToAction(nameof(Index));
+                }
+
+                return this.RedirectToAction(nameof(Index), "Tournament");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+
+                return this.RedirectToAction(nameof(Index), "Home");
             }
         }
     }

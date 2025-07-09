@@ -50,7 +50,8 @@ else
                                 </button>
                             </form>
 
-                            <form asp-controller="Favorite" asp-action="Remove" asp-route-id="@fav.TournamentId" method="post">
+                            <form asp-controller="Favorite" asp-action="Remove" method="post">
+                                <input type="hidden" name="id" value="@fav.TournamentId" />
                                 <button type="submit" class="btn btn-sm btn-danger">
                                     Remove
                                 </button>

@@ -8,6 +8,10 @@ namespace TennisLodge.Services.Core.Interfaces
     {
         Task<IEnumerable<FavoriteTournamentViewModel>> GetAllFavoriteTournamentsAsync(string userId);
 
-        Task<bool> AddTournamentToFavoriteAsync(string? movieId, string? userId);
+        Task<bool> AddTournamentToFavoriteAsync(string? tournamentId, string? userId);
+
+        Task<bool> RemoveTournamentFromFavoriteAsync(string? tournamentId, string? userId);
+
+        Task<bool> IsTournamentInFavoritesAsync(string? tournamentId, string? userId);
     }
 }

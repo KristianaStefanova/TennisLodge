@@ -24,9 +24,13 @@
         Join TennisLodge today and experience a smoother, more connected tennis journey!
     </p>
 
-    <a asp-area="Identity" asp-page="/Account/Register"
-       class="btn btn-success btn-lg fw-bold rounded-pill px-5 py-3 shadow-sm">
-        Get Started & Register
-    </a>
+    @if (!User.Identity.IsAuthenticated)
+    {
+        <a asp-area="Identity" asp-page="/Account/Register"
+           class="btn btn-success btn-lg fw-bold rounded-pill px-5 py-3 shadow-sm">
+            Get Started & Register
+        </a>
+    }
+
 
 </div>
