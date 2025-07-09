@@ -19,6 +19,7 @@ namespace TennisLodge.Web.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             IEnumerable<AllTournamentsIndexViewModel> allTournaments = await this.tournamentService
@@ -80,6 +81,7 @@ namespace TennisLodge.Web.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> Details(string? id)
         {
             try

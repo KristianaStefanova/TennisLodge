@@ -38,19 +38,19 @@ else
 
                         <p class="card-text text-muted mb-3">
                             <strong>Dates:</strong>
-                            @fav.StartDate.ToString(AppDateFormat)
+                            @fav.StartDate
                             –
-                            @fav.EndDate.ToString(AppDateFormat)
+                            @fav.EndDate
                         </p>
 
                         <div class="mt-auto d-flex justify-content-between">
-                            <form asp-controller="Tournaments" asp-action="Details" asp-route-id="@fav.TournamentId" method="get">
+                            <form asp-controller="Tournament" asp-action="Details" asp-route-id="@fav.TournamentId" method="get">
                                 <button type="submit" class="btn btn-sm btn-primary">
                                     View Details
                                 </button>
                             </form>
 
-                            <form asp-controller="Favorites" asp-action="Remove" asp-route-id="@fav.TournamentId" method="post">
+                            <form asp-controller="Favorite" asp-action="Remove" asp-route-id="@fav.TournamentId" method="post">
                                 <button type="submit" class="btn btn-sm btn-danger">
                                     Remove
                                 </button>

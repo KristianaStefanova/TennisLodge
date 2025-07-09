@@ -6,7 +6,7 @@ using TennisLodge.Web.Controllers;
 
 namespace TennisLodge.Controllers
 {
-    [AllowAnonymous]
+    
     public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
@@ -16,6 +16,7 @@ namespace TennisLodge.Controllers
             _logger = logger;
         }
 
+        [AllowAnonymous]
         public IActionResult Index()
         {
             return View();

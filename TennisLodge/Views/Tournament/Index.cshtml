@@ -51,6 +51,16 @@
                                class="btn btn-primary text-white mt-auto w-100">
                                 <i class="bi bi-search me-2"></i> Explore Tournament
                             </a>
+                            <form asp-controller="Favorite" asp-action="Add" method="post">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="id" value="@tournament.Id" />
+                                <button type="submit" class="btn btn-outline-warning w-100">
+                                    <i class="bi bi-star me-2"></i> Add to Favorites
+                                </button>
+                            </form>
+
+
+
                         </div>
                     </div>
                 </div>

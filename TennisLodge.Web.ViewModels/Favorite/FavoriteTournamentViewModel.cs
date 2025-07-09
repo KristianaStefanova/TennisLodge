@@ -16,9 +16,9 @@ namespace TennisLodge.Web.ViewModels.Favorite
 
         public string CategoryName { get; set; } = null!;
 
-        public DateOnly StartDate { get; set; }
+        public string StartDate { get; set; } = null!;
 
-        public DateOnly EndDate { get; set; }
+        public string EndDate { get; set; } = null!;
 
         public string? ImageUrl { get; set; }
 

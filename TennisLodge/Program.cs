@@ -32,6 +32,8 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 
 builder.Services.AddScoped<ITournamentService, TournamentService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IFavoriteService, FavoriteService>();
+
 builder.Services.AddHttpContextAccessor();
 
 
