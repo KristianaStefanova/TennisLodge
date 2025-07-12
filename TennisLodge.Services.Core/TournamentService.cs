@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TennisLodge.Data;
 using TennisLodge.Data.Models;
+using TennisLodge.Data.Repository.Interfaces;
 using TennisLodge.Services.Core.Interfaces;
 using TennisLodge.Web.ViewModels.Tournament;
 using static TennisLodge.GCommon.ApplicationConstants;
@@ -18,16 +19,22 @@ namespace TennisLodge.Services.Core
 {
     public class TournamentService : ITournamentService
     {
+        private readonly ICategoryRepository categoryRepository;
+        private readonly ITournamentRepository tournamentRepository;    
         private readonly TennisLodgeDbContext dbContext;
         private readonly UserManager<ApplicationUser> userManager;
         
 
-        public TournamentService(TennisLodgeDbContext dbContext, UserManager<ApplicationUser> userManager)
+        public TournamentService(ICategoryRepository categoryRepository, ITournamentRepository tournamentRepository, TennisLodgeDbContext dbContext, UserManager<ApplicationUser> userManager)
         {
+            this.categoryRepository = categoryRepository;
+            this.tournamentRepository = tournamentRepository;
             this.dbContext = dbContext;
             this.userManager = userManager;
 
         }
+
+
 
         public async Task<bool> AddTournamentAsync(string userId, TournamentFormInputModel inputModel)
         {
@@ -36,8 +43,9 @@ namespace TennisLodge.Services.Core
             ApplicationUser? user = await this.userManager
                 .FindByIdAsync(userId);
 
-            Category? categoryRef = await this.dbContext
-               .Categories.FindAsync(inputModel.CategoryId);
+            Category? categoryRef = await this.categoryRepository
+                .GetByIdAsync(inputModel.CategoryId);
+
 
             if (user != null && categoryRef != null)
             {
@@ -56,8 +64,8 @@ namespace TennisLodge.Services.Core
                        DateTimeStyles.None)
                 };
 
-                await this.dbContext.Tournaments.AddAsync(newTournament);
-                await this.dbContext.SaveChangesAsync();
+                await this.tournamentRepository.AddAsync(newTournament);
+                await this.tournamentRepository.SaveChangesAsync();
 
                 operationResult = true;
             }
@@ -67,8 +75,8 @@ namespace TennisLodge.Services.Core
 
         public async Task<IEnumerable<AllTournamentsIndexViewModel>> GetAllTournamentsAsync()
         {
-            IEnumerable<AllTournamentsIndexViewModel> allTournaments = await this.dbContext
-                .Tournaments
+            IEnumerable<AllTournamentsIndexViewModel> allTournaments = await this.tournamentRepository
+                .GetAllAttached()
                 .AsNoTracking()
                 .Select(t => new AllTournamentsIndexViewModel()
                 {
@@ -104,8 +112,8 @@ namespace TennisLodge.Services.Core
 
             if (isIdValidGuid)
             {
-                tournamentDetails = await this.dbContext
-                    .Tournaments
+                tournamentDetails = await this.tournamentRepository
+                    .GetAllAttached()
                     .AsNoTracking()
                     .Where(t => t.Id == tournamentGuid)
                     .Select(t => new TournamentDetailsViewModel()
@@ -136,8 +144,8 @@ namespace TennisLodge.Services.Core
 
             if (isIdValidGuid)
             {
-                tournamentDetails = await this.dbContext
-                    .Tournaments
+                tournamentDetails = await this.tournamentRepository
+                    .GetAllAttached()
                     .AsNoTracking()
                     .Where(t => t.Id == tournamentGuid)
                     .Select(t => new TournamentFormInputModel()
@@ -161,11 +169,13 @@ namespace TennisLodge.Services.Core
 
         public async Task<bool> EditTournamentAsync(TournamentFormInputModel inputModel)
         {
+            bool result = false;
+
             Tournament? tournamentToEdit = await this.FindTournamentByStringId(inputModel.Id);
 
             if (tournamentToEdit == null)
             {
-                return false;
+                return result;
             }
 
             DateOnly startDate = DateOnly.ParseExact(inputModel.StartDate, AppDateFormat,
@@ -184,28 +194,37 @@ namespace TennisLodge.Services.Core
             tournamentToEdit.StartDate = startDate;
             tournamentToEdit.EndDate = endDate;
 
-            await this.dbContext.SaveChangesAsync();
+            result = await this.tournamentRepository.UpdateAsync(tournamentToEdit);
 
-            return true;
+            return result;
         }
 
         public async Task<bool> SoftDeleteTournamentAsync(string? id)
         {
-            Tournament? tournamentToDelete = await this.FindTournamentByStringId(id);
-
-            if (tournamentToDelete == null)
+            try
             {
+                Tournament? tournamentToDelete = await this.FindTournamentByStringId(id);
+
+                if (tournamentToDelete == null)
+                {
+                    return false;
+                }
+
+                tournamentToDelete.IsDeleted = true;
+                
+
+                await this.tournamentRepository.UpdateAsync(tournamentToDelete);
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
                 return false;
             }
-
-            tournamentToDelete.IsDeleted = true;
-
-            await this.dbContext.SaveChangesAsync();
-
-            return true;
         }
 
-        
+
 
         private async Task<Tournament?> FindTournamentByStringId(string? id)
         {
@@ -216,9 +235,8 @@ namespace TennisLodge.Services.Core
                 bool isGuidValid = Guid.TryParse(id, out Guid tournamentGuid);
                 if (isGuidValid)
                 {
-                    tournament = await this.dbContext
-                        .Tournaments
-                        .FindAsync(tournamentGuid);
+                    tournament = await this.tournamentRepository
+                        .GetByIdAsync(tournamentGuid);
                 }
             }
 

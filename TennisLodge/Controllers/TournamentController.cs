@@ -189,31 +189,23 @@ namespace TennisLodge.Web.Controllers
             }
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Delete(TournamentDetailsViewModel inputModel)
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            try
+            if (string.IsNullOrWhiteSpace(id))
             {
-                if (!this.ModelState.IsValid)
-                {
-                    return RedirectToAction(nameof(Index));
-                }
-                bool deleteResult = await this.tournamentService.SoftDeleteTournamentAsync(inputModel.Id);
-
-                if (deleteResult == false)
-                {
-                    ModelState.AddModelError(string.Empty, "Fatal error occurred while deleting the tournament");
-                    return RedirectToAction(nameof(Index));
-                }
-
                 return RedirectToAction(nameof(Index));
             }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
 
+            bool deleteResult = await this.tournamentService.SoftDeleteTournamentAsync(id);
+
+            if (!deleteResult)
+            {
+                ModelState.AddModelError(string.Empty, "Fatal error occurred while deleting the tournament");
                 return RedirectToAction(nameof(Index));
             }
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }

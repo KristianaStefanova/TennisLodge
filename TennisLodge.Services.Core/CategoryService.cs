@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using TennisLodge.Data;
+using TennisLodge.Data.Repository.Interfaces;
 using TennisLodge.Services.Core.Interfaces;
 using TennisLodge.Web.ViewModels.Tournament;
 
@@ -12,16 +13,16 @@ namespace TennisLodge.Services.Core
 {
     public class CategoryService : ICategoryService
     {
-        private readonly TennisLodgeDbContext dbContext;
+        private readonly ICategoryRepository categoryRepository;
 
-        public CategoryService(TennisLodgeDbContext dbContext)
+        public CategoryService(ICategoryRepository categoryRepository)
         {
-            this.dbContext = dbContext;
+            this.categoryRepository = categoryRepository;
         }
         public async Task<IEnumerable<CategoryViewModel>> GetAllCategoriesAsync()
         {
-            IEnumerable<CategoryViewModel> categoryAsDropDown =  await dbContext
-            .Categories
+            IEnumerable<CategoryViewModel> categoryAsDropDown =  await this.categoryRepository
+            .GetAllAttached()
             .AsNoTracking()
             .Select(c => new CategoryViewModel
             {

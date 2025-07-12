@@ -8,7 +8,7 @@ using TennisLodge.Data.Models;
 namespace TennisLodge.Data.Repository.Interfaces
 {
     public interface ICategoryRepository 
-        : IRepository<Category, Guid>, IAsyncRepository<Category, Guid>
+        : IRepository<Category, int>, IAsyncRepository<Category, int>
     {
     }
 }
