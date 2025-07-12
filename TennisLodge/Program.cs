@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using TennisLodge.Services.Core.Interfaces;
 using TennisLodge.Services.Core;
 using TennisLodge.Data.Models;
+using TennisLodge.Data.Repository.Interfaces;
+using TennisLodge.Data.Repository;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -29,6 +31,11 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
     options.Password.RequiredUniqueChars = 0;
 })
 .AddEntityFrameworkStores<TennisLodgeDbContext>();
+
+builder.Services.AddScoped<ITournamentRepository, TournamentRepository>();
+builder.Services.AddScoped<IFavoriteRepository, FavoriteRepository>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+
 
 builder.Services.AddScoped<ITournamentService, TournamentService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
