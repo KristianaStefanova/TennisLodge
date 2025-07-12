@@ -21,17 +21,15 @@ namespace TennisLodge.Services.Core
     {
         private readonly ICategoryRepository categoryRepository;
         private readonly ITournamentRepository tournamentRepository;    
-        private readonly TennisLodgeDbContext dbContext;
         private readonly UserManager<ApplicationUser> userManager;
         
 
-        public TournamentService(ICategoryRepository categoryRepository, ITournamentRepository tournamentRepository, TennisLodgeDbContext dbContext, UserManager<ApplicationUser> userManager)
+        public TournamentService(ICategoryRepository categoryRepository, 
+            ITournamentRepository tournamentRepository, UserManager<ApplicationUser> userManager)
         {
             this.categoryRepository = categoryRepository;
             this.tournamentRepository = tournamentRepository;
-            this.dbContext = dbContext;
             this.userManager = userManager;
-
         }
 
 
