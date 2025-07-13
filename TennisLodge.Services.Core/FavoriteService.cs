@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TennisLodge.Data;
 using TennisLodge.Data.Models;
+using TennisLodge.Data.Repository.Interfaces;
 using TennisLodge.Services.Core.Interfaces;
 using TennisLodge.Web.ViewModels.Favorite;
 using static TennisLodge.GCommon.ApplicationConstants;
@@ -9,18 +10,18 @@ namespace TennisLodge.Services.Core
 {
     public class FavoriteService : IFavoriteService
     {
-        private readonly TennisLodgeDbContext dbContext;
+        private readonly IFavoriteRepository favoriteRepository;
 
-        public FavoriteService(TennisLodgeDbContext dbContext)
+        public FavoriteService(IFavoriteRepository favoriteRepository, TennisLodgeDbContext dbContext)
         {
-            this.dbContext = dbContext;
+            this.favoriteRepository = favoriteRepository;
         }
 
 
         public async Task<IEnumerable<FavoriteTournamentViewModel>> GetAllFavoriteTournamentsAsync(string userId)
         {
-            IEnumerable<FavoriteTournamentViewModel> favoriteTournaments = await this.dbContext
-                .UserTournaments
+            IEnumerable<FavoriteTournamentViewModel> favoriteTournaments = await this.favoriteRepository
+                .GetAllAttached()
                 .Include(f => f.Tournament)
                 .ThenInclude(t => t.Category)
                 .AsNoTracking()
@@ -51,8 +52,8 @@ namespace TennisLodge.Services.Core
 
                 if (idTournamentIdValid)
                 {
-                    UserTournament? userTournamentEntry = await this.dbContext
-                        .UserTournaments
+                    UserTournament? userTournamentEntry = await this.favoriteRepository
+                        .GetAllAttached()
                         .IgnoreQueryFilters()
                         .SingleOrDefaultAsync(ut => ut.TournamentId.ToString() == tournamentGuid.ToString() &&
                                               ut.UserId.ToLower() == userId);
@@ -60,6 +61,7 @@ namespace TennisLodge.Services.Core
                     if (userTournamentEntry != null)
                     {
                         userTournamentEntry.IsDeleted = false;
+                        result = await this.favoriteRepository.UpdateAsync(userTournamentEntry);
                     }
                     else
                     {
@@ -69,12 +71,9 @@ namespace TennisLodge.Services.Core
                             UserId = userId
                         };
 
-                        await this.dbContext.AddAsync(userTournamentEntry);
+                        await this.favoriteRepository.AddAsync(userTournamentEntry);
+                        result = true;
                     }
-
-                    await this.dbContext.SaveChangesAsync();
-
-                    result = true;
                 }
             }
 
@@ -91,18 +90,14 @@ namespace TennisLodge.Services.Core
 
                 if (idTournamentIdValid)
                 {
-                    UserTournament? userTournamentEntry = await this.dbContext
-                        .UserTournaments
+                    UserTournament? userTournamentEntry = await this.favoriteRepository
                         .SingleOrDefaultAsync(ut => ut.TournamentId.ToString() == tournamentGuid.ToString() &&
                                               ut.UserId.ToLower() == userId);
 
                     if (userTournamentEntry != null)
                     {
-                        userTournamentEntry.IsDeleted = true;
-
-                        await this.dbContext.SaveChangesAsync();
-
-                        result = true;
+                        result = await this.favoriteRepository
+                            .DeleteAsync(userTournamentEntry);
                     }
                 }
             }
@@ -120,8 +115,7 @@ namespace TennisLodge.Services.Core
 
                 if (idTournamentIdValid)
                 {
-                    UserTournament? userTournamentEntry = await this.dbContext
-                        .UserTournaments
+                    UserTournament? userTournamentEntry = await this.favoriteRepository
                         .SingleOrDefaultAsync(ut => ut.TournamentId.ToString() == tournamentGuid.ToString() &&
                                               ut.UserId.ToLower() == userId);
 

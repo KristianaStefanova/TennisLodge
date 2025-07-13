@@ -123,7 +123,7 @@ namespace TennisLodge.Data.Repository
                 .SingleOrDefault(predicate);
         }
 
-        public Task<TEntity?> SinglesOrDefaultAsync(Expression<Func<TEntity, bool>> predicate)
+        public Task<TEntity?> SingleOrDefaultAsync(Expression<Func<TEntity, bool>> predicate)
         {
             return this.DbSet
                 .SingleOrDefaultAsync(predicate);
