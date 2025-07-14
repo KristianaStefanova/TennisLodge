@@ -46,18 +46,11 @@ namespace TennisLodge.Data.Configurations
                 .OnDelete(DeleteBehavior.Restrict);
 
 
-            // Define quiery filter to hide the UserTournament entries reffering deleted Movie.
+            // Define quiery filter to hide the UserTournament entries reffering deleted Tournament.
             // Solves the problem with relations during delete
             entity
-                .HasQueryFilter(ud => ud.Tournament.IsDeleted == false);
-
-
-
-            //Define query filter to hide the deleted entries in the UserTournaments
-            entity
-                .HasQueryFilter(ud => ud.IsDeleted == false);
-
-
+                .HasQueryFilter(ud => ud.Tournament.IsDeleted == false &&
+                                      ud.IsDeleted == false);
 
         }
     }
