@@ -287,7 +287,7 @@ namespace TennisLodge.Data.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("Admin", t =>
+                    b.ToTable("Admins", t =>
                         {
                             t.HasComment("Admin user in the system");
                         });
@@ -378,7 +378,7 @@ namespace TennisLodge.Data.Migrations
                             Id = "7699db7d-964f-4782-8209-d76562e0fece",
                             AccessFailedCount = 0,
                             City = "Sofia",
-                            ConcurrencyStamp = "65c905db-a177-4334-a19c-e728de619938",
+                            ConcurrencyStamp = "3b8e348b-6f81-4464-b718-6c532d1b0e81",
                             Email = "admin@tennislodge.com",
                             EmailConfirmed = true,
                             FirstName = "Admin",
@@ -386,9 +386,9 @@ namespace TennisLodge.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@TENNISLODGE.COM",
                             NormalizedUserName = "ADMIN@TENNISLODGE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEAZ+llzBaisQAFuLnaqkdykwhyHfbrjKH6Fble4/yiYdmyYtaMxUxFtCeDz8k94iIQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEB8cHYKyD+1IQRsarQnH0B4/3LkjFt4D8snuy/tMtwJBPI9hIYVDkAscwV8domfgtA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "824bfc02-f888-49d8-8cf6-ce7df51e2b13",
+                            SecurityStamp = "1cb04558-e9b5-408d-a832-c03bbbcd7913",
                             TwoFactorEnabled = false,
                             UserName = "admin@tennislodge.com"
                         });

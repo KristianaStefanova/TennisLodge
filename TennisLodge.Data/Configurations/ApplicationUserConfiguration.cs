@@ -10,7 +10,7 @@ namespace TennisLodge.Data.Configurations
         public void Configure(EntityTypeBuilder<ApplicationUser> entity)
         {
             ApplicationUser adminUser = new ApplicationUser
-            {
+            { 
                 Id = "7699db7d-964f-4782-8209-d76562e0fece",
                 UserName = "admin@tennislodge.com",
                 NormalizedUserName = "ADMIN@TENNISLODGE.COM",

@@ -19,7 +19,7 @@ namespace TennisLodge.Data.Migrations
                 comment: "Tournament's admin");
 
             migrationBuilder.CreateTable(
-                name: "Admin",
+                name: "Admins",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false, comment: "Admin identifier"),
@@ -28,9 +28,9 @@ namespace TennisLodge.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Admin", x => x.Id);
+                    table.PrimaryKey("PK_Admins", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Admin_AspNetUsers_UserId",
+                        name: "FK_Admins_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -43,7 +43,7 @@ namespace TennisLodge.Data.Migrations
                 keyColumn: "Id",
                 keyValue: "7699db7d-964f-4782-8209-d76562e0fece",
                 columns: new[] { "ConcurrencyStamp", "PasswordHash", "SecurityStamp" },
-                values: new object[] { "65c905db-a177-4334-a19c-e728de619938", "AQAAAAIAAYagAAAAEAZ+llzBaisQAFuLnaqkdykwhyHfbrjKH6Fble4/yiYdmyYtaMxUxFtCeDz8k94iIQ==", "824bfc02-f888-49d8-8cf6-ce7df51e2b13" });
+                values: new object[] { "3b8e348b-6f81-4464-b718-6c532d1b0e81", "AQAAAAIAAYagAAAAEB8cHYKyD+1IQRsarQnH0B4/3LkjFt4D8snuy/tMtwJBPI9hIYVDkAscwV8domfgtA==", "1cb04558-e9b5-408d-a832-c03bbbcd7913" });
 
             migrationBuilder.UpdateData(
                 table: "Tournaments",
@@ -163,16 +163,16 @@ namespace TennisLodge.Data.Migrations
                 column: "AdminId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Admin_UserId",
-                table: "Admin",
+                name: "IX_Admins_UserId",
+                table: "Admins",
                 column: "UserId",
                 unique: true);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Tournaments_Admin_AdminId",
+                name: "FK_Tournaments_Admins_AdminId",
                 table: "Tournaments",
                 column: "AdminId",
-                principalTable: "Admin",
+                principalTable: "Admins",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.SetNull);
         }
@@ -181,11 +181,11 @@ namespace TennisLodge.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Tournaments_Admin_AdminId",
+                name: "FK_Tournaments_Admins_AdminId",
                 table: "Tournaments");
 
             migrationBuilder.DropTable(
-                name: "Admin");
+                name: "Admins");
 
             migrationBuilder.DropIndex(
                 name: "IX_Tournaments_AdminId",
