@@ -66,6 +66,12 @@ namespace TennisLodge.Data.Models
         [Comment("Soft delete flag, true if tournament is deleted")]
         public bool IsDeleted { get; set; }
 
+        [Comment("Tournament's admin")]
+        public string? AdminId { get; set; }
+
+        [Comment("Foreign key to the admin user")]
+        public virtual Admin? Admin { get; set; }
+
 
         [Comment("User-Tournament join table navigation property")]
         public virtual ICollection<UserTournament> UserTournaments { get; set; } 

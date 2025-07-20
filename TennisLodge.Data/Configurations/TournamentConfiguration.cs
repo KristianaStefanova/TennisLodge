@@ -62,6 +62,12 @@ namespace TennisLodge.Data.Models.Configurations
                 .Property(t => t.IsDeleted)
                 .HasDefaultValue(false);
 
+            entity
+                .HasOne(t => t.Admin)
+                .WithMany(t => t.ManagedTournaments)
+                .HasForeignKey(t => t.AdminId)
+                .OnDelete(DeleteBehavior.SetNull);
+
 
             entity
                 .Property(t => t.PublisherId)
