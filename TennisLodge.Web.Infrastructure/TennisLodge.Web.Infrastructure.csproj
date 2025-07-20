@@ -20,4 +20,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TennisLodge.GCommon\TennisLodge.GCommon.csproj" />
+    <ProjectReference Include="..\TennisLodge.Services.Core\TennisLodge.Services.Core.csproj" />
+  </ItemGroup>
+
 </Project>

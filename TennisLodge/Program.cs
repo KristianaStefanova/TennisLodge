@@ -7,6 +7,8 @@ using TennisLodge.Services.Core;
 using TennisLodge.Data.Models;
 using TennisLodge.Data.Repository.Interfaces;
 using TennisLodge.Data.Repository;
+using TennisLodge.Web.Infrastructure.Middlewares;
+using TennisLodge.Web.Infrastructure.Extensions;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -35,11 +37,13 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 builder.Services.AddScoped<ITournamentRepository, TournamentRepository>();
 builder.Services.AddScoped<IFavoriteRepository, FavoriteRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IAdminRepository, AdminRepository>();
 
 
 builder.Services.AddScoped<ITournamentService, TournamentService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IFavoriteService, FavoriteService>();
+builder.Services.AddScoped<IAdminService, AdminService>();
 
 builder.Services.AddHttpContextAccessor();
 
@@ -65,7 +69,9 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
+app.UseAdminAccessRestriction();
 
 app.MapControllerRoute(
     name: "default",

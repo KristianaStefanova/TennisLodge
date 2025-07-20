@@ -7,5 +7,9 @@
         public const string NoImageUrl = "no-image.jpg";
 
         public const string IsDeletedPropertyName = "IsDeleted";
+
+        public const string AccessDeniedPath = "/Home/AccessDenied";
+
+        public const string AdminAuthCookie = "AdminAuth";
     }
 }
