@@ -32,6 +32,9 @@
 							<a class="nav-link" asp-area="" asp-controller="Tournament" asp-action="Index">Tournaments</a>
 						</li>
 						<li class="nav-item">
+							<a class="nav-link" asp-area="" asp-controller="Accommodation" asp-action="Index">Accommodations</a>
+						</li>
+						<li class="nav-item">
 							<a class="nav-link text-dark" asp-area="" asp-controller="Favorite" asp-action="Index">Favorites</a>
 						</li>
 						@if (User?.Identity?.IsAuthenticated ?? false)
@@ -39,6 +42,11 @@
 							<li class="nav-item">
 								<a class="nav-link text-success fw-semibold" asp-area="" asp-controller="Tournament" asp-action="Create">
 									<i class="bi bi-plus-circle"></i> Create Tournament
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-success fw-semibold" asp-area="" asp-controller="Accommodation" asp-action="Add">
+									<i class="bi bi-house-door"></i> Add Accommodation
 								</a>
 							</li>
 						}
