@@ -9,12 +9,6 @@
 <div class="container py-4">
 	<h1 class="mb-4 text-center">Available Tournaments</h1>
 
-	<div class="text-end mb-3">
-		<a asp-controller="Tournament" asp-action="Create" class="btn btn-success">
-			<i class="bi bi-plus-circle me-1"></i> Create Tournament
-		</a>
-	</div>
-
 	@if (!Model.Any())
 	{
 		<div class="alert alert-info text-center">
