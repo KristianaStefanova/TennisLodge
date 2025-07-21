@@ -1,0 +1,34 @@
+﻿@using TennisLodge.Web.ViewModels.Accommodation
+@model IEnumerable<AccommodationViewModel>
+
+@{
+    ViewData["Title"] = "Accommodation Offers";
+}
+
+<h2 class="mb-4">Accommodation Offers</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>City</th>
+            <th>Available From</th>
+            <th>Available To</th>
+            <th>Host</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (AccommodationViewModel item in Model)
+        {
+            <tr>
+                <td>@item.City</td>
+                <td>@item.AvailableFrom?.ToShortDateString()</td>
+                <td>@item.AvailableTo?.ToShortDateString()</td>
+                <td>@item.HostFullName</td>
+                <td>
+                    <a class="btn btn-sm btn-primary disabled">Request</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

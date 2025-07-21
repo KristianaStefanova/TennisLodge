@@ -6,7 +6,6 @@ using TennisLodge.Web.Controllers;
 
 namespace TennisLodge.Controllers
 {
-    
     public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
