@@ -9,11 +9,11 @@ namespace TennisLodge.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Accommodation> builder)
         {
-            
+
             builder
                 .HasKey(a => a.Id);
 
-            
+
             builder
                 .Property(a => a.Id)
                 .ValueGeneratedOnAdd()
@@ -35,14 +35,15 @@ namespace TennisLodge.Data.Configurations
 
             builder
                 .Property(a => a.City)
-                .IsRequired();
+                .IsRequired()
+                .HasMaxLength(CityMaxLength)
+                .HasComment("City where the accommodation is located");
 
 
             builder
                 .Property(a => a.Address)
                 .IsRequired()
                 .HasMaxLength(AddressMaxLength);
-                
 
 
             builder
@@ -66,6 +67,19 @@ namespace TennisLodge.Data.Configurations
             builder
                 .Property(a => a.CreatedOn)
                 .HasDefaultValueSql("GETUTCDATE()");
+
+
+            builder
+                 .Property(a => a.AvailableFrom)
+                 .IsRequired()
+                 .HasComment("Start of availability window");
+
+
+            builder
+                .Property(a => a.AvailableTo)
+                .IsRequired()
+                .HasComment("End of availability window");
+
         }
     }
 }

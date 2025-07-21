@@ -42,5 +42,14 @@ namespace TennisLodge.Data.Models
 
         [Comment("Date when the offer was created")]
         public DateTime CreatedOn { get; set; } = DateTime.UtcNow;
+
+
+        [Comment("Start date of the accommodation availability window")]
+        public DateTime? AvailableFrom { get; set; }
+
+
+        [Comment("End date of the accommodation availability window")]
+        public DateTime? AvailableTo { get; set; }
+
     }
 }

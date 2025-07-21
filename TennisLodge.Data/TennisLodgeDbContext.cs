@@ -19,6 +19,7 @@ namespace TennisLodge.Data
         public virtual DbSet<Category> Categories { get; set; } = null!;
         public virtual DbSet<Admin> Admins { get; set; } = null!;
 
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
