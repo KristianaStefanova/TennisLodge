@@ -44,5 +44,21 @@ namespace TennisLodge.Web.ViewModels
             public const string ServiceCreateError =
                 "Fatal error occurred while adding your tournament! Please try again later!";
         }
+
+        public static class Accommodation
+        {
+            public const string CityRequiredMessage = "City is required.";
+            public const string CityMinLengthMessage = "City must be at least 2 characters.";
+            public const string CityMaxLengthMessage = "City cannot exceed 50 characters.";
+            public const string AddressRequiredMessage = "Address is required.";
+            public const string AddressMinLengthMessage = "Address must be at least 2 characters.";
+            public const string AddressMaxLengthMessage = "Address cannot exceed 200 characters.";
+            public const string MaxGuestsRequiredMessage = "Maximum number of guests is required.";
+            public const string MaxGuestsRangeMessage = "Maximum number of guests must be between 1 and 20.";
+            public const string AvailableFromDateInvalidMessage = "Available From date is invalid.";
+            public const string AvailableToDateInvalidMessage = "Available To date is invalid.";
+            public const string AvailableToBeforeFromDateMessage = "Available To date must be after Available From date.";
+            public const string NotesMaxLengthMessage = "Notes cannot exceed 500 characters.";
+        }
     }
 }

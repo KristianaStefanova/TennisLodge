@@ -78,9 +78,16 @@ namespace TennisLodge.Data.Common
 
         public static class Accommodation
         {
+            public const int AddressMinLength = 2;
             public const int AddressMaxLength = 80;
 
             public const int NotesMaxLength = 80;
+
+            public const int MinGuestsCount = 1;
+            public const int MaxGuestsCount = 20;
+
+            public const int CityMinLength = 2;
+            public const int CityMaxLength = 50;
         }
 
         public static class Category
