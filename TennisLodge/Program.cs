@@ -39,14 +39,9 @@ builder.Services.AddScoped<IFavoriteRepository, FavoriteRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IAdminRepository, AdminRepository>();
 
-
-builder.Services.AddScoped<ITournamentService, TournamentService>();
-builder.Services.AddScoped<ICategoryService, CategoryService>();
-builder.Services.AddScoped<IFavoriteService, FavoriteService>();
-builder.Services.AddScoped<IAdminService, AdminService>();
+builder.Services.AddUserDefineServices(typeof(ITournamentService).Assembly);
 
 builder.Services.AddHttpContextAccessor();
-
 
 builder.Services.AddControllersWithViews();
 
