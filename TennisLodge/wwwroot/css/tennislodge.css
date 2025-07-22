@@ -3,7 +3,7 @@
 }
 
 body.tennislodge {
-    background-image: url('/images/Tennis-Ball.jpg'); /* Ruta a tu imagen */
+    background-image: url('/images/Tennis-Ball.jpg');
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
@@ -13,10 +13,10 @@ body.tennislodge {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    position: relative; /* para overlay */
+    position: relative; 
 }
 
-    /* Overlay blanco semi-transparente para legibilidad */
+  
     body.tennislodge::before {
         content: "";
         position: fixed;
@@ -24,7 +24,7 @@ body.tennislodge {
         left: 0;
         right: 0;
         bottom: 0;
-        background-color: rgba(255, 255, 255, 0.6); /* ajuste opacidad si quieres más o menos */
+        background-color: rgba(255, 255, 255, 0.6); 
         z-index: -1;
     }
 
@@ -34,7 +34,6 @@ body.tennislodge {
         flex-direction: column;
     }
 
-    /* Títulos en verde bosque */
     body.tennislodge h1,
     body.tennislodge h2,
     body.tennislodge h3 {
@@ -42,7 +41,6 @@ body.tennislodge {
         font-weight: 700;
     }
 
-    /* Botones primarios verdes */
     body.tennislodge .btn-primary {
         background-color: #2a6f4a;
         border-color: #225d3a;
@@ -55,7 +53,6 @@ body.tennislodge {
             border-color: #1b4529;
         }
 
-    /* Enlaces verdes */
     body.tennislodge a {
         color: #2a6f4a;
         text-decoration: none;
@@ -67,7 +64,6 @@ body.tennislodge {
             text-decoration: underline;
         }
 
-    /* Tarjetas con fondo claro y sombra suave */
     body.tennislodge .card {
         background-color: #f9f9f9;
         border-radius: 10px;
@@ -75,7 +71,6 @@ body.tennislodge {
         color: #2a6f4a;
     }
 
-    /* Inputs y formularios estilizados */
     body.tennislodge input,
     body.tennislodge select,
     body.tennislodge textarea {
@@ -95,12 +90,10 @@ body.tennislodge {
             box-shadow: 0 0 5px #2a6f4a;
         }
 
-    /* Contenedor principal con padding */
     body.tennislodge .container {
         padding: 30px;
     }
 
-    /* Botones secundarios neutros */
     body.tennislodge .btn-secondary {
         background-color: #e0e0e0;
         color: #2a6f4a;
@@ -114,7 +107,6 @@ body.tennislodge {
             color: #1b4529;
         }
 
-    /* Tablas estilo verde suave */
     body.tennislodge .table-dark {
         background-color: #dff0d8;
         color: #2a6f4a;
@@ -126,7 +118,6 @@ body.tennislodge {
         color: #fff;
     }
 
-    /* Botones en tarjetas con animación */
     body.tennislodge .cinema-index-card .btn,
     body.tennislodge .cinema-program-card .btn {
         background-color: #2a6f4a;
@@ -148,24 +139,22 @@ body.tennislodge {
             transform: scale(0.98);
         }
 
-    /* Barra de navegación clara con texto verde bosque */
     body.tennislodge .navbar {
         background-color: #ffffff !important;
         border-bottom: 1px solid #ccc;
     }
 
-        body.tennislodge .navbar .navbar-brand,
-        body.tennislodge .navbar .nav-link {
-            color: #2a6f4a !important;
-            font-weight: 600;
-        }
+body.tennislodge .navbar .navbar-brand,
+body.tennislodge .navbar .nav-link {
+    color: #2a6f4a !important;
+    font-weight: 600;
+}
 
-            body.tennislodge .navbar .nav-link:hover {
-                color: #1b4529 !important;
-                text-decoration: underline;
-            }
+body.tennislodge .navbar .nav-link:hover {
+    color: #1b4529 !important;
+    text-decoration: underline;
+}
 
-    /* Footer al fondo */
     body.tennislodge footer {
         background-color: #f2f2f2;
         color: #2a6f4a;
