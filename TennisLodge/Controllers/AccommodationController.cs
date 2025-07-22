@@ -143,5 +143,34 @@ namespace TennisLodge.Web.Controllers
                 return RedirectToAction(nameof(Index));
             }
         }
+
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirmed(string id)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(id))
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+
+                bool deleteResult = await this.accommodationService
+                    .SoftDeleteAccommodationAsync(id);
+
+                if (!deleteResult)
+                {
+                    ModelState.AddModelError(string.Empty, "Fatal error occurred while deleting the accommodation");
+                    return RedirectToAction(nameof(Index));
+                }
+
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return RedirectToAction(nameof(Index));
+            }
+            
+        }
     }
 }

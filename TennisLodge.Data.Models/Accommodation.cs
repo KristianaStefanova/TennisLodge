@@ -51,5 +51,12 @@ namespace TennisLodge.Data.Models
         [Comment("End date of the accommodation availability window")]
         public DateTime? AvailableTo { get; set; }
 
+        [Comment("Indicates if the accommodation has been soft-deleted")]
+        public bool IsDeleted { get; set; } = false;
+
+        [Comment("Date when the accommodation was soft-deleted")]
+        public DateTime? DeletedOn { get; set; }
+
+
     }
 }

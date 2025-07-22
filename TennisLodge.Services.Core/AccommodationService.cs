@@ -61,6 +61,7 @@ namespace TennisLodge.Services.Core
             IEnumerable<AccommodationViewModel> accommodations = await this.accommodationRepository
                 .GetAllAttached()
                 .AsNoTracking()
+                .Where(a => !a.IsDeleted)
                 .Where(a => a.IsAvailable)
                 .Select(a => new AccommodationViewModel
                 {
@@ -106,7 +107,7 @@ namespace TennisLodge.Services.Core
         {
             bool result = false;
 
-            if (string.IsNullOrEmpty(inputModel.Id) || 
+            if (string.IsNullOrEmpty(inputModel.Id) ||
                 !int.TryParse(inputModel.Id, out int accommodationId))
             {
                 return false;
@@ -115,10 +116,10 @@ namespace TennisLodge.Services.Core
             Accommodation? editableAccommodation = await this.FindAccommodationByStringId(inputModel.Id);
             if (editableAccommodation == null)
             {
-                return false; 
+                return false;
             }
 
-            
+
             editableAccommodation.City = inputModel.City;
             editableAccommodation.Address = inputModel.Address;
             editableAccommodation.MaxGuests = inputModel.MaxGuests;
@@ -126,36 +127,19 @@ namespace TennisLodge.Services.Core
             editableAccommodation.AvailableTo = inputModel.AvailableTo ?? editableAccommodation.AvailableTo;
             editableAccommodation.Notes = inputModel.Notes;
 
-            
+
             result = await this.accommodationRepository.UpdateAsync(editableAccommodation);
 
             return result;
         }
 
 
-        private async Task<Accommodation?> FindAccommodationByStringId(string? id)
-        {
-            Accommodation? accommodation = null;
-
-            if (!string.IsNullOrWhiteSpace(id))
-            {
-                bool isIntValid = int.TryParse(id, out int accommodationInt);
-                if (isIntValid)
-                {
-                    accommodation = await this.accommodationRepository
-                        .GetByIdAsync(accommodationInt);
-                }
-            }
-
-            return accommodation;
-        }
-
         public async Task<AccommodationCreateInputModel?> GetEditableAccommodationByIdAsync(string? id)
         {
             AccommodationCreateInputModel? editableAccommodation = null;
 
             bool isIntValid = int.TryParse(id, out int accommodationId);
-            if(isIntValid)
+            if (isIntValid)
             {
                 editableAccommodation = await this.accommodationRepository
                     .GetAllAttached()
@@ -193,28 +177,45 @@ namespace TennisLodge.Services.Core
             return result;
         }
 
-            public async Task<AccommodationViewModel?> GetAccomodationDeleteDetailsByIdAsync(string? id)
+        public async Task<AccommodationViewModel?> GetAccomodationDeleteDetailsByIdAsync(string? id)
+        {
+            AccommodationViewModel? deleteAccommodationVM = null;
+
+            Accommodation? accommodationToBeDeleted = await this.FindAccommodationByStringId(id);
+            if (accommodationToBeDeleted != null)
             {
-                AccommodationViewModel? deleteAccommodationVM = null;
-
-                Accommodation? accommodationToBeDeleted = await this.FindAccommodationByStringId(id);
-                if (accommodationToBeDeleted != null)
+                deleteAccommodationVM = new AccommodationViewModel()
                 {
-                    deleteAccommodationVM = new AccommodationViewModel()
-                    {
-                        Id = accommodationToBeDeleted.Id,
-                        City = accommodationToBeDeleted.City,
-                        AvailableFrom = accommodationToBeDeleted.AvailableFrom,
-                        AvailableTo = accommodationToBeDeleted.AvailableTo,
-                        HostFullName = accommodationToBeDeleted.HostUser?.UserName ?? "Unknown",
-                        HostUserId = accommodationToBeDeleted.HostUserId,
-                        Address = accommodationToBeDeleted.Address,
-                        IsOwner = false
-                    };
-                }
-
-                return deleteAccommodationVM;
+                    Id = accommodationToBeDeleted.Id,
+                    City = accommodationToBeDeleted.City,
+                    AvailableFrom = accommodationToBeDeleted.AvailableFrom,
+                    AvailableTo = accommodationToBeDeleted.AvailableTo,
+                    HostFullName = accommodationToBeDeleted.HostUser?.UserName ?? "Unknown",
+                    HostUserId = accommodationToBeDeleted.HostUserId,
+                    Address = accommodationToBeDeleted.Address,
+                    IsOwner = false
+                };
             }
+
+            return deleteAccommodationVM;
+        }
+
+        private async Task<Accommodation?> FindAccommodationByStringId(string? id)
+        {
+            Accommodation? accommodation = null;
+
+            if (!string.IsNullOrWhiteSpace(id))
+            {
+                bool isIntValid = int.TryParse(id, out int accommodationInt);
+                if (isIntValid)
+                {
+                    accommodation = await this.accommodationRepository
+                        .GetByIdAsync(accommodationInt);
+                }
+            }
+
+            return accommodation;
+        }
     }
 }
 
