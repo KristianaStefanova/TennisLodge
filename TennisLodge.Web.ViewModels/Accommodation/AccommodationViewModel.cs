@@ -17,5 +17,9 @@ namespace TennisLodge.Web.ViewModels.Accommodation
         public DateTime? AvailableTo { get; set; }
 
         public string HostFullName { get; set; } = null!;
+
+        public string HostUserId { get; set; } = null!;
+
+        public bool IsOwner { get; set; }
     }
 }

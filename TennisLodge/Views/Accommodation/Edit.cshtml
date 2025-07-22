@@ -1,0 +1,70 @@
+﻿@using TennisLodge.Web.ViewModels.Accommodation
+@model AccommodationCreateInputModel
+
+@{
+    ViewData["Title"] = "Edit Accommodation";
+}
+
+<div class="container mt-5 mb-5">
+    <div class="card shadow-lg rounded-4">
+        <div class="card-body p-5">
+            <h2 class="mb-4 text-center text-success">Edit Accommodation</h2>
+
+            <form asp-action="Edit" method="post" novalidate>
+                <input type="hidden" asp-for="Id" />
+
+                <div class="row g-4">
+
+                    <div class="col-md-6">
+                        <label asp-for="City" class="form-label fw-semibold"></label>
+                        <input asp-for="City" class="form-control" />
+                        <span asp-validation-for="City" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="Address" class="form-label fw-semibold"></label>
+                        <input asp-for="Address" class="form-control" />
+                        <span asp-validation-for="Address" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="MaxGuests" class="form-label fw-semibold"></label>
+                        <input asp-for="MaxGuests" class="form-control" />
+                        <span asp-validation-for="MaxGuests" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="AvailableFrom" class="form-label fw-semibold"></label>
+                        <input asp-for="AvailableFrom" class="form-control" type="date" />
+                        <span asp-validation-for="AvailableFrom" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="AvailableTo" class="form-label fw-semibold"></label>
+                        <input asp-for="AvailableTo" class="form-control" type="date" />
+                        <span asp-validation-for="AvailableTo" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-12">
+                        <label asp-for="Notes" class="form-label fw-semibold"></label>
+                        <textarea asp-for="Notes" class="form-control" rows="4"></textarea>
+                        <span asp-validation-for="Notes" class="text-danger small"></span>
+                    </div>
+                </div>
+
+                <div class="mt-4 text-center">
+                    <button type="submit" class="btn btn-primary px-4 py-2 rounded-pill">
+                        <i class="bi bi-check-circle me-2"></i>Save Changes
+                    </button>
+                    <a asp-action="All" class="btn btn-secondary ms-3 rounded-pill">
+                        <i class="bi bi-arrow-left-circle me-2"></i>Back
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
