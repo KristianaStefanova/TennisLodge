@@ -1,0 +1,44 @@
+﻿@using TennisLodge.Web.ViewModels.Accommodation
+@model AccommodationViewModel
+
+@{
+    ViewData["Title"] = "Confirm Delete Accommodation";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-sm border-0 rounded-4">
+                <div class="card-header text-center rounded-top-4"
+                     style="background-color: #f8d7da; color: #721c24; border-bottom: 1px solid #f5c6cb;">
+                    <h4 class="mb-0">Confirm Accommodation Deletion</h4>
+                </div>
+                <div class="card-body text-center rounded-bottom-4 p-4">
+
+                    <p class="fs-5">
+                        Are you sure you want to delete the accommodation in <strong>@Model.City</strong>?
+                    </p>
+                    <p class="text-muted mb-4">
+                        This action cannot be undone.
+                    </p>
+
+                    <div class="text-start mb-4">
+                        <div class="border rounded-3 p-3 bg-light">
+                            <p><strong>Address:</strong> @Model.Address</p>
+                            <p><strong>Available From:</strong> @Model.AvailableFrom?.ToShortDateString()</p>
+                            <p><strong>Available To:</strong> @Model.AvailableTo?.ToShortDateString()</p>
+                            <p><strong>Host:</strong> @Model.HostFullName</p>
+                        </div>
+                    </div>
+
+                    <form asp-action="Delete" asp-route-id="@Model.Id" method="post">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-outline-danger me-2 px-4 rounded-pill">Confirm</button>
+                        <a asp-action="Index" class="btn btn-outline-secondary px-4 rounded-pill">Cancel</a>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

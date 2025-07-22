@@ -21,5 +21,7 @@ namespace TennisLodge.Web.ViewModels.Accommodation
         public string HostUserId { get; set; } = null!;
 
         public bool IsOwner { get; set; }
+
+        public string Address { get; set; } = null!;
     }
 }

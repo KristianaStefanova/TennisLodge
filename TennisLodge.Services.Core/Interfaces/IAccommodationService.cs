@@ -19,7 +19,11 @@ namespace TennisLodge.Services.Core.Interfaces
 
         Task<AccommodationCreateInputModel?> GetEditableAccommodationByIdAsync(string? id);
 
-        Task<bool> EditAccomodationAsync(AccommodationCreateInputModel inputModel);
+        Task<bool> EditAccommodationAsync(AccommodationCreateInputModel inputModel);
+
+        Task<AccommodationViewModel?> GetAccomodationDeleteDetailsByIdAsync(string? id);
+
+        Task<bool> SoftDeleteAccommodationAsync(string? id);
 
 
 

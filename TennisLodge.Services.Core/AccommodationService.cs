@@ -102,7 +102,7 @@ namespace TennisLodge.Services.Core
             return new AccommodationCreateInputModel();
         }
 
-        public async Task<bool> EditAccomodationAsync(AccommodationCreateInputModel inputModel)
+        public async Task<bool> EditAccommodationAsync(AccommodationCreateInputModel inputModel)
         {
             bool result = false;
 
@@ -176,6 +176,45 @@ namespace TennisLodge.Services.Core
 
             return editableAccommodation;
         }
+
+        public async Task<bool> SoftDeleteAccommodationAsync(string? id)
+        {
+            bool result = false;
+            Accommodation? movieToDelete = await this
+                .FindAccommodationByStringId(id);
+            if (movieToDelete == null)
+            {
+                return false;
+            }
+
+            result = await this.accommodationRepository
+                .DeleteAsync(movieToDelete);
+
+            return result;
+        }
+
+            public async Task<AccommodationViewModel?> GetAccomodationDeleteDetailsByIdAsync(string? id)
+            {
+                AccommodationViewModel? deleteAccommodationVM = null;
+
+                Accommodation? accommodationToBeDeleted = await this.FindAccommodationByStringId(id);
+                if (accommodationToBeDeleted != null)
+                {
+                    deleteAccommodationVM = new AccommodationViewModel()
+                    {
+                        Id = accommodationToBeDeleted.Id,
+                        City = accommodationToBeDeleted.City,
+                        AvailableFrom = accommodationToBeDeleted.AvailableFrom,
+                        AvailableTo = accommodationToBeDeleted.AvailableTo,
+                        HostFullName = accommodationToBeDeleted.HostUser?.UserName ?? "Unknown",
+                        HostUserId = accommodationToBeDeleted.HostUserId,
+                        Address = accommodationToBeDeleted.Address,
+                        IsOwner = false
+                    };
+                }
+
+                return deleteAccommodationVM;
+            }
     }
 }
 

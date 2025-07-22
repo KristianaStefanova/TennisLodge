@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.Blazor;
 using System.Security.Claims;
 using TennisLodge.Services.Core;
 using TennisLodge.Services.Core.Interfaces;
@@ -93,6 +94,53 @@ namespace TennisLodge.Web.Controllers
                 Console.WriteLine(e.Message);
 
                 return this.RedirectToAction(nameof(Index));
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(AccommodationCreateInputModel inputModel)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(inputModel);
+            }
+
+            try
+            {
+                bool editSuccess = await this.accommodationService
+                    .EditAccommodationAsync(inputModel);
+                if (!editSuccess)
+                {
+                    return this.RedirectToAction(nameof(Index));
+                }
+
+                return this.RedirectToAction(nameof(Index), new { id = inputModel.Id });
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+
+                return this.RedirectToAction(nameof(Index));
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(string? id)
+        {
+            try
+            {
+                AccommodationViewModel? accommodationDetails = await this.accommodationService
+                    .GetAccomodationDeleteDetailsByIdAsync(id);
+                if (accommodationDetails == null)
+                {
+                    return this.RedirectToAction(nameof(Index));
+                }
+                return this.View(accommodationDetails);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return RedirectToAction(nameof(Index));
             }
         }
     }
