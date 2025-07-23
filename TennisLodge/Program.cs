@@ -34,12 +34,7 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 })
 .AddEntityFrameworkStores<TennisLodgeDbContext>();
 
-builder.Services.AddScoped<ITournamentRepository, TournamentRepository>();
-builder.Services.AddScoped<IFavoriteRepository, FavoriteRepository>();
-builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
-builder.Services.AddScoped<IAdminRepository, AdminRepository>();
-builder.Services.AddScoped<IAccommodationRepository, AccommodationRepository>();
-
+builder.Services.AddRepositories(typeof(ITournamentRepository).Assembly);
 builder.Services.AddUserDefineServices(typeof(ITournamentService).Assembly);
 
 builder.Services.AddHttpContextAccessor();

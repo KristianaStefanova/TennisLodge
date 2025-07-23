@@ -1,19 +1,16 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using TennisLodge.Services.Core;
-using TennisLodge.Services.Core.Interfaces;
+using static TennisLodge.GCommon.ExceptionMessages;
 
 namespace TennisLodge.Web.Infrastructure.Extensions
 {
     public static class ServiceCollectionExtensions
     {
         private static readonly string ServiceTypeSuffix = "Service";
-        private static readonly string ServiceInterfacePrefix = "I";
+        private static readonly string InterfacePrefix = "I";
+        private static readonly string RepositoryTypeSuffix = "Repository";
 
         public static IServiceCollection AddUserDefineServices(this IServiceCollection serviceCollection, Assembly serviceAssembly)
         {
@@ -25,16 +22,44 @@ namespace TennisLodge.Web.Infrastructure.Extensions
 
             foreach (Type serviceClass in serviceClasses)
             {
-                Type[] serviceClassInterfaces = serviceClass
-                    .GetInterfaces();
-                if (serviceClassInterfaces.Length == 1 &&
-                    serviceClassInterfaces.First().Name.StartsWith(ServiceInterfacePrefix) &&
-                    serviceClassInterfaces.First().Name.EndsWith(ServiceTypeSuffix))
+                Type? serviceInterface = serviceClass
+                    .GetInterfaces()
+                    .FirstOrDefault(i => i.Name == $"{InterfacePrefix}{serviceClass.Name}");
+                if (serviceInterface == null)
                 {
-                    Type serviceClassInterface = serviceClassInterfaces.First();
+                    throw new ArgumentException(string.Format(InterfaceNotFoundMessage, serviceClass.Name));
 
-                    serviceCollection.AddScoped(serviceClassInterface, serviceClass);
+
                 }
+
+                serviceCollection.AddScoped(serviceInterface, serviceClass);
+
+            }
+
+            return serviceCollection;
+        }
+
+        public static IServiceCollection AddRepositories(this IServiceCollection serviceCollection,
+            Assembly repositoryAssembly)
+        {
+            Type[] repositoryClasses = repositoryAssembly
+                .GetTypes()
+                .Where(t => !t.IsInterface &&
+                             !t.IsAbstract &&
+                              t.Name.EndsWith(RepositoryTypeSuffix))
+                .ToArray();
+
+            foreach (Type repositoryClass in repositoryClasses)
+            {
+                Type? repositoryInterface = repositoryClass
+                    .GetInterfaces()
+                    .FirstOrDefault(i => i.Name == $"{InterfacePrefix}{repositoryClass.Name}");
+
+                if (repositoryInterface == null)
+                {
+                    throw new ArgumentException(string.Format(InterfaceNotFoundMessage, repositoryClass.Name));
+                }
+                serviceCollection.AddScoped(repositoryInterface, repositoryClass);
             }
 
             return serviceCollection;

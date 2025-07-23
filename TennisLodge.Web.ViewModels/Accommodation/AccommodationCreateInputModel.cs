@@ -6,7 +6,7 @@ namespace TennisLodge.Web.ViewModels.Accommodation
 {
     public class AccommodationCreateInputModel
     {
-        public string Id { get; set; } = null!;
+        public string? Id { get; set; }
 
 
         [Required(ErrorMessage = CityRequiredMessage)]
