@@ -9,11 +9,11 @@ body.tennislodge {
     background-size: cover;
     background-attachment: fixed;
     color: #2a6f4a;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    display: flex;
+    font-family: 'Inter', sans-serif !important;
+    display: flex; 
     flex-direction: column;
     min-height: 100vh;
-    position: relative; 
+    position: relative;
 }
 
   
