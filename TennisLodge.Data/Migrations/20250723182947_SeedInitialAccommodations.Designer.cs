@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TennisLodge.Data;
 
@@ -11,9 +12,11 @@ using TennisLodge.Data;
 namespace TennisLodge.Data.Migrations
 {
     [DbContext(typeof(TennisLodgeDbContext))]
-    partial class TennisLodgeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250723182947_SeedInitialAccommodations")]
+    partial class SeedInitialAccommodations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
