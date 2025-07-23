@@ -1,0 +1,65 @@
+﻿.error-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+    color: #fff;
+    text-align: center;
+    padding: 2rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.error-card {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 3rem 4rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    max-width: 480px;
+    width: 100%;
+    backdrop-filter: blur(8px);
+}
+
+.error-code {
+    font-size: 8rem;
+    font-weight: 900;
+    margin-bottom: 0;
+    color: #e74c3c;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.error-title {
+    font-size: 2.5rem;
+    margin-top: 0.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+}
+
+.error-message {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+    line-height: 1.5;
+}
+
+.btn-return-home {
+    background-color: #27ae60;
+    border: none;
+    padding: 0.75rem 2rem;
+    font-size: 1.1rem;
+    color: white;
+    border-radius: 50px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 12px rgba(39, 174, 96, 0.5);
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-return-home:hover {
+    background-color: #219150;
+    box-shadow: 0 6px 16px rgba(33, 145, 80, 0.7);
+    color: white;
+    text-decoration: none;
+}
