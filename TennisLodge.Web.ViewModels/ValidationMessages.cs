@@ -60,5 +60,12 @@ namespace TennisLodge.Web.ViewModels
             public const string AvailableToBeforeFromDateMessage = "Available To date must be after Available From date.";
             public const string NotesMaxLengthMessage = "Notes cannot exceed 500 characters.";
         }
+
+        public static class AccommodationRequest
+        {
+            public const string TournamentIdRequiredMessage = "Tournament ID is required.";
+            public const string NumberOfGuestsRangeMessage = "Number of guests must be between 1 and 10.";
+            public const string NotesMaxLengthMessage = "Notes cannot exceed 500 characters.";
+        }
     }
 }

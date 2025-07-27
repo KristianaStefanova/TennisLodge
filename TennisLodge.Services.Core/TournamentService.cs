@@ -1,13 +1,14 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using TennisLodge.Data;
 using TennisLodge.Data.Models;
 using TennisLodge.Data.Repository.Interfaces;
@@ -220,6 +221,22 @@ namespace TennisLodge.Services.Core
                 Console.WriteLine(e.Message);
                 return false;
             }
+        }
+
+        public async Task<IEnumerable<SelectListItem>> GetAllAsSelectList()
+        {
+            List<SelectListItem> tournaments = await this.tournamentRepository
+                .GetAllAttached()
+                .AsNoTracking()
+                .OrderBy(t => t.Name)
+                .Select(t => new SelectListItem
+                {
+                    Text = t.Name,
+                    Value = t.Id.ToString()
+                })
+                .ToListAsync();
+
+            return tournaments;
         }
 
 

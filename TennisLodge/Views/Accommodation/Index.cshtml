@@ -1,9 +1,9 @@
 ﻿@using TennisLodge.Web.ViewModels.Accommodation
-@model IEnumerable<AccommodationViewModel>
+@model AccommodationListViewModel
 
 @{
     ViewData["Title"] = "Accommodation Offers";
-    IEnumerable<string> accommodationCity = Model
+    IEnumerable<string> accommodationCity = Model.Accommodations
          .Select(a => a.City).Distinct();
 }
 
@@ -27,7 +27,7 @@
 
     <partial name="_CityFilterPartial" model="accommodationCity" />
 
-    @if (!Model.Any())
+    @if (!Model.Accommodations.Any())
     {
         <div class="alert alert-info text-center">
             No accommodation offers available at the moment.
@@ -46,7 +46,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var accommodation in Model)
+                @foreach (var accommodation in Model.Accommodations)
                 {
                     <tr data-city="@accommodation.City">
                         <td>@accommodation.City</td>
@@ -74,10 +74,13 @@
                             }
                             else
                             {
-                                <button class="btn btn-sm fw-semibold text-white rounded-pill px-3 shadow"
-                                        style="background: linear-gradient(135deg, #3a7bd5, #00d2ff); border: none;">
-                                    <i class="bi bi-send-check me-1"></i>Request
-                                </button>
+                                <a asp-controller="AccommodationRequest"
+                                   asp-action="CreateRequest"
+                                   asp-route-accommodationId="@accommodation.Id"
+                                   asp-route-tournamentId="@accommodation.TournamentId"
+                                   class="btn btn-sm btn-primary btn-request">
+                                    @Html.Raw("<span style='color:white !important; opacity:1 !important; visibility:visible !important;'>Request</span>")
+                                </a>
                             }
                         </td>
                     </tr>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,6 +22,6 @@ namespace TennisLodge.Services.Core.Interfaces
 
         Task<bool> SoftDeleteTournamentAsync(string? id);
 
-
+        Task<IEnumerable<SelectListItem>> GetAllAsSelectList();
     }
 }

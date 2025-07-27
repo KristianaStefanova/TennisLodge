@@ -20,14 +20,13 @@ namespace TennisLodge.Web.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string? tournamentId)
         {
             IEnumerable<AccommodationViewModel> allAccommodations = await this.accommodationService
                 .GetAllAccommodationsAsync();
 
             if (this.IsUserAuthenticated())
             {
-
                 foreach (AccommodationViewModel accommodationViewModel in allAccommodations)
                 {
                     accommodationViewModel.IsOwner = await this.accommodationService
@@ -35,7 +34,13 @@ namespace TennisLodge.Web.Controllers
                 }
             }
 
-            return this.View(allAccommodations);
+            var model = new AccommodationListViewModel
+            {
+                TournamentId = tournamentId,
+                Accommodations = allAccommodations
+            };
+
+            return this.View(model);
         }
 
         [HttpGet]

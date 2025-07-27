@@ -106,6 +106,8 @@ namespace TennisLodge.Data.Common
         {
             public const int NotesdMaxLength = 350;
 
+            public const int NumberOfGuestsMinValue = 1;
+            public const int NumberOfGuestsMaxValue = 10;
         }
     }
 }
