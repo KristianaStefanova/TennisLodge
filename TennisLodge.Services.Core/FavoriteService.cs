@@ -105,28 +105,17 @@ namespace TennisLodge.Services.Core
             return result;
         }
 
-        public async Task<bool> IsTournamentInFavoritesAsync(string? tournamentId, string? userId)
+        public async Task<bool> IsTournamentInFavoritesAsync(Guid? tournamentId, string? userId)
         {
-            bool result = false;
-
-            if (tournamentId != null && userId != null)
+            if (tournamentId == null || string.IsNullOrEmpty(userId))
             {
-                bool idTournamentIdValid = Guid.TryParse(tournamentId, out Guid tournamentGuid);
-
-                if (idTournamentIdValid)
-                {
-                    UserTournament? userTournamentEntry = await this.favoriteRepository
-                        .SingleOrDefaultAsync(ut => ut.TournamentId.ToString() == tournamentGuid.ToString() &&
-                                              ut.UserId.ToLower() == userId);
-
-                    if (userTournamentEntry != null)
-                    {
-                        result = true;
-                    }
-                }
+                return false;
             }
 
-            return result;
+            UserTournament? userTournamentEntry = await this.favoriteRepository
+                .SingleOrDefaultAsync(ut => ut.TournamentId == tournamentId && ut.UserId.ToLower() == userId.ToLower());
+
+            return userTournamentEntry != null;
         }
     }
 }

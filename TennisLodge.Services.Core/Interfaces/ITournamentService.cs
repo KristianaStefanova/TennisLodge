@@ -23,5 +23,6 @@ namespace TennisLodge.Services.Core.Interfaces
         Task<bool> SoftDeleteTournamentAsync(string? id);
 
         Task<IEnumerable<SelectListItem>> GetAllAsSelectList();
+
     }
 }

@@ -12,6 +12,6 @@ namespace TennisLodge.Services.Core.Interfaces
 
         Task<bool> RemoveTournamentFromFavoriteAsync(string? tournamentId, string? userId);
 
-        Task<bool> IsTournamentInFavoritesAsync(string? tournamentId, string? userId);
+        Task<bool> IsTournamentInFavoritesAsync(Guid? tournamentId, string? userId);
     }
 }

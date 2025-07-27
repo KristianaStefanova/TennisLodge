@@ -79,7 +79,7 @@ namespace TennisLodge.Services.Core
                 .AsNoTracking()
                 .Select(t => new AllTournamentsIndexViewModel()
                 {
-                    Id = t.Id.ToString(),
+                    Id = t.Id,
                     Name = t.Name,
                     Location = t.Location,
                     Surface = t.Surface,
