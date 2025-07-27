@@ -8,7 +8,7 @@ namespace TennisLodge.Web.ViewModels.Tournament
 {
     public class AllTournamentsIndexViewModel
     {
-        public string Id { get; set; } = null!;
+        public Guid Id { get; set; }
 
         public string Name { get; set; } = null!;
 
@@ -27,6 +27,8 @@ namespace TennisLodge.Web.ViewModels.Tournament
         public string Organizer { get; set; } = null!;
 
         public bool IsAddedToUserFavorites { get; set; }
+
+        public bool IsUserJoined { get; set; }
     }
 
 }
