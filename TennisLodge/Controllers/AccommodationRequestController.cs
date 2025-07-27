@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TennisLodge.Services.Core;
 using TennisLodge.Services.Core.Interfaces;
 using TennisLodge.Web.ViewModels.Accommodation;
 
@@ -59,6 +60,30 @@ namespace TennisLodge.Web.Controllers
 
                 ModelState.AddModelError(string.Empty, "An error occurred while processing your request. Please try again.");
                 return this.View(inputModel);
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> MyRequests()
+        {
+            string? userId = GetUserId();
+
+            if (string.IsNullOrEmpty(userId))
+            {
+                return Unauthorized();
+            }
+
+            try
+            {
+                IEnumerable<AccommodationRequestViewModel> requests = await this.accommodationRequestService.GetRequestsByUserIdAsync(userId);
+                return View(requests);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                {
+                    return this.RedirectToAction();
+                }
             }
         }
     }

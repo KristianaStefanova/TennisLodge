@@ -10,5 +10,8 @@ namespace TennisLodge.Services.Core.Interfaces
     public interface IAccommodationRequestService
     {
         Task CreateAccommodationRequestAsync(string guestUserId, AccommodationRequestInputModel inputModel);
+
+        Task<IEnumerable<AccommodationRequestViewModel>> GetRequestsByUserIdAsync(string userId);
+
     }
 }

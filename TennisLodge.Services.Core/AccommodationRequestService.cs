@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -38,5 +39,27 @@ namespace TennisLodge.Services.Core
             await accommodationRequestRepository.AddAsync(accommodationRequest);
             await accommodationRequestRepository.SaveChangesAsync();
         }
+
+        public async Task<IEnumerable<AccommodationRequestViewModel>> GetRequestsByUserIdAsync(string userId)
+        {
+            var requests = await accommodationRequestRepository
+                .GetAllAttached()
+                .AsNoTracking()
+                .Include(r => r.Tournament)
+                .Where(r => r.GuestUserId == userId)
+                .Select(r => new AccommodationRequestViewModel
+                {
+                    Id = r.Id,
+                    TournamentName = r.Tournament != null ? r.Tournament.Name : "Tournament is not available",
+                    NumberOfGuests = r.NumberOfGuests,
+                    Notes = r.Notes,
+                    IsFulfilled = r.IsFulfilled,
+                    CreatedOn = r.CreatedOn
+                })
+                .ToListAsync();
+
+            return requests;
+        }
+
     }
 }
