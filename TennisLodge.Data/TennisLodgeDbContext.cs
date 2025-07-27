@@ -18,6 +18,7 @@ namespace TennisLodge.Data
         public virtual DbSet<UserTournament> UserTournaments { get; set; } = null!;
         public virtual DbSet<Category> Categories { get; set; } = null!;
         public virtual DbSet<Admin> Admins { get; set; } = null!;
+        public virtual DbSet<TournamentEntry> TournamentEntries { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)

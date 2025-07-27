@@ -12,11 +12,11 @@ namespace TennisLodge.Data.Models
 
 
         [Comment("User's last name")]
-        public string? LastName { get; set; } 
+        public string? LastName { get; set; }
 
 
         [Comment("User's city of residence")]
-        public string? City { get; set; } 
+        public string? City { get; set; }
 
 
         [Comment("Tournaments the user is registered for")]
@@ -38,6 +38,9 @@ namespace TennisLodge.Data.Models
         [Comment("Tournaments published by the user")]
         public virtual ICollection<Tournament> PublishedTournaments { get; set; }
             = new HashSet<Tournament>();
+
+        [Comment("Collection of tournament entries associated with the user")]
+        public virtual ICollection<TournamentEntry> TournamentEntries { get; set; } = new List<TournamentEntry>();
 
     }
 }
