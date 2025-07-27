@@ -31,6 +31,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TennisLodge.Web.ViewModels"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TennisLodge.GCommon", "TennisLodge.GCommon\TennisLodge.GCommon.csproj", "{201ACF5A-1456-4FA5-B3C7-CEDB90F7496A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TennisLodge.WebApi", "TennisLodge.WebApi\TennisLodge.WebApi.csproj", "{AC4829A5-8359-4C0C-BF09-29126D4388FF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +79,10 @@ Global
 		{201ACF5A-1456-4FA5-B3C7-CEDB90F7496A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{201ACF5A-1456-4FA5-B3C7-CEDB90F7496A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{201ACF5A-1456-4FA5-B3C7-CEDB90F7496A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC4829A5-8359-4C0C-BF09-29126D4388FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC4829A5-8359-4C0C-BF09-29126D4388FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC4829A5-8359-4C0C-BF09-29126D4388FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC4829A5-8359-4C0C-BF09-29126D4388FF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -91,6 +97,7 @@ Global
 		{2C06299D-30C8-40B4-850F-2577A0FA2ACE} = {300CA669-153C-4F0B-BCA0-A0784962D9D8}
 		{B5A18328-1B4A-4831-8F16-5A4A895852E0} = {AF30674C-B6FC-48A8-B8F6-CE56E80B5732}
 		{F1621793-B0D4-450E-81FF-A6BA673976E6} = {AF30674C-B6FC-48A8-B8F6-CE56E80B5732}
+		{AC4829A5-8359-4C0C-BF09-29126D4388FF} = {AF30674C-B6FC-48A8-B8F6-CE56E80B5732}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {91BAAC96-A92E-42D9-A802-C439A7700E92}
