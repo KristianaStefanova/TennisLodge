@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.Blazor;
+using System.Linq;
 using TennisLodge.Services.Core.Interfaces;
 using TennisLodge.Web.ViewModels.Tournament;
 using static TennisLodge.Web.ViewModels.ValidationMessages.Tournament;
@@ -13,12 +14,14 @@ namespace TennisLodge.Web.Controllers
         private readonly ITournamentService tournamentService;
         private readonly ICategoryService categoryService;
         private readonly IFavoriteService favoriteService;
+        private readonly ITournamentEntryService tournamentEntryService;
         public TournamentController(ITournamentService tournamentService, ICategoryService categoryService,
-            IFavoriteService favoriteService)
+            IFavoriteService favoriteService, ITournamentEntryService tournamentEntryService)
         {
             this.tournamentService = tournamentService;
             this.categoryService = categoryService;
             this.favoriteService = favoriteService;
+            this.tournamentEntryService = tournamentEntryService;
         }
 
         [HttpGet]
@@ -30,25 +33,37 @@ namespace TennisLodge.Web.Controllers
 
             if (this.IsUserAuthenticated())
             {
+                string playerId = this.GetUserId();
 
                 foreach (AllTournamentsIndexViewModel tournamentIndexVM in allTournaments)
                 {
                     tournamentIndexVM.IsAddedToUserFavorites = await this.favoriteService
-                        .IsTournamentInFavoritesAsync(tournamentIndexVM.Id, this.GetUserId());
+                        .IsTournamentInFavoritesAsync(tournamentIndexVM.Id, playerId);
+                }
+
+               
+                IEnumerable<Guid> joinedTournamentIds = await this.tournamentEntryService
+                    .GetMyTournamentIdsAsync(playerId);
+
+                foreach (var tournament in allTournaments)
+                {
+                    tournament.IsUserJoined = joinedTournamentIds.Contains(tournament.Id);
                 }
             }
 
             return View(allTournaments);
         }
 
+
+
         [HttpGet]
         public async Task<IActionResult> Create()
         {
             try
             {
-                var categories = await this.categoryService.GetAllCategoriesAsync();
+                IEnumerable<CategoryViewModel> categories = await this.categoryService.GetAllCategoriesAsync();
 
-                var viewModel = new TournamentFormInputModel()
+                TournamentFormInputModel viewModel = new TournamentFormInputModel()
                 {
                     Categories = categories
                 };

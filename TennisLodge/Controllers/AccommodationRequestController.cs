@@ -37,7 +37,8 @@ namespace TennisLodge.Web.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    inputModel.Tournaments = await tournamentService.GetAllAsSelectList();
+                    inputModel.Tournaments = await tournamentService
+                        .GetAllAsSelectList();
                     return this.View(inputModel);
                 }
 
@@ -75,7 +76,8 @@ namespace TennisLodge.Web.Controllers
 
             try
             {
-                IEnumerable<AccommodationRequestViewModel> requests = await this.accommodationRequestService.GetRequestsByUserIdAsync(userId);
+                IEnumerable<AccommodationRequestViewModel> requests = await this.accommodationRequestService
+                    .GetRequestsByUserIdAsync(userId);
                 return View(requests);
             }
             catch (Exception e)
