@@ -17,6 +17,15 @@
 	@RenderSection("Styles", required: false)
 </head>
 <body class="tennislodge d-flex flex-column min-vh-100">
+
+	<!-- Token Antiforgery oculto para JS -->
+	<form style="display:none">
+		@Html.AntiForgeryToken()
+	</form>
+
+	<!-- Contenedor de toasts -->
+	<div id="toast-container" style="position: fixed; top: 20px; right: 20px; z-index: 1055;"></div>
+
 	<header>
 		<nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3">
 			<div class="container-fluid">
@@ -61,11 +70,8 @@
 									<i class="bi bi-trophy"></i> My Tournaments
 								</a>
 							</li>
-
-
 						}
 					</ul>
-
 
 					<ul class="navbar-nav ms-auto">
 						@if (User?.Identity?.IsAuthenticated ?? false)
@@ -85,7 +91,6 @@
 								</form>
 							</li>
 						}
-
 						else
 						{
 							<li class="nav-item">
@@ -110,10 +115,10 @@
 			&copy; @footerNote TennisLodge
 		</div>
 	</footer>
+
 	@await Html.PartialAsync("_ValidationScriptsPartial")
 
 	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-
 	@RenderSection("Scripts", required: false)
 </body>
 </html>

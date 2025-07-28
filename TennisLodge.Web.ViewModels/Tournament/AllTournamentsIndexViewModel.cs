@@ -29,6 +29,9 @@ namespace TennisLodge.Web.ViewModels.Tournament
         public bool IsAddedToUserFavorites { get; set; }
 
         public bool IsUserJoined { get; set; }
+
+        public int JoinedPlayersCount { get; set; }
+
     }
 
 }
