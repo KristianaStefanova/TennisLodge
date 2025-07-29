@@ -53,18 +53,21 @@ namespace TennisLodge.Services.Core
                     TournamentName = e.Tournament.Name,
                     TournamentLocation = e.Tournament.Location,
                     TournamentStartDate = e.Tournament.StartDate,
-                    RegisteredOn = e.RegisteredOn
+                    RegisteredOn = e.RegisteredOn,
+                    TournamentId = e.TournamentId!.Value
                 })
                 .ToListAsync();
         }
 
 
-        public async Task<bool> CancelEntryAsync(int entryId, string playerId)
+        public async Task<bool> CancelEntryAsync(string playerId, Guid tournamentId)
         {
             TournamentEntry? entry = await this.entryRepository
-                .GetByIdAsync(entryId);
+                .GetAllAttached()
+                .Include(e => e.Tournament)
+                .FirstOrDefaultAsync(e => e.PlayerId == playerId && e.TournamentId == tournamentId);
 
-            if (entry == null || entry.PlayerId != playerId)
+            if (entry == null)
             {
                 return false;
             }
@@ -76,11 +79,11 @@ namespace TennisLodge.Services.Core
         public async Task<IEnumerable<Guid>> GetMyTournamentIdsAsync(string playerId)
         {
             return await this.entryRepository
-                .GetAllAttached()
-                .Where(e => e.PlayerId == playerId && e.TournamentId.HasValue)
-                .Select(e => e.TournamentId!.Value)
-                .Distinct()
-                .ToListAsync();
+              .GetAllAttached()
+              .Where(e => e.PlayerId == playerId && e.TournamentId.HasValue)
+              .Select(e => e.TournamentId!.Value)
+              .Distinct()
+              .ToListAsync();
         }
     }
 }
