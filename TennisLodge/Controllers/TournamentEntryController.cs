@@ -67,7 +67,7 @@ namespace TennisLodge.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Cancel(int entryId)
+        public async Task<IActionResult> Cancel(Guid tournamentId)
         {
             try
             {
@@ -79,7 +79,7 @@ namespace TennisLodge.Web.Controllers
                 }
 
                 bool success = await tournamentEntryService
-                    .CancelEntryAsync(entryId, playerId);
+                    .CancelEntryAsync(playerId, tournamentId);
 
                 if (!success)
                 {
@@ -94,6 +94,7 @@ namespace TennisLodge.Web.Controllers
                 return StatusCode(500, "Error canceling registration.");
             }
         }
+
     }
 }
 

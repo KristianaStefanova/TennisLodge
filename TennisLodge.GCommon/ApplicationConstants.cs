@@ -11,5 +11,8 @@
         public const string AccessDeniedPath = "/Home/AccessDenied";
 
         public const string AdminAuthCookie = "AdminAuth";
+
+        public const string AllowAllDomainsPolicy = "AllowAllDomainsPolicy";
+
     }
 }

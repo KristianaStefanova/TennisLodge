@@ -17,5 +17,7 @@ namespace TennisLodge.Web.ViewModels.TournamentEntry
         public string TournamentLocation { get; set; } = null!;
 
         public DateTime RegisteredOn { get; set; }
+
+        public Guid TournamentId { get; set; }
     }
 }

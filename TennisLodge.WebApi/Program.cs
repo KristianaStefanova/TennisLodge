@@ -2,8 +2,10 @@ using Microsoft.EntityFrameworkCore;
 using TennisLodge.Data;
 using TennisLodge.Data.Models;
 using TennisLodge.Data.Repository.Interfaces;
+using TennisLodge.GCommon;
 using TennisLodge.Services.Core.Interfaces;
 using TennisLodge.Web.Infrastructure.Extensions;
+using static TennisLodge.GCommon.ApplicationConstants;
 
 namespace TennisLodge.WebApi
 {
@@ -26,6 +28,18 @@ namespace TennisLodge.WebApi
             builder.Services.AddRepositories(typeof(ITournamentRepository).Assembly);
             builder.Services.AddUserDefineServices(typeof(ITournamentService).Assembly);
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy(ApplicationConstants.AllowAllDomainsPolicy, policyBuilder =>
+                {
+                    policyBuilder
+                        .WithOrigins("https://localhost:7019")
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials();
+                });
+            });
+
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
@@ -41,6 +55,9 @@ namespace TennisLodge.WebApi
             }
 
             app.UseHttpsRedirection();
+
+            app.UseCors(AllowAllDomainsPolicy);
+
 
             app.UseAuthorization();
 
