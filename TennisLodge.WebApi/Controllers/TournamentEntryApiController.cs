@@ -1,18 +1,19 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
+using System.Security.Claims;
 using TennisLodge.Services.Core.Interfaces;
-using TennisLodge.Web.ViewModels.TournamentEntry;
 using TennisLodge.Web.Infrastructure.Extensions;
+using TennisLodge.Web.ViewModels.TournamentEntry;
 
 namespace TennisLodge.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
-    public class TournamentEntryApiController : ControllerBase
+    public class TournamentEntryApiController : BaseExternalApiController
     {
-
         private readonly ITournamentEntryService tournamentEntryService;
 
         public TournamentEntryApiController(ITournamentEntryService tournamentEntryService)
@@ -22,25 +23,27 @@ namespace TennisLodge.WebApi.Controllers
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Route("Join")]
-        public async Task<ActionResult<object>> Join([FromBody] JoinTournamentDto model)
+        public async Task<IActionResult> Join([Required] Guid tournamentId)
         {
-            string? playerId = this.GetUserId();
-
-            if (string.IsNullOrEmpty(playerId))
+            if (!ModelState.IsValid)
             {
-                return Unauthorized();
+                return this.BadRequest();
             }
 
+            string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+
             bool success = await this.tournamentEntryService
-                .JoinTournamentAsync(playerId, model.TournamentId);
+                .JoinTournamentAsync(userId, tournamentId);
 
             if (!success)
             {
-                return BadRequest(new { message = "You are already registered for this tournament." });
+                return this.BadRequest();
             }
 
-            return this.Ok(new { message = "Successfully joined the tournament." });
+            return this.Ok();
         }
 
         [HttpPost("Cancel")]
@@ -74,7 +77,7 @@ namespace TennisLodge.WebApi.Controllers
         [Route("MyEntries")]
         public async Task<ActionResult<IEnumerable<MyTournamentEntryViewModel>>> MyEntries()
         {
-            string userId = this.GetUserId();
+            string? userId = this.GetUserId();
 
             if (userId == null)
             {

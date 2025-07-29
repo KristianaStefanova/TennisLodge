@@ -52,10 +52,11 @@
                             {
                                 if (!tournament.IsUserJoined)
                                 {
-                                    <button class="btn btn-success w-100 join-btn"
+                                    <button class="btn btn-primary join-tournament-btn"
                                             data-tournament-id="@tournament.Id">
-                                        <i class="bi bi-check-circle me-2"></i> Join Tournament
+                                        Join Tournament
                                     </button>
+
                                 }
                                 else
                                 {
@@ -100,13 +101,11 @@
                     </div>
                 </div>
             }
-            <form id="csrf-form" style="display:none;">
-                @Html.AntiForgeryToken()
-            </form>
         </div>
     }
 </div>
 
 @section Scripts {
-    <script src="~/js/tournamentEntry.js"></script>
+    <script src="~/js/tournamentEntry.js" asp-append-version="true"></script>
 }
+
