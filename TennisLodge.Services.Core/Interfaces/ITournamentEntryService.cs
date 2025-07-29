@@ -14,7 +14,7 @@ namespace TennisLodge.Services.Core.Interfaces
 
         Task<bool> JoinTournamentAsync(string playerId, Guid tournamentId);
 
-        Task<bool> CancelEntryAsync(int entryId, string playerId);
+        Task<bool> CancelEntryAsync(string playerId, Guid tournamentId);
 
         Task<IEnumerable<Guid>> GetMyTournamentIdsAsync(string playerId);
 
