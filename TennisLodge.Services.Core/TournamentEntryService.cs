@@ -38,7 +38,8 @@ namespace TennisLodge.Services.Core
                 RegisteredOn = DateTime.UtcNow
             };
 
-            await this.entryRepository.AddAsync(entry);
+            await this.entryRepository
+                .AddAsync(entry);
             return true;
         }
 

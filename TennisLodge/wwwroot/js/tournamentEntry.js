@@ -11,7 +11,7 @@
         try {
             const params = new URLSearchParams({ tournamentId: tournamentId });
 
-            const response = await fetch(`/api/TournamentEntryApi/Join?${params.toString()}`, {
+            const response = await fetch(`https://localhost:7286/api/TournamentEntryApi/Join?${params.toString()}`, {
                 method: "POST",
                 credentials: "include"
             });

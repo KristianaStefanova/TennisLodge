@@ -1,4 +1,19 @@
-﻿@using TennisLodge.Web.ViewModels.TournamentEntry;
+﻿@* @{
+    ViewData["Title"] = "My Tournaments";
+}
+
+<h1 class="mb-4 text-success">My Tournament Entries</h1>
+
+<div id="my-tournaments-container" class="table-responsive shadow-sm rounded">
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="~/js/myTournamentEntries.js" asp-append-version="true"></script>
+}
+ *@
+
+ ﻿@using TennisLodge.Web.ViewModels.TournamentEntry;
 @model IEnumerable<MyTournamentEntryViewModel>
 
 @{

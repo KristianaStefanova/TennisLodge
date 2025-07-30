@@ -13,9 +13,9 @@ namespace TennisLodge.Web.Controllers
         {
             this.tournamentEntryService = tournamentEntryService;
         }
-
+        
         [HttpPost]
-        public async Task<IActionResult> Join(Guid tournamentId)
+        public async Task<IActionResult> Join(Guid id)
         {
             try
             {
@@ -27,14 +27,14 @@ namespace TennisLodge.Web.Controllers
                 }
 
                 bool success = await tournamentEntryService
-                    .JoinTournamentAsync(playerId, tournamentId);
+                    .JoinTournamentAsync(playerId, id);
 
                 if (!success)
                 {
                     return BadRequest("You are already registered for this tournament.");
                 }
 
-                return RedirectToAction("Details", "Tournament", new { id = tournamentId });
+                return RedirectToAction("Details", "Tournament", new { id = id });
             }
             catch (Exception e)
             {

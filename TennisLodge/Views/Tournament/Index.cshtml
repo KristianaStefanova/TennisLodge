@@ -52,10 +52,18 @@
                             {
                                 if (!tournament.IsUserJoined)
                                 {
-                                    <button class="btn btn-primary join-tournament-btn"
+                                    @* <button class="btn btn-primary join-tournament-btn"
                                             data-tournament-id="@tournament.Id">
                                         Join Tournament
-                                    </button>
+                                    </button> *@
+                                    <form asp-controller="TournamentEntry" asp-action="Join" method="post" class="w-100">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="id" value="@tournament.Id" />
+                                        <button type="submit" class="btn btn-primary w-100">
+                                            Join Tournament
+                                        </button>
+                                    </form>
+
 
                                 }
                                 else
