@@ -50,8 +50,8 @@ else
                         <td>@entry.TournamentLocation</td>
                         <td>@entry.RegisteredOn.ToString("MMM dd, yyyy HH:mm")</td>
                         <td class="text-end">
-                            <form asp-action="CancelEntry" method="post" class="d-inline">
-                                <input type="hidden" name="entryId" value="@entry.EntryId" />
+                            <form asp-action="Cancel" method="post" class="d-inline">
+                                <input type="hidden" name="tournamentId" value="@entry.TournamentId" />
                                 <button type="submit" class="btn btn-sm btn-outline-danger"
                                         onclick="return confirm('Are you sure you want to cancel this entry?');">
                                     Cancel

@@ -23,5 +23,8 @@ namespace TennisLodge.Data.Models
 
         [Comment("Date when the player registered for the tournament")]
         public DateTime RegisteredOn { get; set; } = DateTime.UtcNow;
+
+        [Comment("Indicates whether the entry has been soft-deleted")]
+        public bool IsDeleted { get; set; } = false;
     }
 }

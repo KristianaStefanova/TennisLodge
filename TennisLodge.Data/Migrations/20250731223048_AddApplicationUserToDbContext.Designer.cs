@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TennisLodge.Data;
 
@@ -11,9 +12,11 @@ using TennisLodge.Data;
 namespace TennisLodge.Data.Migrations
 {
     [DbContext(typeof(TennisLodgeDbContext))]
-    partial class TennisLodgeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250731223048_AddApplicationUserToDbContext")]
+    partial class AddApplicationUserToDbContext
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -241,7 +244,7 @@ namespace TennisLodge.Data.Migrations
                             AvailableFrom = new DateTime(2026, 1, 5, 0, 0, 0, 0, DateTimeKind.Utc),
                             AvailableTo = new DateTime(2026, 1, 20, 0, 0, 0, 0, DateTimeKind.Utc),
                             City = "Sofia",
-                            CreatedOn = new DateTime(2025, 7, 31, 23, 30, 42, 544, DateTimeKind.Utc).AddTicks(5947),
+                            CreatedOn = new DateTime(2025, 7, 31, 22, 30, 46, 170, DateTimeKind.Utc).AddTicks(9502),
                             HostUserId = "31b0fae9-597d-46ce-95be-8c6e51cccf92",
                             IsAvailable = true,
                             IsDeleted = false,
@@ -255,7 +258,7 @@ namespace TennisLodge.Data.Migrations
                             AvailableFrom = new DateTime(2026, 1, 7, 0, 0, 0, 0, DateTimeKind.Utc),
                             AvailableTo = new DateTime(2026, 1, 20, 0, 0, 0, 0, DateTimeKind.Utc),
                             City = "Plovdiv",
-                            CreatedOn = new DateTime(2025, 7, 31, 23, 30, 42, 544, DateTimeKind.Utc).AddTicks(5959),
+                            CreatedOn = new DateTime(2025, 7, 31, 22, 30, 46, 170, DateTimeKind.Utc).AddTicks(9545),
                             HostUserId = "31b0fae9-597d-46ce-95be-8c6e51cccf92",
                             IsAvailable = true,
                             IsDeleted = false,
@@ -269,7 +272,7 @@ namespace TennisLodge.Data.Migrations
                             AvailableFrom = new DateTime(2026, 1, 5, 0, 0, 0, 0, DateTimeKind.Utc),
                             AvailableTo = new DateTime(2026, 1, 20, 0, 0, 0, 0, DateTimeKind.Utc),
                             City = "Varna",
-                            CreatedOn = new DateTime(2025, 7, 31, 23, 30, 42, 544, DateTimeKind.Utc).AddTicks(5963),
+                            CreatedOn = new DateTime(2025, 7, 31, 22, 30, 46, 170, DateTimeKind.Utc).AddTicks(9555),
                             HostUserId = "fb39c1e3-3f7e-4f69-b0c7-ab7d0854b902",
                             IsAvailable = true,
                             IsDeleted = false,
@@ -283,7 +286,7 @@ namespace TennisLodge.Data.Migrations
                             AvailableFrom = new DateTime(2025, 12, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             AvailableTo = new DateTime(2025, 12, 10, 0, 0, 0, 0, DateTimeKind.Utc),
                             City = "Burgas",
-                            CreatedOn = new DateTime(2025, 7, 31, 23, 30, 42, 544, DateTimeKind.Utc).AddTicks(5965),
+                            CreatedOn = new DateTime(2025, 7, 31, 22, 30, 46, 170, DateTimeKind.Utc).AddTicks(9563),
                             HostUserId = "fb39c1e3-3f7e-4f69-b0c7-ab7d0854b902",
                             IsAvailable = true,
                             IsDeleted = false,
@@ -297,7 +300,7 @@ namespace TennisLodge.Data.Migrations
                             AvailableFrom = new DateTime(2025, 11, 26, 0, 0, 0, 0, DateTimeKind.Utc),
                             AvailableTo = new DateTime(2025, 12, 7, 0, 0, 0, 0, DateTimeKind.Utc),
                             City = "Ruse",
-                            CreatedOn = new DateTime(2025, 7, 31, 23, 30, 42, 544, DateTimeKind.Utc).AddTicks(5968),
+                            CreatedOn = new DateTime(2025, 7, 31, 22, 30, 46, 170, DateTimeKind.Utc).AddTicks(9570),
                             HostUserId = "fb39c1e3-3f7e-4f69-b0c7-ab7d0854b902",
                             IsAvailable = true,
                             IsDeleted = false,
@@ -311,7 +314,7 @@ namespace TennisLodge.Data.Migrations
                             AvailableFrom = new DateTime(2025, 11, 5, 0, 0, 0, 0, DateTimeKind.Utc),
                             AvailableTo = new DateTime(2025, 11, 20, 0, 0, 0, 0, DateTimeKind.Utc),
                             City = "Sofia",
-                            CreatedOn = new DateTime(2025, 7, 31, 23, 30, 42, 544, DateTimeKind.Utc).AddTicks(5973),
+                            CreatedOn = new DateTime(2025, 7, 31, 22, 30, 46, 170, DateTimeKind.Utc).AddTicks(9582),
                             HostUserId = "556cff19-6dd1-4005-836d-420f8b3877f8",
                             IsAvailable = true,
                             IsDeleted = false,
@@ -325,7 +328,7 @@ namespace TennisLodge.Data.Migrations
                             AvailableFrom = new DateTime(2025, 7, 27, 0, 0, 0, 0, DateTimeKind.Utc),
                             AvailableTo = new DateTime(2025, 8, 7, 0, 0, 0, 0, DateTimeKind.Utc),
                             City = "Plovdiv",
-                            CreatedOn = new DateTime(2025, 7, 31, 23, 30, 42, 544, DateTimeKind.Utc).AddTicks(5975),
+                            CreatedOn = new DateTime(2025, 7, 31, 22, 30, 46, 170, DateTimeKind.Utc).AddTicks(9589),
                             HostUserId = "556cff19-6dd1-4005-836d-420f8b3877f8",
                             IsAvailable = true,
                             IsDeleted = false,
@@ -339,7 +342,7 @@ namespace TennisLodge.Data.Migrations
                             AvailableFrom = new DateTime(2025, 9, 10, 0, 0, 0, 0, DateTimeKind.Utc),
                             AvailableTo = new DateTime(2025, 9, 25, 0, 0, 0, 0, DateTimeKind.Utc),
                             City = "Varna",
-                            CreatedOn = new DateTime(2025, 7, 31, 23, 30, 42, 544, DateTimeKind.Utc).AddTicks(5979),
+                            CreatedOn = new DateTime(2025, 7, 31, 22, 30, 46, 170, DateTimeKind.Utc).AddTicks(9596),
                             HostUserId = "31b0fae9-597d-46ce-95be-8c6e51cccf92",
                             IsAvailable = true,
                             IsDeleted = false,
@@ -353,7 +356,7 @@ namespace TennisLodge.Data.Migrations
                             AvailableFrom = new DateTime(2025, 8, 20, 0, 0, 0, 0, DateTimeKind.Utc),
                             AvailableTo = new DateTime(2025, 9, 5, 0, 0, 0, 0, DateTimeKind.Utc),
                             City = "Burgas",
-                            CreatedOn = new DateTime(2025, 7, 31, 23, 30, 42, 544, DateTimeKind.Utc).AddTicks(5982),
+                            CreatedOn = new DateTime(2025, 7, 31, 22, 30, 46, 170, DateTimeKind.Utc).AddTicks(9604),
                             HostUserId = "31b0fae9-597d-46ce-95be-8c6e51cccf92",
                             IsAvailable = true,
                             IsDeleted = false,
@@ -367,7 +370,7 @@ namespace TennisLodge.Data.Migrations
                             AvailableFrom = new DateTime(2025, 7, 25, 0, 0, 0, 0, DateTimeKind.Utc),
                             AvailableTo = new DateTime(2025, 8, 10, 0, 0, 0, 0, DateTimeKind.Utc),
                             City = "Ruse",
-                            CreatedOn = new DateTime(2025, 7, 31, 23, 30, 42, 544, DateTimeKind.Utc).AddTicks(5985),
+                            CreatedOn = new DateTime(2025, 7, 31, 22, 30, 46, 170, DateTimeKind.Utc).AddTicks(9613),
                             HostUserId = "072d4f63-2658-489b-a874-1e32d50b8837",
                             IsAvailable = true,
                             IsDeleted = false,
@@ -381,7 +384,7 @@ namespace TennisLodge.Data.Migrations
                             AvailableFrom = new DateTime(2025, 8, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             AvailableTo = new DateTime(2025, 8, 6, 0, 0, 0, 0, DateTimeKind.Utc),
                             City = "Stara Zagora",
-                            CreatedOn = new DateTime(2025, 7, 31, 23, 30, 42, 544, DateTimeKind.Utc).AddTicks(5988),
+                            CreatedOn = new DateTime(2025, 7, 31, 22, 30, 46, 170, DateTimeKind.Utc).AddTicks(9623),
                             HostUserId = "072d4f63-2658-489b-a874-1e32d50b8837",
                             IsAvailable = true,
                             IsDeleted = false,
@@ -395,7 +398,7 @@ namespace TennisLodge.Data.Migrations
                             AvailableFrom = new DateTime(2025, 9, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             AvailableTo = new DateTime(2025, 9, 20, 0, 0, 0, 0, DateTimeKind.Utc),
                             City = "Pleven",
-                            CreatedOn = new DateTime(2025, 7, 31, 23, 30, 42, 544, DateTimeKind.Utc).AddTicks(5990),
+                            CreatedOn = new DateTime(2025, 7, 31, 22, 30, 46, 170, DateTimeKind.Utc).AddTicks(9630),
                             HostUserId = "716bc195-efc6-4637-943a-a3a80f086e65",
                             IsAvailable = true,
                             IsDeleted = false,
@@ -409,7 +412,7 @@ namespace TennisLodge.Data.Migrations
                             AvailableFrom = new DateTime(2025, 9, 10, 0, 0, 0, 0, DateTimeKind.Utc),
                             AvailableTo = new DateTime(2025, 9, 25, 0, 0, 0, 0, DateTimeKind.Utc),
                             City = "Sliven",
-                            CreatedOn = new DateTime(2025, 7, 31, 23, 30, 42, 544, DateTimeKind.Utc).AddTicks(5992),
+                            CreatedOn = new DateTime(2025, 7, 31, 22, 30, 46, 170, DateTimeKind.Utc).AddTicks(9640),
                             HostUserId = "716bc195-efc6-4637-943a-a3a80f086e65",
                             IsAvailable = true,
                             IsDeleted = false,
@@ -423,7 +426,7 @@ namespace TennisLodge.Data.Migrations
                             AvailableFrom = new DateTime(2025, 8, 15, 0, 0, 0, 0, DateTimeKind.Utc),
                             AvailableTo = new DateTime(2025, 8, 30, 0, 0, 0, 0, DateTimeKind.Utc),
                             City = "Dobrich",
-                            CreatedOn = new DateTime(2025, 7, 31, 23, 30, 42, 544, DateTimeKind.Utc).AddTicks(5995),
+                            CreatedOn = new DateTime(2025, 7, 31, 22, 30, 46, 170, DateTimeKind.Utc).AddTicks(9662),
                             HostUserId = "fb39c1e3-3f7e-4f69-b0c7-ab7d0854b902",
                             IsAvailable = true,
                             IsDeleted = false,
@@ -437,7 +440,7 @@ namespace TennisLodge.Data.Migrations
                             AvailableFrom = new DateTime(2025, 11, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             AvailableTo = new DateTime(2025, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
                             City = "Blagoevgrad",
-                            CreatedOn = new DateTime(2025, 7, 31, 23, 30, 42, 544, DateTimeKind.Utc).AddTicks(5998),
+                            CreatedOn = new DateTime(2025, 7, 31, 22, 30, 46, 170, DateTimeKind.Utc).AddTicks(9669),
                             HostUserId = "fb39c1e3-3f7e-4f69-b0c7-ab7d0854b902",
                             IsAvailable = true,
                             IsDeleted = false,
@@ -451,7 +454,7 @@ namespace TennisLodge.Data.Migrations
                             AvailableFrom = new DateTime(2025, 11, 18, 0, 0, 0, 0, DateTimeKind.Utc),
                             AvailableTo = new DateTime(2025, 11, 25, 0, 0, 0, 0, DateTimeKind.Utc),
                             City = "Veliko Tarnovo",
-                            CreatedOn = new DateTime(2025, 7, 31, 23, 30, 42, 544, DateTimeKind.Utc).AddTicks(6001),
+                            CreatedOn = new DateTime(2025, 7, 31, 22, 30, 46, 170, DateTimeKind.Utc).AddTicks(9695),
                             HostUserId = "fb39c1e3-3f7e-4f69-b0c7-ab7d0854b902",
                             IsAvailable = true,
                             IsDeleted = false,
@@ -465,7 +468,7 @@ namespace TennisLodge.Data.Migrations
                             AvailableFrom = new DateTime(2025, 12, 10, 0, 0, 0, 0, DateTimeKind.Utc),
                             AvailableTo = new DateTime(2025, 12, 16, 0, 0, 0, 0, DateTimeKind.Utc),
                             City = "Gabrovo",
-                            CreatedOn = new DateTime(2025, 7, 31, 23, 30, 42, 544, DateTimeKind.Utc).AddTicks(6003),
+                            CreatedOn = new DateTime(2025, 7, 31, 22, 30, 46, 170, DateTimeKind.Utc).AddTicks(9702),
                             HostUserId = "ede3325f-5350-496e-b5d5-339823b8d5b1",
                             IsAvailable = true,
                             IsDeleted = false,
@@ -479,7 +482,7 @@ namespace TennisLodge.Data.Migrations
                             AvailableFrom = new DateTime(2025, 10, 25, 0, 0, 0, 0, DateTimeKind.Utc),
                             AvailableTo = new DateTime(2025, 10, 29, 0, 0, 0, 0, DateTimeKind.Utc),
                             City = "Pazardzhik",
-                            CreatedOn = new DateTime(2025, 7, 31, 23, 30, 42, 544, DateTimeKind.Utc).AddTicks(6025),
+                            CreatedOn = new DateTime(2025, 7, 31, 22, 30, 46, 170, DateTimeKind.Utc).AddTicks(9712),
                             HostUserId = "ede3325f-5350-496e-b5d5-339823b8d5b1",
                             IsAvailable = false,
                             IsDeleted = false,
@@ -493,7 +496,7 @@ namespace TennisLodge.Data.Migrations
                             AvailableFrom = new DateTime(2025, 10, 10, 0, 0, 0, 0, DateTimeKind.Utc),
                             AvailableTo = new DateTime(2025, 10, 28, 0, 0, 0, 0, DateTimeKind.Utc),
                             City = "Haskovo",
-                            CreatedOn = new DateTime(2025, 7, 31, 23, 30, 42, 544, DateTimeKind.Utc).AddTicks(6028),
+                            CreatedOn = new DateTime(2025, 7, 31, 22, 30, 46, 170, DateTimeKind.Utc).AddTicks(9726),
                             HostUserId = "9dbe7540-f8cd-43c7-b2df-f3947135d8bf",
                             IsAvailable = true,
                             IsDeleted = false,
@@ -507,7 +510,7 @@ namespace TennisLodge.Data.Migrations
                             AvailableFrom = new DateTime(2025, 9, 1, 13, 0, 0, 0, DateTimeKind.Utc),
                             AvailableTo = new DateTime(2025, 9, 10, 22, 0, 0, 0, DateTimeKind.Utc),
                             City = "Dobrich",
-                            CreatedOn = new DateTime(2025, 7, 31, 23, 30, 42, 544, DateTimeKind.Utc).AddTicks(6031),
+                            CreatedOn = new DateTime(2025, 7, 31, 22, 30, 46, 170, DateTimeKind.Utc).AddTicks(9737),
                             HostUserId = "9dbe7540-f8cd-43c7-b2df-f3947135d8bf",
                             IsAvailable = true,
                             IsDeleted = false,
@@ -521,7 +524,7 @@ namespace TennisLodge.Data.Migrations
                             AvailableFrom = new DateTime(2025, 10, 20, 13, 0, 0, 0, DateTimeKind.Utc),
                             AvailableTo = new DateTime(2025, 10, 28, 22, 0, 0, 0, DateTimeKind.Utc),
                             City = "Kazanlak",
-                            CreatedOn = new DateTime(2025, 7, 31, 23, 30, 42, 544, DateTimeKind.Utc).AddTicks(6033),
+                            CreatedOn = new DateTime(2025, 7, 31, 22, 30, 46, 170, DateTimeKind.Utc).AddTicks(9744),
                             HostUserId = "763aebd4-e72a-41d7-bd9e-7ecbc0dba1a8",
                             IsAvailable = true,
                             IsDeleted = false,
@@ -535,7 +538,7 @@ namespace TennisLodge.Data.Migrations
                             AvailableFrom = new DateTime(2025, 8, 25, 18, 0, 0, 0, DateTimeKind.Utc),
                             AvailableTo = new DateTime(2025, 8, 30, 15, 0, 0, 0, DateTimeKind.Utc),
                             City = "Shumen",
-                            CreatedOn = new DateTime(2025, 7, 31, 23, 30, 42, 544, DateTimeKind.Utc).AddTicks(6036),
+                            CreatedOn = new DateTime(2025, 7, 31, 22, 30, 46, 170, DateTimeKind.Utc).AddTicks(9751),
                             HostUserId = "763aebd4-e72a-41d7-bd9e-7ecbc0dba1a8",
                             IsAvailable = false,
                             IsDeleted = false,
@@ -549,7 +552,7 @@ namespace TennisLodge.Data.Migrations
                             AvailableFrom = new DateTime(2026, 1, 20, 13, 0, 0, 0, DateTimeKind.Utc),
                             AvailableTo = new DateTime(2026, 10, 28, 15, 0, 0, 0, DateTimeKind.Utc),
                             City = "Targovishte",
-                            CreatedOn = new DateTime(2025, 7, 31, 23, 30, 42, 544, DateTimeKind.Utc).AddTicks(6038),
+                            CreatedOn = new DateTime(2025, 7, 31, 22, 30, 46, 170, DateTimeKind.Utc).AddTicks(9759),
                             HostUserId = "004c1a89-ede7-471f-ac81-93c6a9d8b0d8",
                             IsAvailable = true,
                             IsDeleted = false,
@@ -563,7 +566,7 @@ namespace TennisLodge.Data.Migrations
                             AvailableFrom = new DateTime(2025, 8, 5, 12, 0, 0, 0, DateTimeKind.Utc),
                             AvailableTo = new DateTime(2025, 8, 25, 12, 0, 0, 0, DateTimeKind.Utc),
                             City = "Montana",
-                            CreatedOn = new DateTime(2025, 7, 31, 23, 30, 42, 544, DateTimeKind.Utc).AddTicks(6041),
+                            CreatedOn = new DateTime(2025, 7, 31, 22, 30, 46, 170, DateTimeKind.Utc).AddTicks(9765),
                             HostUserId = "004c1a89-ede7-471f-ac81-93c6a9d8b0d8",
                             IsAvailable = true,
                             IsDeleted = false,
@@ -735,7 +738,7 @@ namespace TennisLodge.Data.Migrations
                             Id = "7699db7d-964f-4782-8209-d76562e0fece",
                             AccessFailedCount = 0,
                             City = "Sofia",
-                            ConcurrencyStamp = "e02c605d-8620-426a-af1e-f7b9d4920ef4",
+                            ConcurrencyStamp = "74ecdea5-2599-4e13-b6a5-13920011e766",
                             Email = "admin@tennislodge.com",
                             EmailConfirmed = true,
                             FirstName = "Admin",
@@ -743,9 +746,9 @@ namespace TennisLodge.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@TENNISLODGE.COM",
                             NormalizedUserName = "ADMIN@TENNISLODGE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEOHd9o2u1OdUgi02YDZeIsRC5JU29vMzENadV+ZcpdPs2a4d1STbMR59FsBAW9owOQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEE8G4pJHeyBfc3V5t6IJIQZ0ROCAW4bGha54HkTm9c7alCY7YyCIMVkPf9zYJbSUlg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "9cfcfcd0-e7d9-4f5f-a601-c4c7133f004a",
+                            SecurityStamp = "63627209-aec0-4bec-acb7-c68a23d5f3c0",
                             TwoFactorEnabled = false,
                             UserName = "admin@tennislodge.com"
                         });
@@ -1195,10 +1198,6 @@ namespace TennisLodge.Data.Migrations
                         .HasComment("Primary key of the tournament entry");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit")
-                        .HasComment("Indicates whether the entry has been soft-deleted");
 
                     b.Property<string>("PlayerId")
                         .IsRequired()
