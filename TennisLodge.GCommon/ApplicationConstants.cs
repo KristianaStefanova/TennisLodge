@@ -14,5 +14,10 @@
 
         public const string AllowAllDomainsPolicy = "AllowAllDomainsPolicy";
 
+        public const string UserRoleName = "User";
+
+        public const string AdminRoleName = "Admin";
+
+        public const string PlayerRoleName = "Player";
     }
 }

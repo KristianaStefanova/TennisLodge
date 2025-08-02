@@ -17,7 +17,6 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
-using Microsoft.Extensions.Logging;
 using TennisLodge.Data.Models;
 
 namespace TennisLodge.Areas.Identity.Pages.Account
@@ -32,11 +31,11 @@ namespace TennisLodge.Areas.Identity.Pages.Account
         private readonly IEmailSender _emailSender;
 
         public RegisterModel(
-    UserManager<ApplicationUser> userManager,
-    IUserStore<ApplicationUser> userStore,
-    SignInManager<ApplicationUser> signInManager,
-    ILogger<RegisterModel> logger,
-    IEmailSender emailSender)
+            UserManager<ApplicationUser> userManager,
+            IUserStore<ApplicationUser> userStore,
+            SignInManager<ApplicationUser> signInManager,
+            ILogger<RegisterModel> logger,
+            IEmailSender emailSender)
 
         {
             _userManager = userManager;
