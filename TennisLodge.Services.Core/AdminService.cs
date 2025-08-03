@@ -50,7 +50,7 @@ namespace TennisLodge.Services.Core
 
             if (!String.IsNullOrWhiteSpace(userId))
             {
-                Admin? admin = await this.adminRepository
+                TennisLodge.Data.Models.Admin? admin = await this.adminRepository
                     .FirstOrDefaultAsync(a => a.UserId.ToLower() == userId.ToLower());
 
                 if (admin != null)

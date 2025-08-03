@@ -1,0 +1,87 @@
+﻿@using TennisLodge.Web.ViewModels.Admin.UserManagement
+@using Microsoft.AspNetCore.Identity
+@model IEnumerable<UserManagementIndexViewModel>
+
+@inject RoleManager<IdentityRole> roleManager;
+
+<div class="container mt-5">
+    <h1 class="mb-4 text-success fw-bold">User Management</h1>
+
+    <div class="d-flex justify-content-start mb-4">
+        <a asp-area="Admin" asp-controller="Home" asp-action="Index" class="btn btn-outline-success fw-bold">
+            <i class="bi bi-arrow-left"></i> Back to Dashboard
+        </a>
+    </div>
+
+    <div class="table-responsive shadow-lg rounded-4 overflow-hidden">
+        <table class="table table-bordered table-hover align-middle text-center">
+            <thead class="table-success">
+                <tr class="fw-bold">
+                    <th>Email</th>
+                    <th>Roles</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in Model)
+                {
+                    <tr>
+                        <td>@user.Email</td>
+                        <td>
+                            @foreach (var role in user.Roles)
+                            {
+                                <span class="badge bg-success-subtle text-success fw-bold px-3 py-2 rounded-pill">@role</span>
+                            }
+                        </td>
+                        <td>
+                            <div class="d-flex align-items-center gap-2" style="flex-wrap: nowrap;">
+                                @if (!user.Roles.Contains("Admin"))
+                                {
+                                    <select id="roleDropdown-@user.Id" class="form-select form-select-sm" style="min-width: 90px;">
+                                        @foreach (IdentityRole role in roleManager.Roles.ToList())
+                                        {
+                                            <option value="@role.Name" selected="@(user.Roles.Contains(role.Name) ? "selected" : null)">
+                                                @role.Name
+                                            </option>
+                                        }
+                                    </select>
+
+                                    <form method="post" asp-action="AssignRole" asp-controller="UserManagement" asp-area="Admin" class="d-inline">
+                                        <input type="hidden" name="userId" value="@user.Id" />
+                                        <input type="hidden" name="role" id="assignRoleInput-@user.Id" />
+                                        <button type="submit" class="btn btn-success btn-sm fw-bold"
+                                                onclick="setRoleValue('@user.Id', 'assignRoleInput')">
+                                            <i class="bi bi-person-plus-fill"></i> Assign
+                                        </button>
+                                    </form>
+
+                                    <form method="post" asp-action="RemoveRole" asp-controller="UserManagement" asp-area="Admin" class="d-inline">
+                                        <input type="hidden" name="userId" value="@user.Id" />
+                                        <input type="hidden" name="role" id="removeRoleInput-@user.Id" />
+                                        <button type="submit" class="btn btn-warning btn-sm fw-bold text-dark"
+                                                onclick="setRoleValue('@user.Id', 'removeRoleInput')">
+                                            <i class="bi bi-person-x-fill"></i> Remove
+                                        </button>
+                                    </form>
+
+                                    <form method="post" asp-action="DeleteUser" asp-controller="UserManagement" asp-area="Admin" class="d-inline">
+                                        <input type="hidden" name="userId" value="@user.Id" />
+                                        <button type="submit" class="btn btn-danger btn-sm fw-bold">
+                                            <i class="bi bi-trash-fill"></i> Delete
+                                        </button>
+                                    </form>
+                                }
+                                else
+                                {
+                                    <span class="text-muted fw-bold">Not editable</span>
+                                }
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="~/js/userManagement.js" asp-append-version="true"></script>
