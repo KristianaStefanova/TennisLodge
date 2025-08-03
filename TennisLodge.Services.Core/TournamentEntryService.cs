@@ -24,7 +24,7 @@ namespace TennisLodge.Services.Core
         public async Task<bool> JoinTournamentAsync(string playerId, Guid tournamentId)
         {
             bool alreadyJoined = await this.entryRepository.GetAllAttached()
-                .AnyAsync(e => e.PlayerId == playerId && e.TournamentId == tournamentId);
+                .AnyAsync(e => e.PlayerId == playerId && e.TournamentId == tournamentId && !e.IsDeleted);
 
             if (alreadyJoined)
             {
@@ -47,7 +47,7 @@ namespace TennisLodge.Services.Core
         {
             return await this.entryRepository.GetAllAttached()
                 .Include(e => e.Tournament)
-                .Where(e => e.PlayerId == playerId && e.TournamentId.HasValue)
+                .Where(e => e.PlayerId == playerId && e.TournamentId.HasValue && !e.IsDeleted)
                 .Select(e => new MyTournamentEntryViewModel
                 {
                     EntryId = e.Id,
@@ -81,7 +81,7 @@ namespace TennisLodge.Services.Core
         {
             return await this.entryRepository
               .GetAllAttached()
-              .Where(e => e.PlayerId == playerId && e.TournamentId.HasValue)
+              .Where(e => e.PlayerId == playerId && e.TournamentId.HasValue && !e.IsDeleted)
               .Select(e => e.TournamentId!.Value)
               .Distinct()
               .ToListAsync();
