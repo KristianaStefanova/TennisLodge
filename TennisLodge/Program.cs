@@ -67,7 +67,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.UseAdminAccessRestriction();
 
-//app.UserAdminRedirection()
+app.UserAdminRedirection();
 
 app.MapControllerRoute(
     name: "areas",
