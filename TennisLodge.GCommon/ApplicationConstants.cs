@@ -19,5 +19,7 @@
         public const string AdminRoleName = "Admin";
 
         public const string PlayerRoleName = "Player";
+
+        public const string AdminAreaName = "Admin";
     }
 }

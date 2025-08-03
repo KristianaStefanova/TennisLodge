@@ -1,16 +1,18 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+using static TennisLodge.GCommon.ApplicationConstants;
 
-namespace TennisLodge.Web.Controllers
+namespace TennisLodge.Web.Areas.Admin.Controllers
 {
-    [Authorize]
-    public abstract class BaseController : Controller
+    [Area(AdminAreaName)]
+    [Authorize(Roles = AdminRoleName)]
+    public abstract class BaseAdminController : Controller
     {
-        protected bool IsUserAuthenticated()
+        private bool IsUserAuthenticated()
         {
             bool retRes = false;
-            if(this.User.Identity != null)
+            if (this.User.Identity != null)
             {
                 retRes = this.User.Identity?.IsAuthenticated ?? false;
             }
