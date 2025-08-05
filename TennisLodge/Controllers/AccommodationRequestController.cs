@@ -2,6 +2,7 @@
 using TennisLodge.Services.Core;
 using TennisLodge.Services.Core.Interfaces;
 using TennisLodge.Web.ViewModels.Accommodation;
+using static TennisLodge.GCommon.ApplicationConstants;
 
 namespace TennisLodge.Web.Controllers
 {
@@ -51,6 +52,8 @@ namespace TennisLodge.Web.Controllers
                 await this.accommodationRequestService
                     .CreateAccommodationRequestAsync(guestUserId, inputModel);
 
+                TempData[SuccessMessageKey] = "Your request has been sent successfully.";
+
                 return this.RedirectToAction("Index", "Accommodation");
             }
             catch (Exception e)
@@ -63,6 +66,7 @@ namespace TennisLodge.Web.Controllers
                 return this.View(inputModel);
             }
         }
+
 
         [HttpGet]
         public async Task<IActionResult> MyRequests()

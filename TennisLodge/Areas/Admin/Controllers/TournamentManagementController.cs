@@ -4,6 +4,7 @@ using TennisLodge.Services.Core.Admin.Interfaces;
 using TennisLodge.Services.Core.Interfaces;
 using TennisLodge.Web.ViewModels.Admin.TournamentManagement;
 using TennisLodge.Web.ViewModels.Tournament;
+using static TennisLodge.GCommon.ApplicationConstants;
 
 namespace TennisLodge.Web.Areas.Admin.Controllers
 {
@@ -55,14 +56,17 @@ namespace TennisLodge.Web.Areas.Admin.Controllers
                 string userId = this.GetUserId()!;
 
                 await this.tournamentManagementService
-               .AddTournamentAsync(inputModel, userId);
+                      .AddTournamentAsync(inputModel, userId);
+
+                TempData[SuccessMessageKey] = "Tournament created successfully!";
 
                 return this.RedirectToAction(nameof(Manage));
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                Console.WriteLine(e.Message);
-                throw;
+                TempData[ErrorMessageKey] = "An error occurred while creating the tournament. Please contact developer team!";
+
+                return RedirectToAction(nameof(Manage));
             }
         }
     }
