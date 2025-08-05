@@ -16,5 +16,7 @@ namespace TennisLodge.Services.Core.Admin.Interfaces
         Task<TournamentManagementEditFormModel?> GetTournamentEditFormModelAsync(string? id);
 
         Task<bool> EditTournamentAsync(TournamentManagementEditFormModel? inputModel, string userId);
+
+        Task<Tuple<bool, bool>> DeleteOrRestoreTournamentAsync(string? id);
     }
 }

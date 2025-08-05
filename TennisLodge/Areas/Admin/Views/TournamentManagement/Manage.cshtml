@@ -74,10 +74,10 @@
                                     </a>
 
                                     <a asp-action="ToggleDelete" asp-route-id="@tournament.Id"
-                                       class="btn btn-sm fw-bold px-3 @(tournament.IsDeleted ? "btn-outline-warning text-dark" : "btn-outline-danger")">
+                                       class="btn btn-sm fw-bold px-3 @(tournament.IsDeleted ? "btn-outline-success" : "btn-outline-danger")">
                                         <i class="bi @(tournament.IsDeleted ? "bi-arrow-clockwise" : "bi-trash")"></i>
                                         @(tournament.IsDeleted ? "Restore" : "Delete")
-                                    </a>
+                                    </a>            
                                 </div>
                             </td>
                         </tr>

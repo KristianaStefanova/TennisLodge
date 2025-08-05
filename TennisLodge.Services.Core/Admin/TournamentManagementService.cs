@@ -130,5 +130,30 @@ namespace TennisLodge.Services.Core.Admin
             }
             return result;
         }
+
+        public async Task<Tuple<bool, bool>> DeleteOrRestoreTournamentAsync(string? id)
+        {
+            bool result = false;    
+            bool isRestored = false;    
+            if (!String.IsNullOrWhiteSpace(id))
+            {
+                Tournament? tournamentToDeleteOrRestore = await this.tournamentRepository
+                    .GetAllAttached()
+                    .IgnoreQueryFilters()
+                    .SingleOrDefaultAsync(t => t.Id.ToString().ToLower() == id.ToLower());
+                if (tournamentToDeleteOrRestore != null)
+                {
+                    if(tournamentToDeleteOrRestore.IsDeleted)
+                    {
+                        isRestored = true;
+                    }
+                   
+                    tournamentToDeleteOrRestore.IsDeleted = !tournamentToDeleteOrRestore.IsDeleted;
+                    result = await this.tournamentRepository
+                        .UpdateAsync(tournamentToDeleteOrRestore);
+                }
+            }
+            return new Tuple<bool, bool>(result, isRestored);
+        }
     }
 }

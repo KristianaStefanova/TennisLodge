@@ -118,5 +118,26 @@ namespace TennisLodge.Web.Areas.Admin.Controllers
             }
         }
 
+        [HttpGet]
+        public async Task<IActionResult> ToggleDelete(string? id)
+        {
+            Tuple<bool, bool> opResult = await this.tournamentManagementService
+                .DeleteOrRestoreTournamentAsync(id);
+            bool success = opResult.Item1;  
+            bool isRestored = opResult.Item2;   
+
+            if (!success)
+            {
+                TempData[ErrorMessageKey] = "Tournament's could not be found and updated!";
+            }
+            else
+            {
+                string operation = isRestored ? "restored" : "deleted";
+
+                TempData[SuccessMessageKey] = $"Tournament {operation} successfully!";
+            }
+
+            return RedirectToAction(nameof(Manage));
+        }
     }
 }
