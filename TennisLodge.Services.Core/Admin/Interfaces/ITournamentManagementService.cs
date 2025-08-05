@@ -1,0 +1,15 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using TennisLodge.Web.ViewModels.Admin.TournamentManagement;
+
+namespace TennisLodge.Services.Core.Admin.Interfaces
+{
+    public interface ITournamentManagementService
+    {
+        Task<IEnumerable<TournamentManagementIndexViewModel>> GetTournamentManagementBoardDataAsync();
+          
+    }
+}
