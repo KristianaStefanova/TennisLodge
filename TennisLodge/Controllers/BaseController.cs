@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace TennisLodge.Web.Controllers
 {
     [Authorize]
+    [AutoValidateAntiforgeryToken]
     public abstract class BaseController : Controller
     {
         protected bool IsUserAuthenticated()
