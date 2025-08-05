@@ -24,9 +24,9 @@ namespace TennisLodge.Services.Core.Admin
 
         public async Task AddTournamentAsync(TournamentManagementAddFormModel? inputModel, string userId)
         {
-            if (inputModel != null)
+            if (inputModel != null && !string.IsNullOrWhiteSpace(userId))
             {
-                Tournament? newTournament = new Tournament()
+                Tournament newTournament = new Tournament()
                 {
                     Name = inputModel.Name,
                     Description = inputModel.Description,
@@ -69,6 +69,66 @@ namespace TennisLodge.Services.Core.Admin
                 .ToArrayAsync();
 
             return allTournaments;
+        }
+
+        public async Task<TournamentManagementEditFormModel?> GetTournamentEditFormModelAsync(string? id)
+        {
+            TournamentManagementEditFormModel? formModel = null;
+
+            if (!String.IsNullOrEmpty(id))
+            {
+                Tournament? tournamentToEdit = await this.tournamentRepository
+                    .GetAllAttached()
+                    .IgnoreQueryFilters()
+                    .FirstOrDefaultAsync(t => t.Id.ToString().ToLower() == id.ToLower());
+
+                if (tournamentToEdit != null)
+                {
+                    formModel = new TournamentManagementEditFormModel()
+                    {
+                        Id = tournamentToEdit.Id.ToString(),
+                        Name = tournamentToEdit.Name,
+                        Description = tournamentToEdit.Description,
+                        Location = tournamentToEdit.Location,
+                        Surface = tournamentToEdit.Surface,
+                        CategoryId = tournamentToEdit.CategoryId,
+                        Organizer = tournamentToEdit.Organizer,
+                        ImageUrl = tournamentToEdit.ImageUrl,
+                        StartDate = tournamentToEdit.StartDate.ToString(AppDateFormat),
+                        EndDate = tournamentToEdit.EndDate.ToString(AppDateFormat)
+                    };
+                }
+
+            }
+            return formModel;
+        }
+
+        public async Task<bool> EditTournamentAsync(TournamentManagementEditFormModel? inputModel, string userId)
+        {
+            bool result = false;    
+            if (inputModel != null && !string.IsNullOrWhiteSpace(userId))
+            {
+                Tournament? tournamentToEdit = await this.tournamentRepository
+                    .SingleOrDefaultAsync(t => t.Id.ToString().ToLower() == inputModel.Id.ToLower());
+
+                if (tournamentToEdit != null)
+                {
+                    tournamentToEdit.Name = inputModel.Name;
+                    tournamentToEdit.Description = inputModel.Description;
+                    tournamentToEdit.Location = inputModel.Location;
+                    tournamentToEdit.Surface = inputModel.Surface;
+                    tournamentToEdit.CategoryId = inputModel.CategoryId;
+                    tournamentToEdit.Organizer = inputModel.Organizer;
+                    tournamentToEdit.ImageUrl = inputModel.ImageUrl;
+                    tournamentToEdit.StartDate = DateOnly.ParseExact(inputModel.StartDate, AppDateFormat, CultureInfo.InvariantCulture,
+                        DateTimeStyles.None);
+                    tournamentToEdit.EndDate = DateOnly.ParseExact(inputModel.EndDate, AppDateFormat, CultureInfo.InvariantCulture,
+                        DateTimeStyles.None);
+
+                    result = await tournamentRepository.UpdateAsync(tournamentToEdit);
+                }
+            }
+            return result;
         }
     }
 }

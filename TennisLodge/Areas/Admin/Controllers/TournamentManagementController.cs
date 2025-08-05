@@ -69,5 +69,54 @@ namespace TennisLodge.Web.Areas.Admin.Controllers
                 return RedirectToAction(nameof(Manage));
             }
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(string? id)
+        {
+            TournamentManagementEditFormModel? editFormModel = await this.tournamentManagementService
+                .GetTournamentEditFormModelAsync(id);
+            if (editFormModel == null)
+            {
+                TempData[ErrorMessageKey] = "Selected Tournament does not exist!";
+
+                return this.RedirectToAction(nameof(Manage));
+            }
+
+            editFormModel.Categories = await this.categoryService.GetAllCategoriesAsync();
+
+            return this.View(editFormModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(TournamentManagementEditFormModel inputModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return this.View(inputModel);
+            }
+            try
+            {
+                string userId = this.GetUserId()!;
+                bool success = await this.tournamentManagementService
+                      .EditTournamentAsync(inputModel, userId);
+                if (success)
+                {
+                    TempData[SuccessMessageKey] = "Tournament updated successfully!";
+                }
+                else
+                {
+                    TempData[ErrorMessageKey] = "An error occurred while updating the tournament. Please contact developer team!";
+                }
+
+                return this.RedirectToAction(nameof(Manage));
+            }
+            catch (Exception)
+            {
+                TempData[ErrorMessageKey] = "An error occurred while updating the tournament. Please contact developer team!";
+
+                return RedirectToAction(nameof(Manage));
+            }
+        }
+
     }
 }

@@ -12,6 +12,9 @@ namespace TennisLodge.Services.Core.Admin.Interfaces
         Task<IEnumerable<TournamentManagementIndexViewModel>>GetTournamentManagementBoardDataAsync();
 
         Task AddTournamentAsync(TournamentManagementAddFormModel? inputModel, string userId);
-          
+
+        Task<TournamentManagementEditFormModel?> GetTournamentEditFormModelAsync(string? id);
+
+        Task<bool> EditTournamentAsync(TournamentManagementEditFormModel? inputModel, string userId);
     }
 }
