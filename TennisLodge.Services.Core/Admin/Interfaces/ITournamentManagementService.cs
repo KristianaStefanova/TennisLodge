@@ -9,7 +9,9 @@ namespace TennisLodge.Services.Core.Admin.Interfaces
 {
     public interface ITournamentManagementService
     {
-        Task<IEnumerable<TournamentManagementIndexViewModel>> GetTournamentManagementBoardDataAsync();
+        Task<IEnumerable<TournamentManagementIndexViewModel>>GetTournamentManagementBoardDataAsync();
+
+        Task AddTournamentAsync(TournamentManagementAddFormModel? inputModel, string userId);
           
     }
 }

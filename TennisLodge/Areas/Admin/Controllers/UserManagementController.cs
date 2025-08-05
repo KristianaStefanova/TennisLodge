@@ -12,6 +12,7 @@ namespace TennisLodge.Web.Areas.Admin.Controllers
         {
             this.userService = userService;
         }
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             IEnumerable<UserManagementIndexViewModel> allUsers = await this.userService
