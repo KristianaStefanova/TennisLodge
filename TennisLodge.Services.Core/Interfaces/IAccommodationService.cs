@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TennisLodge.Web.ViewModels.Accommodation;
+using TennisLodge.Web.ViewModels.Admin.AccommodationManagement;
 
 namespace TennisLodge.Services.Core.Interfaces
 {
@@ -25,7 +26,13 @@ namespace TennisLodge.Services.Core.Interfaces
 
         Task<bool> SoftDeleteAccommodationAsync(string? id);
 
-
-
+        // Admin methods
+        Task<IEnumerable<AccommodationAdminListViewModel>> GetAllAccommodationsForAdminAsync();
+        
+        Task<bool> RestoreAccommodationAsync(string? id);
+        
+        Task<bool> ActivateAccommodationAsync(string? id);
+        
+        Task<bool> DeactivateAccommodationAsync(string? id);
     }
 }

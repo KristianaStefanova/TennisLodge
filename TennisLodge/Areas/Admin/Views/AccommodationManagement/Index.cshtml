@@ -1,0 +1,175 @@
+@model IEnumerable<TennisLodge.Web.ViewModels.Admin.AccommodationManagement.AccommodationAdminListViewModel>
+@{
+    ViewData["Title"] = "Accommodation Management";
+}
+
+<div class="container mt-4">
+    <div class="row mb-4">
+        <div class="col">
+            <h2 class="text-success fw-bold">
+                <i class="bi bi-house-heart-fill me-2"></i>Accommodation Management
+            </h2>
+            <p class="text-muted">Manage all accommodations in the system</p>
+        </div>
+    </div>
+
+    @if (TempData["success"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="bi bi-check-circle-fill me-2"></i>@TempData["success"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    @if (TempData["error"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i>@TempData["error"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    <div class="card shadow-sm">
+        <div class="card-header bg-success text-white">
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">
+                    <i class="bi bi-list-ul me-2"></i>All Accommodations
+                </h5>
+            </div>
+        </div>
+        <div class="card-body">
+            @if (!Model.Any())
+            {
+                <div class="text-center py-4">
+                    <i class="bi bi-inbox display-1 text-muted"></i>
+                    <p class="lead text-muted mt-3">No accommodations found</p>
+                </div>
+            }
+            else
+            {
+                <div class="table-responsive">
+                    <table class="table table-hover accommodation-table">
+                        <thead class="table-success">
+                            <tr>
+                                <th>ID</th>
+                                <th>Host</th>
+                                <th>City</th>
+                                <th>Address</th>
+                                <th>Max Guests</th>
+                                <th>Available From</th>
+                                <th>Available To</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var accommodation in Model)
+                            {
+                                <tr class="@(accommodation.IsDeleted ? "table-secondary" : "")">
+                                    <td>@accommodation.Id</td>
+                                    <td>@accommodation.HostUsername</td>
+                                    <td>@accommodation.City</td>
+                                    <td>
+                                        <span class="text-truncate d-inline-block" style="max-width: 200px;" title="@accommodation.Address">
+                                            @accommodation.Address
+                                        </span>
+                                    </td>
+                                    <td>@accommodation.MaxGuests</td>
+                                    <td>@accommodation.AvailableFrom</td>
+                                    <td>@accommodation.AvailableTo</td>
+                                    <td>
+                                        @if (accommodation.IsDeleted)
+                                        {
+                                            <span class="badge bg-danger">
+                                                <i class="bi bi-trash me-1"></i>Deleted
+                                            </span>
+                                        }
+                                        else if (accommodation.IsAvailable)
+                                        {
+                                            <span class="badge bg-success">
+                                                <i class="bi bi-check-circle me-1"></i>Active
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-warning text-dark">
+                                                <i class="bi bi-pause-circle me-1"></i>Inactive
+                                            </span>
+                                        }
+                                    </td>
+                                    <td>
+                                        <div class="btn-group action-buttons" role="group">
+                                            @if (!accommodation.IsDeleted)
+                                            {
+                                                <a asp-action="Edit" asp-route-id="@accommodation.Id" 
+                                                   class="btn btn-sm btn-outline-primary" 
+                                                   data-bs-toggle="tooltip" data-bs-placement="top" title="Edit">
+                                                    <i class="bi bi-pencil"></i>
+                                                </a>
+                                                
+                                                @if (accommodation.IsAvailable)
+                                                {
+                                                    <form asp-action="Deactivate" method="post" class="d-inline">
+                                                        <input type="hidden" name="id" value="@accommodation.Id" />
+                                                        <button type="submit" class="btn btn-sm btn-outline-warning" 
+                                                                data-bs-toggle="tooltip" data-bs-placement="top" 
+                                                                title="Deactivate">
+                                                            <i class="bi bi-pause-circle"></i>
+                                                        </button>
+                                                    </form>
+                                                }
+                                                else
+                                                {
+                                                    <form asp-action="Activate" method="post" class="d-inline">
+                                                        <input type="hidden" name="id" value="@accommodation.Id" />
+                                                        <button type="submit" class="btn btn-sm btn-outline-success" 
+                                                                data-bs-toggle="tooltip" data-bs-placement="top" title="Activate">
+                                                            <i class="bi bi-play-circle"></i>
+                                                        </button>
+                                                    </form>
+                                                }
+                                                
+                                                <form asp-action="Delete" method="post" class="d-inline">
+                                                    <input type="hidden" name="id" value="@accommodation.Id" />
+                                                    <button type="submit" class="btn btn-sm btn-outline-danger" 
+                                                            data-bs-toggle="tooltip" data-bs-placement="top" title="Delete">
+                                                        <i class="bi bi-trash"></i>
+                                                    </button>
+                                                </form>
+                                            }
+                                            else
+                                            {
+                                                <form asp-action="Restore" method="post" class="d-inline">
+                                                    <input type="hidden" name="id" value="@accommodation.Id" />
+                                                    <button type="submit" class="btn btn-sm btn-outline-success" 
+                                                            data-bs-toggle="tooltip" data-bs-placement="top" title="Restore">
+                                                        <i class="bi bi-arrow-clockwise"></i>
+                                                    </button>
+                                                </form>
+                                            }
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="mt-3">
+        <a asp-area="Admin" asp-controller="Home" asp-action="Index" 
+           class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left me-2"></i>Back to Dashboard
+        </a>
+    </div>
+</div>
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/admin-accommodation.css" />
+}
+
+@section Scripts {
+    <script src="~/js/admin-accommodation.js"></script>
+} 
