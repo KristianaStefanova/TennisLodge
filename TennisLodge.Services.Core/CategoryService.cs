@@ -17,19 +17,20 @@ namespace TennisLodge.Services.Core
 
         public CategoryService(ICategoryRepository categoryRepository)
         {
-            this.categoryRepository = categoryRepository;
+            this.categoryRepository = categoryRepository ?? throw new ArgumentNullException(nameof(categoryRepository));
         }
         public async Task<IEnumerable<CategoryViewModel>> GetAllCategoriesAsync()
         {
-            IEnumerable<CategoryViewModel> categoryAsDropDown =  await this.categoryRepository
-            .GetAllAttached()
-            .AsNoTracking()
-            .Select(c => new CategoryViewModel
-            {
-                Id = c.Id,
-                Name = c.Name
-            })
-            .ToListAsync();
+            var query = this.categoryRepository
+                .GetAllAttached()
+                .AsNoTracking()
+                .Select(c => new CategoryViewModel
+                {
+                    Id = c.Id,
+                    Name = c.Name
+                });
+
+            IEnumerable<CategoryViewModel> categoryAsDropDown = await query.ToListAsync();
 
             return categoryAsDropDown;
         }

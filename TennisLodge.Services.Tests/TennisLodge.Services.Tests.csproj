@@ -28,6 +28,7 @@
     <ProjectReference Include="..\TennisLodge.GCommon\TennisLodge.GCommon.csproj" />
     <ProjectReference Include="..\TennisLodge.Services.Common\TennisLodge.Services.Common.csproj" />
     <ProjectReference Include="..\TennisLodge.Services.Core\TennisLodge.Services.Core.csproj" />
+    <ProjectReference Include="..\TennisLodge.Web.ViewModels\TennisLodge.Web.ViewModels.csproj" />
   </ItemGroup>
 
 
