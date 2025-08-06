@@ -30,7 +30,7 @@
 
     @if (User.Identity?.IsAuthenticated == true)
     {
-        
+
         <form asp-controller="Favorite" asp-action="Add" asp-route-id="@Model.Id" method="post" class="d-inline">
             @Html.AntiForgeryToken()
             <button type="submit" class="btn btn-success">Save to Favorites</button>
