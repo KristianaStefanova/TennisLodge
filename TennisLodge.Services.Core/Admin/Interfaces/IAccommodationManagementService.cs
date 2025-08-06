@@ -10,6 +10,6 @@ namespace TennisLodge.Services.Core.Admin.Interfaces
 
         Task<bool> ActivateAccommodationAsync(string? id);
 
-        Task<bool> DeactivateAccommodationAsync(string? id)
+        Task<bool> DeactivateAccommodationAsync(string? id);
     }
 }

@@ -3,16 +3,19 @@ using TennisLodge.Services.Core.Interfaces;
 using TennisLodge.Web.ViewModels.Admin.AccommodationManagement;
 using TennisLodge.Web.ViewModels.Accommodation;
 using static TennisLodge.GCommon.ApplicationConstants;
+using TennisLodge.Services.Core.Admin.Interfaces;
 
 namespace TennisLodge.Web.Areas.Admin.Controllers
 {
     public class AccommodationManagementController : BaseAdminController
     {
         private readonly IAccommodationService accommodationService;
-
-        public AccommodationManagementController(IAccommodationService accommodationService)
+        private readonly IAccommodationManagementService accommodationManagementService;
+        public AccommodationManagementController(IAccommodationService accommodationService,
+            IAccommodationManagementService accommodationManagementService)
         {
             this.accommodationService = accommodationService;
+            this.accommodationManagementService = accommodationManagementService;
         }
 
         [HttpGet]
@@ -20,7 +23,7 @@ namespace TennisLodge.Web.Areas.Admin.Controllers
         {
             try
             {
-                IEnumerable<AccommodationAdminListViewModel> accommodations = await accommodationService
+                IEnumerable<AccommodationAdminListViewModel> accommodations = await accommodationManagementService
                     .GetAllAccommodationsForAdminAsync();
                 return View(accommodations);
             }
@@ -113,7 +116,7 @@ namespace TennisLodge.Web.Areas.Admin.Controllers
         {
             try
             {
-                bool result = await accommodationService
+                bool result = await accommodationManagementService
                     .RestoreAccommodationAsync(id);
                 if (result)
                 {
@@ -139,7 +142,8 @@ namespace TennisLodge.Web.Areas.Admin.Controllers
         {
             try
             {
-                bool result = await accommodationService.ActivateAccommodationAsync(id);
+                bool result = await accommodationManagementService
+                    .ActivateAccommodationAsync(id);
                 if (result)
                 {
                     TempData[SuccessMessageKey] = "Accommodation activated successfully.";
@@ -164,7 +168,7 @@ namespace TennisLodge.Web.Areas.Admin.Controllers
         {
             try
             {
-                bool result = await accommodationService
+                bool result = await accommodationManagementService
                     .DeactivateAccommodationAsync(id);
                 if (result)
                 {

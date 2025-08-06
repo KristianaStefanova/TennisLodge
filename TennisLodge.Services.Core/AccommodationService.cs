@@ -196,8 +196,23 @@ namespace TennisLodge.Services.Core
             return deleteAccommodationVM;
         }
 
-        
-        
+        private async Task<Accommodation?> FindAccommodationByStringId(string? id)
+        {
+            Accommodation? accommodation = null;
+
+            if (!string.IsNullOrWhiteSpace(id))
+            {
+                bool isIntValid = int.TryParse(id, out int accommodationInt);
+                if (isIntValid)
+                {
+                    accommodation = await this.accommodationRepository
+                        .GetByIdAsync(accommodationInt);
+                }
+            }
+
+            return accommodation;
+        }
+
     }
 }
 
