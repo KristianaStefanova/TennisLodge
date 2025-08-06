@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using TennisLodge.Data;
 using TennisLodge.Data.Models;
 using TennisLodge.Services.Core.Admin;
 using TennisLodge.Web.ViewModels.Admin.UserManagement;
@@ -27,7 +28,10 @@ namespace TennisLodge.Services.Tests.AdminTests
             this.mockUserManager = new Mock<UserManager<ApplicationUser>>(
                 userStore.Object, null, null, null, null, null, null, null, null);
 
-            this.userService = new UserService(mockUserManager.Object);
+            // Mock del DbContext
+            var mockDbContext = new Mock<TennisLodge.Data.TennisLodgeDbContext>();
+
+            this.userService = new UserService(mockUserManager.Object, mockDbContext.Object);
         }
 
         [TestFixture]

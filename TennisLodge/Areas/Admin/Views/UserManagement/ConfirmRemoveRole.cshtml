@@ -1,0 +1,44 @@
+@using TennisLodge.Web.ViewModels.Admin.UserManagement
+@model ConfirmRemoveRoleViewModel
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-warning text-dark">
+                    <h4 class="mb-0 fw-bold">
+                        <i class="bi bi-exclamation-triangle-fill"></i> Confirm Remove Role
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div class="text-center mb-4">
+                        <i class="bi bi-person-x-fill text-warning" style="font-size: 3rem;"></i>
+                    </div>
+                    
+                    <div class="alert alert-warning">
+                        <h6 class="fw-bold">Are you sure you want to remove the role?</h6>
+                        <p class="mb-0">
+                            <strong>User:</strong> @Model.UserEmail<br>
+                            <strong>Role:</strong> <span class="badge bg-warning text-dark">@Model.Role</span>
+                        </p>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <a asp-area="Admin" asp-controller="UserManagement" asp-action="Index" 
+                           class="btn btn-outline-secondary fw-bold">
+                            <i class="bi bi-arrow-left"></i> Cancel
+                        </a>
+                        
+                        <form method="post" asp-area="Admin" asp-controller="UserManagement" asp-action="RemoveRoleConfirmed">
+                            <input type="hidden" name="userId" value="@Model.UserId" />
+                            <input type="hidden" name="role" value="@Model.Role" />
+                            <button type="submit" class="btn btn-warning fw-bold">
+                                <i class="bi bi-person-x-fill"></i> Remove Role
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
