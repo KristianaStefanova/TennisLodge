@@ -13,6 +13,7 @@ using TennisLodge.Data;
 using TennisLodge.Data.Models;
 using TennisLodge.Data.Repository.Interfaces;
 using TennisLodge.Services.Core.Interfaces;
+using TennisLodge.Web.ViewModels.Admin.TournamentManagement;
 using TennisLodge.Web.ViewModels.Tournament;
 using static TennisLodge.GCommon.ApplicationConstants;
 
@@ -23,14 +24,17 @@ namespace TennisLodge.Services.Core
         private readonly ICategoryRepository categoryRepository;
         private readonly ITournamentRepository tournamentRepository;    
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly IFavoriteService favoriteService;
         
 
         public TournamentService(ICategoryRepository categoryRepository, 
-            ITournamentRepository tournamentRepository, UserManager<ApplicationUser> userManager)
+            ITournamentRepository tournamentRepository, UserManager<ApplicationUser> userManager,
+            IFavoriteService favoriteService)
         {
             this.categoryRepository = categoryRepository;
             this.tournamentRepository = tournamentRepository;
             this.userManager = userManager;
+            this.favoriteService = favoriteService;
         }
 
 
@@ -103,7 +107,7 @@ namespace TennisLodge.Services.Core
         }
 
 
-        public async Task<TournamentDetailsViewModel?> GetTournamentDetailsByIdAsync(string? tournamentId)
+        public async Task<TournamentDetailsViewModel?> GetTournamentDetailsByIdAsync(string? tournamentId, string? userId = null)
         {
             TournamentDetailsViewModel? tournamentDetails = null;
 
@@ -129,6 +133,13 @@ namespace TennisLodge.Services.Core
                         Organizer = t.Organizer
                     })
                     .SingleOrDefaultAsync();
+
+                // Verificar si está en favoritos si se proporciona un userId
+                if (tournamentDetails != null && !string.IsNullOrEmpty(userId))
+                {
+                    tournamentDetails.IsInFavorites = await this.favoriteService
+                        .IsTournamentInFavoritesAsync(tournamentGuid, userId);
+                }
             }
 
             return tournamentDetails;
@@ -198,30 +209,6 @@ namespace TennisLodge.Services.Core
             return result;
         }
 
-        public async Task<bool> SoftDeleteTournamentAsync(string? id)
-        {
-            try
-            {
-                Tournament? tournamentToDelete = await this.FindTournamentByStringId(id);
-
-                if (tournamentToDelete == null)
-                {
-                    return false;
-                }
-
-                tournamentToDelete.IsDeleted = true;
-                
-
-                await this.tournamentRepository.UpdateAsync(tournamentToDelete);
-
-                return true;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-                return false;
-            }
-        }
 
         public async Task<IEnumerable<SelectListItem>> GetAllAsSelectList()
         {

@@ -20,10 +20,11 @@ namespace TennisLodge.Web.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> CreateRequest()
+        public async Task<IActionResult> CreateRequest(string? accommodationId, string? tournamentId)
         {
             AccommodationRequestInputModel model = new AccommodationRequestInputModel
             {
+                AccommodationId = accommodationId ?? string.Empty,
                 Tournaments = await tournamentService.GetAllAsSelectList(),
             };
 
@@ -87,9 +88,7 @@ namespace TennisLodge.Web.Controllers
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-                {
-                    return this.RedirectToAction();
-                }
+                return this.RedirectToAction("Index", "Home");
             }
         }
     }

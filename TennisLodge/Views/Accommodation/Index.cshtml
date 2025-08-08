@@ -16,6 +16,37 @@
         body.tennislodge, body.tennislodge * {
             font-family: 'Inter', sans-serif !important;
         }
+        
+        .btn-request {
+            background-color: #2a6f4a !important;
+            border-color: #225d3a !important;
+            color: white !important;
+            font-weight: 600 !important;
+            transition: all 0.3s ease !important;
+        }
+        
+        .btn-request:hover {
+            background-color: #225d3a !important;
+            border-color: #1b4529 !important;
+            color: white !important;
+            transform: translateY(-2px) !important;
+            box-shadow: 0 4px 8px rgba(42, 111, 74, 0.3) !important;
+        }
+        
+        .btn-request span {
+            color: white !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            display: inline !important;
+            font-weight: 600 !important;
+        }
+        
+        .btn-request:hover span {
+            color: white !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            display: inline !important;
+        }
     </style>
 
     <link rel="stylesheet" href="~/css/user.css" />
@@ -78,8 +109,8 @@
                                    asp-action="CreateRequest"
                                    asp-route-accommodationId="@accommodation.Id"
                                    asp-route-tournamentId="@accommodation.TournamentId"
-                                   class="btn btn-sm btn-primary btn-request">
-                                    @Html.Raw("<span style='color:white !important; opacity:1 !important; visibility:visible !important;'>Request</span>")
+                                   class="btn btn-sm btn-request">
+                                    <span>Request</span>
                                 </a>
                             }
                         </td>

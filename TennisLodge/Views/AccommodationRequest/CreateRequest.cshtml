@@ -1,28 +1,111 @@
 ﻿@using TennisLodge.Web.ViewModels.Accommodation;
 @model AccommodationRequestInputModel
 
-<h2>Request Accommodation</h2>
+@{
+    ViewData["Title"] = "Request Accommodation";
+}
 
-<form asp-action="SendRequest" method="post">
-    <input type="hidden" asp-for="AccommodationId" />
+@section Styles {
+    <style>
+        .card {
+            background-color: rgba(255, 255, 255, 0.95) !important;
+            backdrop-filter: blur(10px);
+            border: none !important;
+        }
+        
+        .form-control {
+            background-color: rgba(255, 255, 255, 0.9) !important;
+            border: 1px solid rgba(42, 111, 74, 0.3) !important;
+            border-radius: 8px !important;
+            transition: all 0.3s ease !important;
+        }
+        
+        .form-control:focus {
+            background-color: rgba(255, 255, 255, 1) !important;
+            border-color: #2a6f4a !important;
+            box-shadow: 0 0 0 0.2rem rgba(42, 111, 74, 0.25) !important;
+        }
+        
+        .form-label {
+            color: #2a6f4a !important;
+            font-weight: 600 !important;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #2a6f4a, #225d3a) !important;
+            border: none !important;
+            border-radius: 25px !important;
+            font-weight: 600 !important;
+            transition: all 0.3s ease !important;
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #225d3a, #1b4529) !important;
+            transform: translateY(-2px) !important;
+            box-shadow: 0 4px 15px rgba(42, 111, 74, 0.4) !important;
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #6c757d, #5a6268) !important;
+            border: none !important;
+            border-radius: 25px !important;
+            font-weight: 600 !important;
+            transition: all 0.3s ease !important;
+        }
+        
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, #5a6268, #495057) !important;
+            transform: translateY(-2px) !important;
+            box-shadow: 0 4px 15px rgba(108, 117, 125, 0.4) !important;
+        }
+    </style>
+}
 
-    <div class="form-group">
-        <label asp-for="TournamentId">Tournament</label>
-        <select asp-for="TournamentId" asp-items="Model.Tournaments" class="form-control"></select>
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg rounded-4">
+                <div class="card-body p-5">
+                    <h2 class="mb-4 text-center text-success">Request Accommodation</h2>
+
+<form asp-action="SendRequest" method="post" class="row g-4">
+    <input type="hidden" asp-for="AccommodationId" value="@Model.AccommodationId" />
+
+    <div class="col-md-12">
+        <label asp-for="TournamentId" class="form-label">Tournament *</label>
+        <select asp-for="TournamentId" asp-items="Model.Tournaments" class="form-control">
+            <option value="">-- Select Tournament --</option>
+        </select>
         <span asp-validation-for="TournamentId" class="text-danger"></span>
     </div>
 
-    <div class="form-group">
-        <label asp-for="NumberOfGuests"></label>
-        <input asp-for="NumberOfGuests" class="form-control" />
+    <div class="col-md-6">
+        <label asp-for="NumberOfGuests" class="form-label">Number of Guests *</label>
+        <input asp-for="NumberOfGuests" type="number" min="1" max="10" class="form-control" />
         <span asp-validation-for="NumberOfGuests" class="text-danger"></span>
     </div>
 
-    <div class="form-group">
-        <label asp-for="Notes"></label>
-        <textarea asp-for="Notes" class="form-control" rows="10"></textarea>
+    <div class="col-md-12">
+        <label asp-for="Notes" class="form-label">Notes (Optional)</label>
+        <textarea asp-for="Notes" class="form-control" rows="4" maxlength="350" placeholder="Any additional information or special requests..."></textarea>
         <span asp-validation-for="Notes" class="text-danger"></span>
     </div>
 
-    <button type="submit" class="btn btn-primary">Send Request</button>
+    <div class="col-12 text-center">
+        <button type="submit" class="btn btn-primary px-5 py-3">
+            <i class="bi bi-send me-2"></i>Send Request
+        </button>
+        <a asp-controller="Accommodation" asp-action="Index" class="btn btn-secondary ms-3 px-5 py-3">
+            <i class="bi bi-arrow-left me-2"></i>Cancel
+        </a>
+    </div>
 </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

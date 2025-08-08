@@ -7,6 +7,15 @@
 
 <h2 style="margin-bottom: 2rem;">@Model.Name</h2>
 
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <i class="bi bi-exclamation-triangle me-2"></i>
+        @TempData["ErrorMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
 @if (!string.IsNullOrEmpty(Model.ImageUrl))
 {
     <div class="mb-4">
@@ -30,10 +39,19 @@
 
     @if (User.Identity?.IsAuthenticated == true)
     {
-
-        <form asp-controller="Favorite" asp-action="Add" asp-route-id="@Model.Id" method="post" class="d-inline">
-            @Html.AntiForgeryToken()
-            <button type="submit" class="btn btn-success">Save to Favorites</button>
-        </form>
+        @if (Model.IsInFavorites)
+        {
+            <form asp-controller="Favorite" asp-action="Remove" asp-route-id="@Model.Id" method="post" class="d-inline">
+                @Html.AntiForgeryToken()
+                <button type="submit" class="btn btn-danger">Remove from Favorites</button>
+            </form>
+        }
+        else
+        {
+            <form asp-controller="Favorite" asp-action="Add" asp-route-id="@Model.Id" method="post" class="d-inline">
+                @Html.AntiForgeryToken()
+                <button type="submit" class="btn btn-success">Save to Favorites</button>
+            </form>
+        }
     }
 </div>

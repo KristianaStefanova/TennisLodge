@@ -31,15 +31,18 @@ namespace TennisLodge.Web.Controllers
 
                 if (!success)
                 {
-                    return BadRequest("You are already registered for this tournament.");
+                    TempData["ErrorMessage"] = "You are already registered for this tournament.";
+                    return RedirectToAction("Details", "Tournament", new { id = id });
                 }
 
-                return RedirectToAction("Details", "Tournament", new { id = id });
+                TempData["SuccessMessage"] = "Successfully joined the tournament!";
+                return RedirectToAction(nameof(MyTournaments));
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-                return StatusCode(500, "An error occurred while registering for the tournament.");
+                TempData["ErrorMessage"] = "An error occurred while registering for the tournament.";
+                return RedirectToAction("Details", "Tournament", new { id = id });
             }
         }
 
@@ -83,14 +86,19 @@ namespace TennisLodge.Web.Controllers
 
                 if (!success)
                 {
-                    return BadRequest("The registration could not be canceled.");
+                    TempData["ErrorMessage"] = "The registration could not be canceled.";
+
+                    return RedirectToAction(nameof(MyTournaments));
                 }
+
+                TempData["SuccessMessage"] = "Successfully canceled tournament registration!";
 
                 return RedirectToAction(nameof(MyTournaments));
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
+
                 return StatusCode(500, "Error canceling registration.");
             }
         }

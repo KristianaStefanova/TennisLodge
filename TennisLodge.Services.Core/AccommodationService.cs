@@ -16,8 +16,7 @@ namespace TennisLodge.Services.Core
         //private readonly UserManager<ApplicationUser> userManager;
         private readonly IAccommodationRepository accommodationRepository;
 
-        public AccommodationService(TennisLodgeDbContext dbContext, UserManager<ApplicationUser> userManager,
-            IAccommodationRepository accommodationRepository)
+        public AccommodationService(IAccommodationRepository accommodationRepository)
         {
             //this.userManager = userManager;
             this.accommodationRepository = accommodationRepository;
@@ -160,15 +159,15 @@ namespace TennisLodge.Services.Core
         public async Task<bool> SoftDeleteAccommodationAsync(string? id)
         {
             bool result = false;
-            Accommodation? movieToDelete = await this
+            Accommodation? accommodationToDelete = await this
                 .FindAccommodationByStringId(id);
-            if (movieToDelete == null)
+            if (accommodationToDelete == null)
             {
                 return false;
             }
 
             result = await this.accommodationRepository
-                .DeleteAsync(movieToDelete);
+                .DeleteAsync(accommodationToDelete);
 
             return result;
         }

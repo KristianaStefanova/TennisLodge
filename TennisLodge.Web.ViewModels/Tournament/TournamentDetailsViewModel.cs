@@ -27,5 +27,7 @@ namespace TennisLodge.Web.ViewModels.Tournament
         public string CategoryName { get; set; } = null!;
 
         public string Organizer { get; set; } = null!;
+
+        public bool IsInFavorites { get; set; }
     }
 }

@@ -34,15 +34,15 @@ namespace TennisLodge.Services.Tests
             {
                 // Arrange
                 string userId = "test-user-id";
-                var mockQueryable = CreateMockQueryableWithAdmin(userId);
-                mockAdminRepository.Setup(r => r.GetAllAttached()).Returns(mockQueryable);
+                IQueryable<Data.Models.Admin> mockQueryable = CreateMockQueryableWithAdmin(userId);
+                this.mockAdminRepository.Setup(r => r.GetAllAttached()).Returns(mockQueryable);
 
                 // Act
                 bool result = await adminService.ExistsByUserIdAsync(userId);
 
                 // Assert
                 Assert.That(result, Is.True);
-                mockAdminRepository.Verify(r => r.GetAllAttached(), Times.Once);
+                this.mockAdminRepository.Verify(r => r.GetAllAttached(), Times.Once);
             }
 
             [Test]
@@ -50,15 +50,15 @@ namespace TennisLodge.Services.Tests
             {
                 // Arrange
                 string userId = "non-existent-user-id";
-                IQueryable<Admin> mockQueryable = CreateMockQueryableWithAdmin("different-user-id");
-                mockAdminRepository.Setup(r => r.GetAllAttached()).Returns(mockQueryable);
+                IQueryable<TennisLodge.Data.Models.Admin> mockQueryable = CreateMockQueryableWithAdmin("different-user-id");
+                this.mockAdminRepository.Setup(r => r.GetAllAttached()).Returns(mockQueryable);
 
                 // Act
                 bool result = await adminService.ExistsByUserIdAsync(userId);
 
                 // Assert
                 Assert.That(result, Is.False);
-                mockAdminRepository.Verify(r => r.GetAllAttached(), Times.Once);
+                this.mockAdminRepository.Verify(r => r.GetAllAttached(), Times.Once);
             }
 
             [Test]
@@ -72,7 +72,7 @@ namespace TennisLodge.Services.Tests
 
                 // Assert
                 Assert.That(result, Is.False);
-                mockAdminRepository.Verify(r => r.GetAllAttached(), Times.Never);
+                this.mockAdminRepository.Verify(r => r.GetAllAttached(), Times.Never);
             }
 
             [Test]
@@ -86,7 +86,7 @@ namespace TennisLodge.Services.Tests
 
                 // Assert
                 Assert.That(result, Is.False);
-                mockAdminRepository.Verify(r => r.GetAllAttached(), Times.Never);
+                this.mockAdminRepository.Verify(r => r.GetAllAttached(), Times.Never);
             }
 
             [Test]
@@ -100,7 +100,7 @@ namespace TennisLodge.Services.Tests
 
                 // Assert
                 Assert.That(result, Is.False);
-                mockAdminRepository.Verify(r => r.GetAllAttached(), Times.Never);
+                this.mockAdminRepository.Verify(r => r.GetAllAttached(), Times.Never);
             }
 
             [Test]
@@ -108,15 +108,15 @@ namespace TennisLodge.Services.Tests
             {
                 // Arrange
                 string userId = "TEST-USER-ID";
-                var mockQueryable = CreateMockQueryableWithAdmin("test-user-id");
-                mockAdminRepository.Setup(r => r.GetAllAttached()).Returns(mockQueryable);
+                IQueryable<Data.Models.Admin> mockQueryable = CreateMockQueryableWithAdmin("test-user-id");
+                this.mockAdminRepository.Setup(r => r.GetAllAttached()).Returns(mockQueryable);
 
                 // Act
                 bool result = await adminService.ExistsByUserIdAsync(userId);
 
                 // Assert
                 Assert.That(result, Is.True);
-                mockAdminRepository.Verify(r => r.GetAllAttached(), Times.Once);
+                this.mockAdminRepository.Verify(r => r.GetAllAttached(), Times.Once);
             }
         }
 
@@ -128,15 +128,15 @@ namespace TennisLodge.Services.Tests
             {
                 // Arrange
                 string id = "test-admin-id";
-                IQueryable<Admin> mockQueryable = CreateMockQueryableWithAdminId(id);
-                mockAdminRepository.Setup(r => r.GetAllAttached()).Returns(mockQueryable);
+                IQueryable<TennisLodge.Data.Models.Admin> mockQueryable = CreateMockQueryableWithAdminId(id);
+                this.mockAdminRepository.Setup(r => r.GetAllAttached()).Returns(mockQueryable);
 
                 // Act
                 bool result = await adminService.ExistsByIdAsync(id);
 
                 // Assert
                 Assert.That(result, Is.True);
-                mockAdminRepository.Verify(r => r.GetAllAttached(), Times.Once);
+                this.mockAdminRepository.Verify(r => r.GetAllAttached(), Times.Once);
             }
 
             [Test]
@@ -144,15 +144,15 @@ namespace TennisLodge.Services.Tests
             {
                 // Arrange
                 string id = "non-existent-admin-id";
-                IQueryable<Admin> mockQueryable = CreateMockQueryableWithAdminId("different-admin-id");
-                mockAdminRepository.Setup(r => r.GetAllAttached()).Returns(mockQueryable);
+                IQueryable<TennisLodge.Data.Models.Admin> mockQueryable = CreateMockQueryableWithAdminId("different-admin-id");
+                this.mockAdminRepository.Setup(r => r.GetAllAttached()).Returns(mockQueryable);
 
                 // Act
                 bool result = await adminService.ExistsByIdAsync(id);
 
                 // Assert
                 Assert.That(result, Is.False);
-                mockAdminRepository.Verify(r => r.GetAllAttached(), Times.Once);
+                this.mockAdminRepository.Verify(r => r.GetAllAttached(), Times.Once);
             }
 
             [Test]
@@ -166,7 +166,7 @@ namespace TennisLodge.Services.Tests
 
                 // Assert
                 Assert.That(result, Is.False);
-                mockAdminRepository.Verify(r => r.GetAllAttached(), Times.Never);
+                this.mockAdminRepository.Verify(r => r.GetAllAttached(), Times.Never);
             }
 
             [Test]
@@ -180,7 +180,7 @@ namespace TennisLodge.Services.Tests
 
                 // Assert
                 Assert.That(result, Is.False);
-                mockAdminRepository.Verify(r => r.GetAllAttached(), Times.Never);
+                this.mockAdminRepository.Verify(r => r.GetAllAttached(), Times.Never);
             }
 
             [Test]
@@ -194,7 +194,7 @@ namespace TennisLodge.Services.Tests
 
                 // Assert
                 Assert.That(result, Is.False);
-                mockAdminRepository.Verify(r => r.GetAllAttached(), Times.Never);
+                this.mockAdminRepository.Verify(r => r.GetAllAttached(), Times.Never);
             }
 
             [Test]
@@ -202,15 +202,15 @@ namespace TennisLodge.Services.Tests
             {
                 // Arrange
                 string id = "TEST-ADMIN-ID";
-                var mockQueryable = CreateMockQueryableWithAdminId("test-admin-id");
-                mockAdminRepository.Setup(r => r.GetAllAttached()).Returns(mockQueryable);
+                IQueryable<Data.Models.Admin> mockQueryable = CreateMockQueryableWithAdminId("test-admin-id");
+                this.mockAdminRepository.Setup(r => r.GetAllAttached()).Returns(mockQueryable);
 
                 // Act
                 bool result = await adminService.ExistsByIdAsync(id);
 
                 // Assert
                 Assert.That(result, Is.True);
-                mockAdminRepository.Verify(r => r.GetAllAttached(), Times.Once);
+                this.mockAdminRepository.Verify(r => r.GetAllAttached(), Times.Once);
             }
         }
 
@@ -223,8 +223,8 @@ namespace TennisLodge.Services.Tests
                 // Arrange
                 string userId = "test-user-id";
                 string expectedAdminId = "admin-id-123";
-                Admin admin = new Admin { Id = expectedAdminId, UserId = userId };
-                mockAdminRepository.Setup(r => r.FirstOrDefaultAsync(It.IsAny<Expression<Func<Admin, bool>>>()))
+                TennisLodge.Data.Models.Admin admin = new TennisLodge.Data.Models.Admin { Id = expectedAdminId, UserId = userId };
+                this.mockAdminRepository.Setup(r => r.FirstOrDefaultAsync(It.IsAny<Expression<Func<TennisLodge.Data.Models.Admin, bool>>>()))
                     .ReturnsAsync(admin);
 
                 // Act
@@ -232,7 +232,7 @@ namespace TennisLodge.Services.Tests
 
                 // Assert
                 Assert.That(result, Is.EqualTo(expectedAdminId));
-                mockAdminRepository.Verify(r => r.FirstOrDefaultAsync(It.IsAny<Expression<Func<Admin, bool>>>()), Times.Once);
+                this.mockAdminRepository.Verify(r => r.FirstOrDefaultAsync(It.IsAny<Expression<Func<TennisLodge.Data.Models.Admin, bool>>>()), Times.Once);
             }
 
             [Test]
@@ -240,15 +240,15 @@ namespace TennisLodge.Services.Tests
             {
                 // Arrange
                 string userId = "non-existent-user-id";
-                mockAdminRepository.Setup(r => r.FirstOrDefaultAsync(It.IsAny<Expression<Func<Admin, bool>>>()))
-                    .ReturnsAsync((Admin?)null);
+                this.mockAdminRepository.Setup(r => r.FirstOrDefaultAsync(It.IsAny<Expression<Func<TennisLodge.Data.Models.Admin, bool>>>()))
+                    .ReturnsAsync((TennisLodge.Data.Models.Admin?)null);
 
                 // Act
                 string? result = await adminService.GetIdByUserIdAsync(userId);
 
                 // Assert
                 Assert.That(result, Is.Null);
-                mockAdminRepository.Verify(r => r.FirstOrDefaultAsync(It.IsAny<Expression<Func<Admin, bool>>>()), Times.Once);
+                this.mockAdminRepository.Verify(r => r.FirstOrDefaultAsync(It.IsAny<Expression<Func<TennisLodge.Data.Models.Admin, bool>>>()), Times.Once);
             }
 
             [Test]
@@ -262,7 +262,7 @@ namespace TennisLodge.Services.Tests
 
                 // Assert
                 Assert.That(result, Is.Null);
-                mockAdminRepository.Verify(r => r.FirstOrDefaultAsync(It.IsAny<Expression<Func<Admin, bool>>>()), Times.Never);
+                this.mockAdminRepository.Verify(r => r.FirstOrDefaultAsync(It.IsAny<Expression<Func<TennisLodge.Data.Models.Admin, bool>>>()), Times.Never);
             }
 
             [Test]
@@ -276,7 +276,7 @@ namespace TennisLodge.Services.Tests
 
                 // Assert
                 Assert.That(result, Is.Null);
-                mockAdminRepository.Verify(r => r.FirstOrDefaultAsync(It.IsAny<Expression<Func<Admin, bool>>>()), Times.Never);
+                this.mockAdminRepository.Verify(r => r.FirstOrDefaultAsync(It.IsAny<Expression<Func<TennisLodge.Data.Models.Admin, bool>>>()), Times.Never);
             }
 
             [Test]
@@ -290,7 +290,7 @@ namespace TennisLodge.Services.Tests
 
                 // Assert
                 Assert.That(result, Is.Null);
-                mockAdminRepository.Verify(r => r.FirstOrDefaultAsync(It.IsAny<Expression<Func<Admin, bool>>>()), Times.Never);
+                this.mockAdminRepository.Verify(r => r.FirstOrDefaultAsync(It.IsAny<Expression<Func<TennisLodge.Data.Models.Admin, bool>>>()), Times.Never);
             }
 
             [Test]
@@ -299,8 +299,8 @@ namespace TennisLodge.Services.Tests
                 // Arrange
                 string userId = "TEST-USER-ID";
                 string expectedAdminId = "admin-id-123";
-                Admin admin = new Admin { Id = expectedAdminId, UserId = "test-user-id" };
-                mockAdminRepository.Setup(r => r.FirstOrDefaultAsync(It.IsAny<Expression<Func<Admin, bool>>>()))
+                TennisLodge.Data.Models.Admin admin = new TennisLodge.Data.Models.Admin { Id = expectedAdminId, UserId = "test-user-id" };
+                this.mockAdminRepository.Setup(r => r.FirstOrDefaultAsync(It.IsAny<Expression<Func<TennisLodge.Data.Models.Admin, bool>>>()))
                     .ReturnsAsync(admin);
 
                 // Act
@@ -308,21 +308,21 @@ namespace TennisLodge.Services.Tests
 
                 // Assert
                 Assert.That(result, Is.EqualTo(expectedAdminId));
-                mockAdminRepository.Verify(r => r.FirstOrDefaultAsync(It.IsAny<Expression<Func<Admin, bool>>>()), Times.Once);
+                this.mockAdminRepository.Verify(r => r.FirstOrDefaultAsync(It.IsAny<Expression<Func<TennisLodge.Data.Models.Admin, bool>>>()), Times.Once);
             }
         }
 
         #region Helper Methods
-        private static IQueryable<Admin> CreateMockQueryableWithAdmin(string userId)
+        private static IQueryable<TennisLodge.Data.Models.Admin> CreateMockQueryableWithAdmin(string userId)
         {
-            List<Admin> admins = new List<Admin>
+            List<TennisLodge.Data.Models.Admin> admins = new List<TennisLodge.Data.Models.Admin>
             {
-                new Admin { Id = "admin-1", UserId = userId, IsDeleted = false },
-                new Admin { Id = "admin-2", UserId = "other-user", IsDeleted = false }
+                new TennisLodge.Data.Models.Admin { Id = "admin-1", UserId = userId, IsDeleted = false },
+                new TennisLodge.Data.Models.Admin { Id = "admin-2", UserId = "other-user", IsDeleted = false }
             };
 
-            Mock<IQueryable<Admin>> mockQueryable = new Mock<IQueryable<Admin>>();
-            mockQueryable.Setup(m => m.Provider).Returns(new TestAsyncQueryProvider<Admin>(admins.AsQueryable().Provider));
+            Mock<IQueryable<TennisLodge.Data.Models.Admin>> mockQueryable = new Mock<IQueryable<TennisLodge.Data.Models.Admin>>();
+            mockQueryable.Setup(m => m.Provider).Returns(new TestAsyncQueryProvider<TennisLodge.Data.Models.Admin>(admins.AsQueryable().Provider));
             mockQueryable.Setup(m => m.Expression).Returns(admins.AsQueryable().Expression);
             mockQueryable.Setup(m => m.ElementType).Returns(admins.AsQueryable().ElementType);
             mockQueryable.Setup(m => m.GetEnumerator()).Returns(admins.AsQueryable().GetEnumerator());
@@ -330,16 +330,16 @@ namespace TennisLodge.Services.Tests
             return mockQueryable.Object;
         }
 
-        private static IQueryable<Admin> CreateMockQueryableWithAdminId(string id)
+        private static IQueryable<TennisLodge.Data.Models.Admin> CreateMockQueryableWithAdminId(string id)
         {
-            List<Admin> admins = new List<Admin>
+            List<TennisLodge.Data.Models.Admin> admins = new List<TennisLodge.Data.Models.Admin>
             {
-                new Admin { Id = id, UserId = "user-1", IsDeleted = false },
-                new Admin { Id = "other-admin", UserId = "user-2", IsDeleted = false }
+                new TennisLodge.Data.Models.Admin { Id = id, UserId = "user-1", IsDeleted = false },
+                new TennisLodge.Data.Models.Admin { Id = "other-admin", UserId = "user-2", IsDeleted = false }
             };
 
-            Mock<IQueryable<Admin>> mockQueryable = new Mock<IQueryable<Admin>>();
-            mockQueryable.Setup(m => m.Provider).Returns(new TestAsyncQueryProvider<Admin>(admins.AsQueryable().Provider));
+            Mock<IQueryable<TennisLodge.Data.Models.Admin>> mockQueryable = new Mock<IQueryable<TennisLodge.Data.Models.Admin>>();
+            mockQueryable.Setup(m => m.Provider).Returns(new TestAsyncQueryProvider<TennisLodge.Data.Models.Admin>(admins.AsQueryable().Provider));
             mockQueryable.Setup(m => m.Expression).Returns(admins.AsQueryable().Expression);
             mockQueryable.Setup(m => m.ElementType).Returns(admins.AsQueryable().ElementType);
             mockQueryable.Setup(m => m.GetEnumerator()).Returns(admins.AsQueryable().GetEnumerator());

@@ -26,6 +26,11 @@ namespace TennisLodge.Services.Core
                 throw new ArgumentException("Invalid tournament ID.");
             }
 
+            if (!int.TryParse(inputModel.AccommodationId, out int accommodationId))
+            {
+                throw new ArgumentException("Invalid accommodation ID.");
+            }
+
 
             AccommodationRequest accommodationRequest = new AccommodationRequest
             {

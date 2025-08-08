@@ -139,6 +139,38 @@ body.tennislodge {
             transform: scale(0.98);
         }
 
+    /* Estilos específicos para el botón request */
+    body.tennislodge .btn-request {
+        background-color: #2a6f4a !important;
+        border-color: #225d3a !important;
+        color: white !important;
+        font-weight: 600 !important;
+        transition: all 0.3s ease !important;
+    }
+
+    body.tennislodge .btn-request:hover {
+        background-color: #225d3a !important;
+        border-color: #1b4529 !important;
+        color: white !important;
+        transform: translateY(-2px) !important;
+        box-shadow: 0 4px 8px rgba(42, 111, 74, 0.3) !important;
+    }
+
+    body.tennislodge .btn-request span {
+        color: white !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        display: inline !important;
+        font-weight: 600 !important;
+    }
+
+    body.tennislodge .btn-request:hover span {
+        color: white !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        display: inline !important;
+    }
+
     body.tennislodge .navbar {
         background-color: #ffffff !important;
         border-bottom: 1px solid #ccc;

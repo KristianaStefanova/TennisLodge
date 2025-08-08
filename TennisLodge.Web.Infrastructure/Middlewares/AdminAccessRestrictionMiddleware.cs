@@ -22,17 +22,19 @@ namespace TennisLodge.Web.Infrastructure.Middlewares
 
         public async Task InvokeAsync(HttpContext context, IAdminService adminService)
         {
-            if(!(context.User.Identity?.IsAuthenticated ?? false))
+            try
             {
-                bool adminCookieExists = context
-                    .Request
-                    .Cookies
-                    .ContainsKey(AdminAuthCookie);
-                if (adminCookieExists)
+                if(!(context.User.Identity?.IsAuthenticated ?? false))
                 {
-                    context.Response.Cookies.Delete(AdminAuthCookie);
+                    bool adminCookieExists = context
+                        .Request
+                        .Cookies
+                        .ContainsKey(AdminAuthCookie);
+                    if (adminCookieExists)
+                    {
+                        context.Response.Cookies.Delete(AdminAuthCookie);
+                    }
                 }
-            }
             
             string requestPath = context.Request.Path.ToString().ToLower();
             if (requestPath.StartsWith("/admin"))
@@ -80,6 +82,14 @@ namespace TennisLodge.Web.Infrastructure.Middlewares
             }
 
             await this.next(context);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception (in a real application, use proper logging)
+                Console.WriteLine($"Error in AdminAccessRestrictionMiddleware: {ex.Message}");
+                context.Response.StatusCode = 500;
+                return;
+            }
         }
 
         private async Task AppendAdminAuthCookie(HttpContext context, string userId)
@@ -103,17 +113,26 @@ namespace TennisLodge.Web.Infrastructure.Middlewares
 
         private async Task<string> Sha512OverString(string userId)
         {
-            using SHA512 sha512Admin = SHA512.Create();
+            try
+            {
+                using SHA512 sha512Admin = SHA512.Create();
 
-            byte[] sha512HashBytes = await sha512Admin
-                .ComputeHashAsync(new MemoryStream(Encoding.UTF8.GetBytes(userId)));
+                byte[] sha512HashBytes = await sha512Admin
+                    .ComputeHashAsync(new MemoryStream(Encoding.UTF8.GetBytes(userId)));
 
-            string hashedString = BitConverter.ToString(sha512HashBytes)
-                .Replace("-", "")
-                .Trim()
-                .ToLower();
+                string hashedString = BitConverter.ToString(sha512HashBytes)
+                    .Replace("-", "")
+                    .Trim()
+                    .ToLower();
 
-            return hashedString;
+                return hashedString;
+            }
+            catch (Exception ex)
+            {
+                // Log the exception (in a real application, use proper logging)
+                Console.WriteLine($"Error in SHA512 hash computation: {ex.Message}");
+                throw;
+            }
         }
     }
 }

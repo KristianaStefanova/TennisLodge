@@ -1,23 +1,31 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System.Globalization;
 using TennisLodge.Data.Models;
 using TennisLodge.Data.Repository.Interfaces;
 using TennisLodge.Services.Core.Admin.Interfaces;
+using TennisLodge.Services.Core.Interfaces;
 using TennisLodge.Web.ViewModels.Admin.TournamentManagement;
 using static TennisLodge.GCommon.ApplicationConstants;
 
 namespace TennisLodge.Services.Core.Admin
 {
-    public class TournamentManagementService : ITournamentManagementService
+    public class TournamentManagementService : TournamentService, ITournamentManagementService
     {
+        private readonly ICategoryRepository categoryRepository;
         private readonly ITournamentRepository tournamentRepository;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public TournamentManagementService(ITournamentRepository tournamentRepository)
+        public TournamentManagementService(ICategoryRepository categoryRepository, ITournamentRepository tournamentRepository,
+            UserManager<ApplicationUser> userManager, IFavoriteService favoriteService)
+            : base(categoryRepository, tournamentRepository, userManager, favoriteService)
         {
+            this.categoryRepository = categoryRepository;
             this.tournamentRepository = tournamentRepository;
+            this.userManager = userManager;
         }
 
-        public async Task AddTournamentAsync(TournamentManagementAddFormModel? inputModel, string userId)
+        public async Task AddTournamentAsync(TournamentFormInputModel? inputModel, string userId)
         {
             if (inputModel != null && !string.IsNullOrWhiteSpace(userId))
             {
@@ -66,9 +74,9 @@ namespace TennisLodge.Services.Core.Admin
             return allTournaments;
         }
 
-        public async Task<TournamentManagementEditFormModel?> GetTournamentEditFormModelAsync(string? id)
+        public async Task<TournamentFormInputModel?> GetTournamentEditFormModelAsync(string? id)
         {
-            TournamentManagementEditFormModel? formModel = null;
+            TournamentFormInputModel? formModel = null;
 
             if (!String.IsNullOrEmpty(id))
             {
@@ -79,7 +87,7 @@ namespace TennisLodge.Services.Core.Admin
 
                 if (tournamentToEdit != null)
                 {
-                    formModel = new TournamentManagementEditFormModel()
+                    formModel = new TournamentFormInputModel()
                     {
                         Id = tournamentToEdit.Id.ToString(),
                         Name = tournamentToEdit.Name,
@@ -98,7 +106,7 @@ namespace TennisLodge.Services.Core.Admin
             return formModel;
         }
 
-        public async Task<bool> EditTournamentAsync(TournamentManagementEditFormModel? inputModel, string userId)
+        public async Task<bool> EditTournamentAsync(TournamentFormInputModel? inputModel, string userId)
         {
             bool result = false;    
             if (inputModel != null && !string.IsNullOrWhiteSpace(userId))

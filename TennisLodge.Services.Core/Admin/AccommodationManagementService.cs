@@ -7,11 +7,12 @@ using static TennisLodge.GCommon.ApplicationConstants;
 
 namespace TennisLodge.Services.Core.Admin
 {
-    public class AccommodationManagementService : IAccommodationManagementService
+    public class AccommodationManagementService : AccommodationService, IAccommodationManagementService
     {
         private readonly IAccommodationRepository accommodationRepository;
         
-        public AccommodationManagementService(IAccommodationRepository accommodationRepository)
+        public AccommodationManagementService(IAccommodationRepository accommodationRepository) 
+            : base(accommodationRepository)
         {
             this.accommodationRepository = accommodationRepository;
         }

@@ -9,12 +9,10 @@ namespace TennisLodge.Web.Areas.Admin.Controllers
 {
     public class AccommodationManagementController : BaseAdminController
     {
-        private readonly IAccommodationService accommodationService;
         private readonly IAccommodationManagementService accommodationManagementService;
         public AccommodationManagementController(IAccommodationService accommodationService,
             IAccommodationManagementService accommodationManagementService)
         {
-            this.accommodationService = accommodationService;
             this.accommodationManagementService = accommodationManagementService;
         }
 
@@ -39,7 +37,7 @@ namespace TennisLodge.Web.Areas.Admin.Controllers
         {
             try
             {
-                AccommodationCreateInputModel? accommodation = await accommodationService
+                AccommodationCreateInputModel? accommodation = await accommodationManagementService
                     .GetEditableAccommodationByIdAsync(id);
                 if (accommodation == null)
                 {
@@ -66,7 +64,7 @@ namespace TennisLodge.Web.Areas.Admin.Controllers
                     return View(model);
                 }
 
-                bool result = await accommodationService
+                bool result = await accommodationManagementService
                     .EditAccommodationAsync(model);
                 if (result)
                 {
@@ -91,7 +89,7 @@ namespace TennisLodge.Web.Areas.Admin.Controllers
         {
             try
             {
-                bool result = await accommodationService
+                bool result = await accommodationManagementService
                     .SoftDeleteAccommodationAsync(id);
                 if (result)
                 {

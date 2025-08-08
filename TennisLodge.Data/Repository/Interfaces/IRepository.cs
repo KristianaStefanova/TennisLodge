@@ -13,7 +13,7 @@ namespace TennisLodge.Data.Repository.Interfaces
 
         TEntity? SinglesOrDefault(Func<TEntity, bool> predicate);
 
-        TEntity? FirstOrDefailt(Func<TEntity, bool> predicate);
+        TEntity? FirstOrDefault(Func<TEntity, bool> predicate);
 
         IEnumerable<TEntity> GetAll();
 

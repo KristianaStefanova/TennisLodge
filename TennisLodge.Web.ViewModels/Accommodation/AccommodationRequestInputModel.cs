@@ -8,7 +8,7 @@ namespace TennisLodge.Web.ViewModels.Accommodation
     public class AccommodationRequestInputModel
     {
         [Required]
-        public Guid AccommodationId { get; set; }
+        public string AccommodationId { get; set; } = null!;
 
 
         [Required(ErrorMessage = TournamentIdRequiredMessage)]

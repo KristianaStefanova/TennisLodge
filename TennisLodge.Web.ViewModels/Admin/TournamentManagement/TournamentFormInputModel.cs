@@ -1,12 +1,12 @@
 ﻿
 using System.ComponentModel.DataAnnotations;
-
+using TennisLodge.Web.ViewModels.Tournament;
 using static TennisLodge.Data.Common.EntityConstants.Tournament;
 using static TennisLodge.GCommon.ApplicationConstants;
 using static TennisLodge.Web.ViewModels.ValidationMessages.Tournament;
 
 
-namespace TennisLodge.Web.ViewModels.Tournament
+namespace TennisLodge.Web.ViewModels.Admin.TournamentManagement
 {
     public class TournamentFormInputModel
     {

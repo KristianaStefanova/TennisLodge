@@ -136,3 +136,53 @@ thead.bg-primary th {
     transform: scale(0.98) !important;
 }
 
+.btn-request {
+    background-color: #2a6f4a !important;
+    border-color: #225d3a !important;
+    color: white !important;
+    font-weight: 600 !important;
+    transition: all 0.3s ease !important;
+}
+
+.btn-request:hover {
+    background-color: #225d3a !important;
+    border-color: #1b4529 !important;
+    color: white !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 8px rgba(42, 111, 74, 0.3) !important;
+}
+
+.btn-request span {
+    color: white !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: inline !important;
+    font-weight: 600 !important;
+    text-shadow: none !important;
+}
+
+.btn-request {
+    background-color: #2a6f4a !important;
+    border-color: #225d3a !important;
+    color: white !important;
+    font-weight: 600 !important;
+    transition: all 0.3s ease !important;
+    text-decoration: none !important;
+}
+
+.btn-request:hover {
+    background-color: #225d3a !important;
+    border-color: #1b4529 !important;
+    color: white !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 8px rgba(42, 111, 74, 0.3) !important;
+    text-decoration: none !important;
+}
+
+.btn-request:hover span {
+    color: white !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: inline !important;
+}
+

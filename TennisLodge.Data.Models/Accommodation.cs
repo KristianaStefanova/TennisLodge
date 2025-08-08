@@ -57,6 +57,5 @@ namespace TennisLodge.Data.Models
         [Comment("Date when the accommodation was soft-deleted")]
         public DateTime? DeletedOn { get; set; }
 
-
     }
 }

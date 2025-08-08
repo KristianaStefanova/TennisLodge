@@ -35,7 +35,20 @@ namespace TennisLodge.Web.ViewModels.Accommodation
         [Required(ErrorMessage = AvailableToDateInvalidMessage)]
         [DataType(DataType.Date)]
         [Display(Name = "Available To")]
+        [CustomValidation(typeof(AccommodationCreateInputModel), nameof(ValidateAvailableToDate))]
         public DateTime? AvailableTo { get; set; }
+
+        public static ValidationResult? ValidateAvailableToDate(DateTime? availableTo, ValidationContext context)
+        {
+            var instance = (AccommodationCreateInputModel)context.ObjectInstance;
+            
+            if (instance.AvailableFrom.HasValue && availableTo.HasValue && availableTo.Value <= instance.AvailableFrom.Value)
+            {
+                return new ValidationResult("Available To date must be after Available From date.");
+            }
+            
+            return ValidationResult.Success;
+        }
 
 
         [StringLength(NotesMaxLength, ErrorMessage = NotesMaxLengthMessage)]

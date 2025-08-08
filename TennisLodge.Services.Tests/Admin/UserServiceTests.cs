@@ -1,13 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 using Moq;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
 using TennisLodge.Data;
 using TennisLodge.Data.Models;
 using TennisLodge.Services.Core.Admin;
@@ -24,14 +21,17 @@ namespace TennisLodge.Services.Tests.AdminTests
         [SetUp]
         public void Setup()
         {
-            Mock<IUserStore<ApplicationUser>> userStore = new Mock<IUserStore<ApplicationUser>>();
+            DbContextOptions<TennisLodgeDbContext> options = new DbContextOptionsBuilder<TennisLodgeDbContext>()
+                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+                .Options;
+
+            TennisLodgeDbContext dbContext = new TennisLodgeDbContext(options);
+
+            UserStore<ApplicationUser> userStore = new UserStore<ApplicationUser>(dbContext);
             this.mockUserManager = new Mock<UserManager<ApplicationUser>>(
-                userStore.Object, null, null, null, null, null, null, null, null);
+                userStore, null, null, null, null, null, null, null, null);
 
-            // Mock del DbContext
-            var mockDbContext = new Mock<TennisLodge.Data.TennisLodgeDbContext>();
-
-            this.userService = new UserService(mockUserManager.Object, mockDbContext.Object);
+            this.userService = new UserService(mockUserManager.Object, dbContext);
         }
 
         [TestFixture]
@@ -246,7 +246,7 @@ namespace TennisLodge.Services.Tests.AdminTests
                     .ReturnsAsync(new List<string> { "User" });
 
                 // Act
-                var result = await userService.GetUsersManagementBoardDataAsync(currentUserId);
+                IEnumerable<UserManagementIndexViewModel> result = await userService.GetUsersManagementBoardDataAsync(currentUserId);
 
                 // Assert
                 Assert.That(result, Is.Not.Null);

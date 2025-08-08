@@ -66,7 +66,7 @@ namespace TennisLodge.Services.Core
             TournamentEntry? entry = await this.entryRepository
                 .GetAllAttached()
                 .Include(e => e.Tournament)
-                .FirstOrDefaultAsync(e => e.PlayerId == playerId && e.TournamentId == tournamentId);
+                .FirstOrDefaultAsync(e => e.PlayerId == playerId && e.TournamentId == tournamentId && !e.IsDeleted);
 
             if (entry == null)
             {

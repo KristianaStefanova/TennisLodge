@@ -1,8 +1,9 @@
-﻿using TennisLodge.Web.ViewModels.Admin.AccommodationManagement;
+﻿using TennisLodge.Services.Core.Interfaces;
+using TennisLodge.Web.ViewModels.Admin.AccommodationManagement;
 
 namespace TennisLodge.Services.Core.Admin.Interfaces
 {
-    public interface IAccommodationManagementService
+    public interface IAccommodationManagementService : IAccommodationService
     {
         Task<IEnumerable<AccommodationAdminListViewModel>> GetAllAccommodationsForAdminAsync();
 

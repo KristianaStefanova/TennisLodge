@@ -5,60 +5,99 @@
     ViewData["Title"] = "My Accommodation Requests";
 }
 
-<h2 class="mb-4">My Accommodation Requests</h2>
+@section Styles {
+    <style>
+        .card {
+            background-color: rgba(255, 255, 255, 0.95) !important;
+            backdrop-filter: blur(10px);
+            border: none !important;
+        }
+        
+        .table {
+            background-color: rgba(255, 255, 255, 0.8) !important;
+            border-radius: 8px;
+        }
+        
+        .table thead th {
+            background-color: rgba(42, 111, 74, 0.1) !important;
+            border-bottom: 2px solid rgba(42, 111, 74, 0.2) !important;
+            color: #2a6f4a !important;
+        }
+        
+        .table tbody tr:hover {
+            background-color: rgba(42, 111, 74, 0.05) !important;
+        }
+        
+        .badge {
+            font-weight: 600 !important;
+        }
+        
+        .alert {
+            background-color: rgba(255, 255, 255, 0.9) !important;
+            border: 1px solid rgba(42, 111, 74, 0.2) !important;
+        }
+    </style>
+}
+
+<div class="container mt-5 mb-5">
+    <div class="card shadow-lg rounded-4">
+        <div class="card-body p-5">
+            <h2 class="mb-4 text-center text-success">My Accommodation Requests</h2>
 
 @if (!Model.Any())
 {
-    <div class="alert alert-info" role="alert">
+    <div class="alert alert-info text-center" role="alert">
+        <i class="bi bi-info-circle me-2"></i>
         You have no accommodation requests at the moment.
     </div>
 }
 else
 {
-    <table class="table table-bordered table-hover">
-        <thead class="table-light">
-            <tr>
-                <th>Tournament</th>
-                <th>Number of Guests</th>
-                <th>Notes</th>
-                <th>Status</th>
-                <th>Created On</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var request in Model)
-            {
+    <div class="table-responsive">
+        <table class="table table-striped align-middle shadow-sm rounded-3">
+            <thead class="table-light">
                 <tr>
-                    <td>@request.TournamentName</td>
-                    <td>@request.NumberOfGuests</td>
-                    <td>@request.Notes ?? "-"</td>
-                    <td>
-                        @if (request.IsFulfilled)
-                        {
-                            <span class="badge bg-success">Fulfilled</span>
-                        }
-                        else
-                        {
-                            <span class="badge bg-warning text-dark">Pending</span>
-                        }
-                    </td>
-                    <td>@request.CreatedOn.ToString("MMM dd, yyyy")</td>
+                    <th class="fw-semibold">Tournament</th>
+                    <th class="fw-semibold">Number of Guests</th>
+                    <th class="fw-semibold">Notes</th>
+                    <th class="fw-semibold">Status</th>
+                    <th class="fw-semibold">Created On</th>
                 </tr>
-            }
-        </tbody>
-    </table>
-
-    <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-center">
-            <li class="page-item disabled">
-                <a class="page-link" href="#" tabindex="-1">Previous</a>
-            </li>
-            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-                <a class="page-link" href="#">Next</a>
-            </li>
-        </ul>
-    </nav>
+            </thead>
+            <tbody>
+                @foreach (var request in Model)
+                {
+                    <tr>
+                        <td class="fw-medium">@request.TournamentName</td>
+                        <td class="fw-medium">@request.NumberOfGuests</td>
+                        <td class="text-muted">@(string.IsNullOrEmpty(request.Notes) ? "-" : request.Notes)</td>
+                        <td>
+                            @if (request.IsFulfilled)
+                            {
+                                <span class="badge bg-success rounded-pill px-3 py-2">
+                                    <i class="bi bi-check-circle me-1"></i>Fulfilled
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-warning text-dark rounded-pill px-3 py-2">
+                                    <i class="bi bi-clock me-1"></i>Pending
+                                </span>
+                            }
+                        </td>
+                        <td class="text-muted">@request.CreatedOn.ToString("MMM dd, yyyy")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 }
+
+            <div class="mt-4 text-center">
+                <a asp-controller="Accommodation" asp-action="Index" class="btn btn-secondary rounded-pill px-4 py-2">
+                    <i class="bi bi-arrow-left me-2"></i>Back to Accommodations
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

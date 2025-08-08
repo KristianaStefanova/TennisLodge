@@ -1,9 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using TennisLodge.Web.ViewModels.Admin.TournamentManagement;
 using TennisLodge.Web.ViewModels.Tournament;
 
 namespace TennisLodge.Services.Core.Interfaces
@@ -14,13 +10,11 @@ namespace TennisLodge.Services.Core.Interfaces
 
         Task<bool> AddTournamentAsync(string userId, TournamentFormInputModel inputModel);
 
-        Task<TournamentDetailsViewModel?> GetTournamentDetailsByIdAsync(string? id);
+        Task<TournamentDetailsViewModel?> GetTournamentDetailsByIdAsync(string? id, string? userId = null);
 
         Task<TournamentFormInputModel?> GetEditableTournamentByIdAsync(string? id);
 
         Task<bool> EditTournamentAsync(TournamentFormInputModel inputModel);
-
-        Task<bool> SoftDeleteTournamentAsync(string? id);
 
         Task<IEnumerable<SelectListItem>> GetAllAsSelectList();
 

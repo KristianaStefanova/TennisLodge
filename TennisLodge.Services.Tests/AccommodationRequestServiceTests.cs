@@ -34,6 +34,7 @@ namespace TennisLodge.Services.Tests
                 string guestUserId = "test-user-id";
                 AccommodationRequestInputModel inputModel = new AccommodationRequestInputModel
                 {
+                    AccommodationId = "1",
                     TournamentId = Guid.NewGuid().ToString(),
                     NumberOfGuests = 2,
                     Notes = "Test notes"
@@ -67,6 +68,7 @@ namespace TennisLodge.Services.Tests
                 string guestUserId = "test-user-id";
                 AccommodationRequestInputModel inputModel = new AccommodationRequestInputModel
                 {
+                    AccommodationId = "1",
                     TournamentId = "invalid-guid",
                     NumberOfGuests = 2,
                     Notes = "Test notes"
@@ -80,12 +82,33 @@ namespace TennisLodge.Services.Tests
             }
 
             [Test]
+            public void CreateAccommodationRequestAsync_WithInvalidAccommodationId_ShouldThrowArgumentException()
+            {
+                // Arrange
+                string guestUserId = "test-user-id";
+                AccommodationRequestInputModel inputModel = new AccommodationRequestInputModel
+                {
+                    AccommodationId = "invalid-id",
+                    TournamentId = Guid.NewGuid().ToString(),
+                    NumberOfGuests = 2,
+                    Notes = "Test notes"
+                };
+
+                // Act & Assert
+                ArgumentException? exception = Assert.ThrowsAsync<ArgumentException>(async () =>
+                    await service.CreateAccommodationRequestAsync(guestUserId, inputModel));
+
+                Assert.That(exception.Message, Is.EqualTo("Invalid accommodation ID."));
+            }
+
+            [Test]
             public async Task CreateAccommodationRequestAsync_WithNullNotes_ShouldCreateRequestSuccessfully()
             {
                 // Arrange
                 string guestUserId = "test-user-id";
                 AccommodationRequestInputModel inputModel = new AccommodationRequestInputModel
                 {
+                    AccommodationId = "1",
                     TournamentId = Guid.NewGuid().ToString(),
                     NumberOfGuests = 1,
                     Notes = null
@@ -112,6 +135,7 @@ namespace TennisLodge.Services.Tests
                 string guestUserId = "test-user-id";
                 AccommodationRequestInputModel inputModel = new AccommodationRequestInputModel
                 {
+                    AccommodationId = "1",
                     TournamentId = Guid.NewGuid().ToString(),
                     NumberOfGuests = 1,
                     Notes = ""
@@ -138,6 +162,7 @@ namespace TennisLodge.Services.Tests
                 string guestUserId = "test-user-id";
                 AccommodationRequestInputModel inputModel = new AccommodationRequestInputModel
                 {
+                    AccommodationId = "1",
                     TournamentId = Guid.NewGuid().ToString(),
                     NumberOfGuests = 2,
                     Notes = "Test notes"
@@ -196,6 +221,7 @@ namespace TennisLodge.Services.Tests
                 string guestUserId = "test-user-id";
                 AccommodationRequestInputModel inputModel = new AccommodationRequestInputModel
                 {
+                    AccommodationId = "1",
                     TournamentId = Guid.NewGuid().ToString(),
                     NumberOfGuests = 0,
                     Notes = "Test notes"

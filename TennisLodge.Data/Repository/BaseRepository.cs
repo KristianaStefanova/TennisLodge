@@ -72,7 +72,7 @@ namespace TennisLodge.Data.Repository
                 .SaveChangesAsync();
         }
 
-        public TEntity? FirstOrDefailt(Func<TEntity, bool> predicate)
+        public TEntity? FirstOrDefault(Func<TEntity, bool> predicate)
         {
             return this.DbSet
                 .FirstOrDefault(predicate);

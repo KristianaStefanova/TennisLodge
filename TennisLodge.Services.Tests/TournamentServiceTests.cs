@@ -5,6 +5,8 @@ using System.Globalization;
 using TennisLodge.Data.Models;
 using TennisLodge.Data.Repository.Interfaces;
 using TennisLodge.Services.Core;
+using TennisLodge.Services.Core.Interfaces;
+using TennisLodge.Web.ViewModels.Admin.TournamentManagement;
 using TennisLodge.Web.ViewModels.Tournament;
 using static TennisLodge.GCommon.ApplicationConstants;
 
@@ -17,23 +19,25 @@ namespace TennisLodge.Services.Tests
         private Mock<ICategoryRepository> mockCategoryRepository;
         private Mock<ITournamentRepository> mockTournamentRepository;
         private Mock<UserManager<ApplicationUser>> mockUserManager;
+        private Mock<IFavoriteService> mockFavoriteService;
         private TournamentService tournamentService;
 
         [SetUp]
         public void Setup()
         {
-            mockCategoryRepository = new Mock<ICategoryRepository>();
-            mockTournamentRepository = new Mock<ITournamentRepository>();
-
+            this.mockCategoryRepository = new Mock<ICategoryRepository>();
+            this.mockTournamentRepository = new Mock<ITournamentRepository>();
+            this.mockFavoriteService = new Mock<IFavoriteService>();
 
             IUserStore<ApplicationUser> userStore = Mock.Of<IUserStore<ApplicationUser>>();
-            mockUserManager = new Mock<UserManager<ApplicationUser>>(
+            this.mockUserManager = new Mock<UserManager<ApplicationUser>>(
                 userStore, null, null, null, null, null, null, null, null);
 
-            tournamentService = new TournamentService(
+            this.tournamentService = new TournamentService(
                 mockCategoryRepository.Object,
                 mockTournamentRepository.Object,
-                mockUserManager.Object);
+                mockUserManager.Object,
+                mockFavoriteService.Object);
         }
 
         [Test]
@@ -57,13 +61,13 @@ namespace TennisLodge.Services.Tests
             ApplicationUser user = new ApplicationUser { Id = userId };
             Category category = new Category { Id = 1, Name = "Test Category" };
 
-            mockUserManager.Setup(x => x.FindByIdAsync(userId))
+            this.mockUserManager.Setup(x => x.FindByIdAsync(userId))
                 .ReturnsAsync(user);
-            mockCategoryRepository.Setup(x => x.GetByIdAsync(1))
+            this.mockCategoryRepository.Setup(x => x.GetByIdAsync(1))
                 .ReturnsAsync(category);
-            mockTournamentRepository.Setup(x => x.AddAsync(It.IsAny<Tournament>()))
+            this.mockTournamentRepository.Setup(x => x.AddAsync(It.IsAny<Tournament>()))
                 .Returns(Task.CompletedTask);
-            mockTournamentRepository.Setup(x => x.SaveChangesAsync())
+            this.mockTournamentRepository.Setup(x => x.SaveChangesAsync())
                 .Returns(Task.CompletedTask);
 
             // Act
@@ -73,34 +77,6 @@ namespace TennisLodge.Services.Tests
             Assert.That(result, Is.True);
             mockTournamentRepository.Verify(x => x.AddAsync(It.IsAny<Tournament>()), Times.Once);
             mockTournamentRepository.Verify(x => x.SaveChangesAsync(), Times.Once);
-        }
-
-        [Test]
-        public async Task AddTournamentAsync_WithInvalidUserId_ShouldReturnFalse()
-        {
-            // Arrange
-            string userId = "invalid-user-id";
-            TournamentFormInputModel inputModel = new TournamentFormInputModel
-            {
-                Name = "Test Tournament",
-                Description = "Test Description",
-                Location = "Test Location",
-                Surface = "Clay",
-                CategoryId = 1,
-                Organizer = "Test Organizer",
-                StartDate = "2024-01-01",
-                EndDate = "2024-01-07"
-            };
-
-            mockUserManager.Setup(x => x.FindByIdAsync(userId))
-                .ReturnsAsync((ApplicationUser?)null);
-
-            // Act
-            bool result = await tournamentService.AddTournamentAsync(userId, inputModel);
-
-            // Assert
-            Assert.That(result, Is.False);
-            mockTournamentRepository.Verify(x => x.AddAsync(It.IsAny<Tournament>()), Times.Never);
         }
 
         [Test]
@@ -122,9 +98,9 @@ namespace TennisLodge.Services.Tests
 
             ApplicationUser user = new ApplicationUser { Id = userId };
 
-            mockUserManager.Setup(x => x.FindByIdAsync(userId))
+            this.mockUserManager.Setup(x => x.FindByIdAsync(userId))
                 .ReturnsAsync(user);
-            mockCategoryRepository.Setup(x => x.GetByIdAsync(999))
+            this.mockCategoryRepository.Setup(x => x.GetByIdAsync(999))
                 .ReturnsAsync((Category?)null);
 
             // Act
@@ -132,10 +108,8 @@ namespace TennisLodge.Services.Tests
 
             // Assert
             Assert.That(result, Is.False);
-            mockTournamentRepository.Verify(x => x.AddAsync(It.IsAny<Tournament>()), Times.Never);
+            this.mockTournamentRepository.Verify(x => x.AddAsync(It.IsAny<Tournament>()), Times.Never);
         }
-
-      
 
         [Test]
         public async Task GetTournamentDetailsByIdAsync_WithInvalidId_ShouldReturnNull()
@@ -160,9 +134,6 @@ namespace TennisLodge.Services.Tests
             Assert.That(result, Is.Null);
         }
 
-        
-        
-
         [Test]
         public async Task GetEditableTournamentByIdAsync_WithInvalidId_ShouldReturnNull()
         {
@@ -175,8 +146,6 @@ namespace TennisLodge.Services.Tests
             // Assert
             Assert.That(result, Is.Null);
         }
-
-        
 
         [Test]
         public async Task EditTournamentAsync_WithValidData_ShouldReturnTrue()
@@ -211,9 +180,9 @@ namespace TennisLodge.Services.Tests
                 EndDate = DateOnly.ParseExact("2024-01-07", AppDateFormat, CultureInfo.InvariantCulture)
             };
 
-            mockTournamentRepository.Setup(x => x.GetByIdAsync(tournamentId))
+            this.mockTournamentRepository.Setup(x => x.GetByIdAsync(tournamentId))
                 .ReturnsAsync(existingTournament);
-            mockTournamentRepository.Setup(x => x.UpdateAsync(It.IsAny<Tournament>()))
+            this.mockTournamentRepository.Setup(x => x.UpdateAsync(It.IsAny<Tournament>()))
                 .ReturnsAsync(true);
 
             // Act
@@ -221,7 +190,7 @@ namespace TennisLodge.Services.Tests
 
             // Assert
             Assert.That(result, Is.True);
-            mockTournamentRepository.Verify(x => x.UpdateAsync(It.IsAny<Tournament>()), Times.Once);
+            this.mockTournamentRepository.Verify(x => x.UpdateAsync(It.IsAny<Tournament>()), Times.Once);
         }
 
         [Test]
@@ -267,7 +236,7 @@ namespace TennisLodge.Services.Tests
                 EndDate = "2024-02-07"
             };
 
-            mockTournamentRepository.Setup(x => x.GetByIdAsync(tournamentId))
+            this.mockTournamentRepository.Setup(x => x.GetByIdAsync(tournamentId))
                 .ReturnsAsync((Tournament?)null);
 
             // Act
@@ -278,86 +247,7 @@ namespace TennisLodge.Services.Tests
             mockTournamentRepository.Verify(x => x.UpdateAsync(It.IsAny<Tournament>()), Times.Never);
         }
 
-        [Test]
-        public async Task SoftDeleteTournamentAsync_WithValidId_ShouldReturnTrue()
-        {
-            // Arrange
-            Guid tournamentId = Guid.NewGuid();
-            Tournament tournament = new Tournament
-            {
-                Id = tournamentId,
-                Name = "Test Tournament",
-                IsDeleted = false
-            };
 
-            mockTournamentRepository.Setup(x => x.GetByIdAsync(tournamentId))
-                .ReturnsAsync(tournament);
-            mockTournamentRepository.Setup(x => x.UpdateAsync(It.IsAny<Tournament>()))
-                .ReturnsAsync(true);
-
-            // Act
-            bool result = await tournamentService.SoftDeleteTournamentAsync(tournamentId.ToString());
-
-            // Assert
-            Assert.That(result, Is.True);
-            Assert.That(tournament.IsDeleted, Is.True);
-            mockTournamentRepository.Verify(x => x.UpdateAsync(tournament), Times.Once);
-        }
-
-        [Test]
-        public async Task SoftDeleteTournamentAsync_WithInvalidId_ShouldReturnFalse()
-        {
-            // Arrange
-            string invalidId = "invalid-guid";
-
-            // Act
-            bool result = await tournamentService.SoftDeleteTournamentAsync(invalidId);
-
-            // Assert
-            Assert.That(result, Is.False);
-            mockTournamentRepository.Verify(x => x.UpdateAsync(It.IsAny<Tournament>()), Times.Never);
-        }
-
-        [Test]
-        public async Task SoftDeleteTournamentAsync_WithNonExistentTournament_ShouldReturnFalse()
-        {
-            // Arrange
-            Guid tournamentId = Guid.NewGuid();
-
-            mockTournamentRepository.Setup(x => x.GetByIdAsync(tournamentId))
-                .ReturnsAsync((Tournament?)null);
-
-            // Act
-            bool result = await tournamentService.SoftDeleteTournamentAsync(tournamentId.ToString());
-
-            // Assert
-            Assert.That(result, Is.False);
-            mockTournamentRepository.Verify(x => x.UpdateAsync(It.IsAny<Tournament>()), Times.Never);
-        }
-
-        [Test]
-        public async Task SoftDeleteTournamentAsync_WhenExceptionOccurs_ShouldReturnFalse()
-        {
-            // Arrange
-            Guid tournamentId = Guid.NewGuid();
-            Tournament tournament = new Tournament
-            {
-                Id = tournamentId,
-                Name = "Test Tournament",
-                IsDeleted = false
-            };
-
-            mockTournamentRepository.Setup(x => x.GetByIdAsync(tournamentId))
-                .ReturnsAsync(tournament);
-            mockTournamentRepository.Setup(x => x.UpdateAsync(It.IsAny<Tournament>()))
-                .ThrowsAsync(new Exception("Database error"));
-
-            // Act
-            bool result = await tournamentService.SoftDeleteTournamentAsync(tournamentId.ToString());
-
-            // Assert
-            Assert.That(result, Is.False);
-        }
 
         
 

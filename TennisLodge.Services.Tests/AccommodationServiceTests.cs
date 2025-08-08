@@ -19,21 +19,15 @@ namespace TennisLodge.Services.Tests
     [TestFixture]
     public class AccommodationServiceTests
     {
-        private Mock<UserManager<ApplicationUser>> mockUserManager;
         private Mock<IAccommodationRepository> mockAccommodationRepository;
         private AccommodationService accommodationService;
 
         [SetUp]
         public void Setup()
         {
-            this.mockUserManager = new Mock<UserManager<ApplicationUser>>(
-                Mock.Of<IUserStore<ApplicationUser>>(), null, null, null, null, null, null, null, null);
             this.mockAccommodationRepository = new Mock<IAccommodationRepository>();
             
-            this.accommodationService = new AccommodationService(
-                null!,
-                mockUserManager.Object, 
-                mockAccommodationRepository.Object);
+            this.accommodationService = new AccommodationService(mockAccommodationRepository.Object);
         }
 
         [Test]
@@ -78,7 +72,7 @@ namespace TennisLodge.Services.Tests
 
             using TennisLodgeDbContext dbContext = new TennisLodgeDbContext(options);
             AccommodationRepository accommodationRepository = new AccommodationRepository(dbContext);
-            AccommodationService accommodationService = new AccommodationService(dbContext, mockUserManager.Object, accommodationRepository);
+            AccommodationService accommodationService = new AccommodationService(accommodationRepository);
 
             List<Accommodation> accommodations = new List<Accommodation>
             {
@@ -301,9 +295,9 @@ namespace TennisLodge.Services.Tests
                 .UseInMemoryDatabase(databaseName: "TestDatabase_GetEditableAccommodation")
                 .Options;
 
-            using var dbContext = new TennisLodgeDbContext(options);
+            using TennisLodgeDbContext dbContext = new TennisLodgeDbContext(options);
             AccommodationRepository accommodationRepository = new AccommodationRepository(dbContext);
-            AccommodationService accommodationService = new AccommodationService(dbContext, mockUserManager.Object, accommodationRepository);
+            AccommodationService accommodationService = new AccommodationService(accommodationRepository);
 
             Accommodation accommodation = new Accommodation
             {
@@ -355,7 +349,7 @@ namespace TennisLodge.Services.Tests
 
             using TennisLodgeDbContext dbContext = new TennisLodgeDbContext(options);
             AccommodationRepository accommodationRepository = new AccommodationRepository(dbContext);
-            AccommodationService accommodationService = new AccommodationService(dbContext, mockUserManager.Object, accommodationRepository);
+            AccommodationService accommodationService = new AccommodationService(accommodationRepository);
 
             // Act
             AccommodationCreateInputModel? result = await accommodationService.GetEditableAccommodationByIdAsync(accommodationId);
@@ -385,7 +379,7 @@ namespace TennisLodge.Services.Tests
                 .ReturnsAsync(true);
 
             // Act
-            var result = await accommodationService.SoftDeleteAccommodationAsync(accommodationId);
+            bool result = await accommodationService.SoftDeleteAccommodationAsync(accommodationId);
 
             // Assert
             Assert.That(result, Is.True);
@@ -505,7 +499,7 @@ namespace TennisLodge.Services.Tests
                 .ReturnsAsync(accommodation);
 
             // Act
-            var result = await accommodationService.GetAccomodationDeleteDetailsByIdAsync(accommodationId);
+            AccommodationViewModel? result = await accommodationService.GetAccomodationDeleteDetailsByIdAsync(accommodationId);
 
             // Assert
             Assert.That(result, Is.Not.Null);
@@ -522,7 +516,7 @@ namespace TennisLodge.Services.Tests
 
             using TennisLodgeDbContext dbContext = new TennisLodgeDbContext(options);
             AccommodationRepository accommodationRepository = new AccommodationRepository(dbContext);
-            AccommodationService accommodationService = new AccommodationService(dbContext, mockUserManager.Object, accommodationRepository);
+            AccommodationService accommodationService = new AccommodationService(accommodationRepository);
 
             List<Accommodation> accommodations = new List<Accommodation>
             {

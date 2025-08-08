@@ -32,7 +32,6 @@ namespace TennisLodge.Data
                 .HasForeignKey(ar => ar.TournamentId)
                 .OnDelete(DeleteBehavior.SetNull);
 
-
             builder.ApplyConfigurationsFromAssembly(typeof(TennisLodgeDbContext).Assembly);
         }
     }
